@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-02-11
+
+### Added
+
+- CI workflow for automated format, analysis, and test checks.
+- Release workflow for automated pub.dev publishing and GitHub Releases.
+- MIT License, CHANGELOG, and .gitignore.
+- Package metadata: `repository`, `homepage`, `issue_tracker` in pubspec.yaml.
+
+### Changed
+
+- Configured package for pub.dev distribution.
+
 ## [0.1.0] - 2026-02-11
 
 ### Added

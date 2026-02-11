@@ -1,4 +1,4 @@
-# PRF Design System
+# PRF Design
 
 A reusable Flutter package containing shared widgets, theme system, and essential utilities for PRF applications.
 

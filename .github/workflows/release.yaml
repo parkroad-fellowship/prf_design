@@ -7,12 +7,13 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: subosito/flutter-action@v2
         with:
@@ -37,8 +38,6 @@ jobs:
 
       - name: Publish to pub.dev
         run: dart pub publish --force
-        env:
-          PUB_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

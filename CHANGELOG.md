@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-02-11
+
+### Added
+
+- `PRFSnackbar` unified snackbar helper with typed variants (`error`, `success`, `info`, `warning`).
+- `PRFSnackbarType` enum for snackbar category styling.
+
+### Changed
+
+- Replaced `PRFErrorSnackbar` with `PRFSnackbar` for broader snackbar support beyond errors.
+- Removed `publish_to` field from pubspec.yaml (defaults to pub.dev).
+- Release workflow now triggers on push to main (when pubspec.yaml changes) and via manual dispatch.
+
 ## [0.2.0] - 2026-02-11
 
 ### Added

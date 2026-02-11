@@ -9,10 +9,16 @@ permissions:
   contents: write
 
 jobs:
-  release:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - run: flutter pub get
 
       - name: Extract version from tag
         id: version
@@ -28,6 +34,11 @@ jobs:
             echo "$section"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
+
+      - name: Publish to pub.dev
+        run: dart pub publish --force
+        env:
+          PUB_TOKEN: ${{ secrets.PUB_DEV_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

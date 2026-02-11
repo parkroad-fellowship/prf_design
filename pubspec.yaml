@@ -1,7 +1,6 @@
 name: prf_design
 description: PRF Design System - Shared widgets, theme system, and essential utilities.
 version: "0.1.0"
-publish_to: none
 repository: https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta
 
 environment:

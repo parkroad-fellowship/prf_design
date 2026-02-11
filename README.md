@@ -8,10 +8,13 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  prf_design:
-    git:
-      url: https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta.git
-      ref: v0.1.0
+  prf_design: ^0.1.0
+```
+
+Or run:
+
+```bash
+flutter pub add prf_design
 ```
 
 For local development in a monorepo, use a path dependency instead:

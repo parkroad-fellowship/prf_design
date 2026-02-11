@@ -12,48 +12,44 @@ class PRFSnackbar {
     String message, {
     VoidCallback? onRetry,
     Duration duration = const Duration(seconds: 4),
-  }) =>
-      _show(
-        context,
-        message,
-        type: PRFSnackbarType.error,
-        onRetry: onRetry,
-        duration: duration,
-      );
+  }) => _show(
+    context,
+    message,
+    type: PRFSnackbarType.error,
+    onRetry: onRetry,
+    duration: duration,
+  );
 
   /// Show a **success** snackbar (green, check icon).
   static void success(
     BuildContext context,
     String message, {
     Duration duration = const Duration(seconds: 4),
-  }) =>
-      _show(
-        context,
-        message,
-        type: PRFSnackbarType.success,
-        duration: duration,
-      );
+  }) => _show(
+    context,
+    message,
+    type: PRFSnackbarType.success,
+    duration: duration,
+  );
 
   /// Show an **info** snackbar (blue, info icon).
   static void info(
     BuildContext context,
     String message, {
     Duration duration = const Duration(seconds: 4),
-  }) =>
-      _show(context, message, type: PRFSnackbarType.info, duration: duration);
+  }) => _show(context, message, type: PRFSnackbarType.info, duration: duration);
 
   /// Show a **warning** snackbar (amber, warning icon).
   static void warning(
     BuildContext context,
     String message, {
     Duration duration = const Duration(seconds: 4),
-  }) =>
-      _show(
-        context,
-        message,
-        type: PRFSnackbarType.warning,
-        duration: duration,
-      );
+  }) => _show(
+    context,
+    message,
+    type: PRFSnackbarType.warning,
+    duration: duration,
+  );
 
   // ── private ──────────────────────────────────────────────────────────
 

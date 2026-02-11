@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:prf_design_system/src/widgets/progress/linear_progress_indicator.dart';
+import 'package:prf_design/src/widgets/progress/linear_progress_indicator.dart';
 
 /// A generic, reusable category chip selector widget.
 ///

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prf_design_system/src/theme/colors/_index.dart';
-import 'package:prf_design_system/src/utils/device_helper.dart';
+import 'package:prf_design/src/theme/colors/_index.dart';
+import 'package:prf_design/src/utils/device_helper.dart';
 
 class PRFTextTheme {
   PRFTextTheme._();

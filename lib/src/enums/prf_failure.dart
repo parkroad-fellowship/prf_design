@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:prf_design_system/src/enums/prf_error_severity.dart';
-import 'package:prf_design_system/src/enums/prf_error_type.dart';
+import 'package:prf_design/src/enums/prf_error_severity.dart';
+import 'package:prf_design/src/enums/prf_error_type.dart';
 
 /// Enhanced Failure class for comprehensive error handling.
 ///

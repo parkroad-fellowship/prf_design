@@ -1,4 +1,4 @@
-/// Widgets exports for prf_design_system
+/// Widgets exports for prf_design
 library;
 
-export 'package:prf_design_system/src/widgets/_index.dart';
+export 'package:prf_design/src/widgets/_index.dart';

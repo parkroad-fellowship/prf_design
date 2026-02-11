@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pdfx/pdfx.dart';
@@ -24,7 +26,7 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
   @override
   void initState() {
     super.initState();
-    _loadPdf();
+    unawaited(_loadPdf());
   }
 
   Future<void> _loadPdf() async {

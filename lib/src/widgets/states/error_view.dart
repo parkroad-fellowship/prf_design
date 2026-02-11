@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:prf_design_system/src/enums/prf_error_type.dart';
-import 'package:prf_design_system/src/enums/prf_failure.dart';
-import 'package:prf_design_system/src/widgets/buttons/primary/primary.dart';
+import 'package:prf_design/src/enums/prf_error_type.dart';
+import 'package:prf_design/src/enums/prf_failure.dart';
+import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
 
 /// A widget that displays an error state with an optional retry action.
 class PRFErrorView extends StatelessWidget {

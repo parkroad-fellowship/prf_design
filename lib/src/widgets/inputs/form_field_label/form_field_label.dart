@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
-import 'package:prf_design_system/src/widgets/inputs/form_field_label/_handset.dart';
-import 'package:prf_design_system/src/widgets/inputs/form_field_label/_tablet.dart';
+import 'package:prf_design/src/widgets/inputs/form_field_label/_handset.dart';
+import 'package:prf_design/src/widgets/inputs/form_field_label/_tablet.dart';
 
 class FormFieldLabel extends StatelessWidget {
   const FormFieldLabel({

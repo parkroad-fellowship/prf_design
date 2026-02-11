@@ -1,10 +1,10 @@
 {
   "roots": [
-    "prf_design_system"
+    "prf_design"
   ],
   "packages": [
     {
-      "name": "prf_design_system",
+      "name": "prf_design",
       "version": "0.1.0",
       "dependencies": [
         "device_info_plus",

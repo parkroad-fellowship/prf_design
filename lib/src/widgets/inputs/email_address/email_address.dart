@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
-import 'package:prf_design_system/src/widgets/inputs/email_address/_handset.dart';
-import 'package:prf_design_system/src/widgets/inputs/email_address/_tablet.dart';
+import 'package:prf_design/src/widgets/inputs/email_address/_handset.dart';
+import 'package:prf_design/src/widgets/inputs/email_address/_tablet.dart';
 
 class PRFEmailInput extends StatelessWidget {
   const PRFEmailInput({

@@ -410,7 +410,7 @@
       "languageVersion": "3.4"
     },
     {
-      "name": "prf_design_system",
+      "name": "prf_design",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.10"

@@ -1,4 +1,4 @@
-name: prf_design_system
+name: prf_design
 description: PRF Design System - Shared widgets, theme system, and essential utilities.
 version: "0.1.0"
 publish_to: none

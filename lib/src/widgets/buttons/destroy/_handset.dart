@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design_system/src/widgets/progress/circular_progress_indicator.dart';
+import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class PRFDestroyButtonHandset extends StatelessWidget {
   const PRFDestroyButtonHandset({

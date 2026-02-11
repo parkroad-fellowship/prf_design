@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design_system/src/theme/colors/_index.dart';
-import 'package:prf_design_system/src/theme/extensions/_index.dart';
-import 'package:prf_design_system/src/theme/text_theme.dart';
-import 'package:prf_design_system/src/utils/device_helper.dart';
+import 'package:prf_design/src/theme/colors/_index.dart';
+import 'package:prf_design/src/theme/extensions/_index.dart';
+import 'package:prf_design/src/theme/text_theme.dart';
+import 'package:prf_design/src/utils/device_helper.dart';
 
 class PRFTheme {
   PRFTheme._();

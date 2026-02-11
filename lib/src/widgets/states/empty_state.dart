@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:prf_design_system/src/widgets/buttons/primary/primary.dart';
+import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
 
 class PRFEmptyView extends StatelessWidget {
   const PRFEmptyView({

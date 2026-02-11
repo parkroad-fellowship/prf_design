@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design_system/src/theme/extensions/prf_colors_extension.dart';
-import 'package:prf_design_system/src/theme/extensions/prf_status_extension.dart';
+import 'package:prf_design/src/theme/extensions/prf_colors_extension.dart';
+import 'package:prf_design/src/theme/extensions/prf_status_extension.dart';
 
 /// Convenience extensions on BuildContext for easy theme access.
 extension PRFThemeContextExtensions on BuildContext {

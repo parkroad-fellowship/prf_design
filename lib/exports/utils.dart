@@ -1,4 +1,4 @@
-/// Utilities exports for prf_design_system
+/// Utilities exports for prf_design
 library;
 
-export 'package:prf_design_system/src/utils/_index.dart';
+export 'package:prf_design/src/utils/_index.dart';

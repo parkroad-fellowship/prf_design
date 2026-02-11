@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:prf_design_system/src/theme/colors/prf_colors.dart';
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
 
 class AnimatedStatCard extends StatelessWidget {
   const AnimatedStatCard({

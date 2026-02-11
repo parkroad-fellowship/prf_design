@@ -8,8 +8,8 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  prf_design_system:
-    path: packages/prf_design_system
+  prf_design:
+    path: packages/prf_design
 ```
 
 ## Usage
@@ -17,31 +17,31 @@ dependencies:
 ### Full Import
 
 ```dart
-import 'package:prf_design_system/prf_design_system.dart';
+import 'package:prf_design/prf_design.dart';
 ```
 
 ### Granular Imports
 
 ```dart
 // Theme only
-import 'package:prf_design_system/exports/theme.dart';
+import 'package:prf_design/exports/theme.dart';
 
 // Widgets only
-import 'package:prf_design_system/exports/widgets.dart';
+import 'package:prf_design/exports/widgets.dart';
 
 // Utilities only
-import 'package:prf_design_system/exports/utils.dart';
+import 'package:prf_design/exports/utils.dart';
 
 // Models only
-import 'package:prf_design_system/exports/models.dart';
+import 'package:prf_design/exports/models.dart';
 ```
 
 ## Package Structure
 
 ```
-prf_design_system/
+prf_design/
 ├── lib/
-│   ├── prf_design_system.dart      # Main barrel export
+│   ├── prf_design.dart      # Main barrel export
 │   ├── src/
 │   │   ├── models/                 # Error types, failure model
 │   │   ├── theme/                  # Colors, text, extensions

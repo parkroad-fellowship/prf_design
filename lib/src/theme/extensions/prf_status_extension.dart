@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design_system/src/theme/colors/_index.dart';
+import 'package:prf_design/src/theme/colors/_index.dart';
 
 /// Represents a complete status color set with main, background & text colors.
 @immutable

@@ -1,4 +1,4 @@
-/// Theme exports for prf_design_system
+/// Theme exports for prf_design
 library;
 
-export 'package:prf_design_system/src/theme/_index.dart';
+export 'package:prf_design/src/theme/_index.dart';

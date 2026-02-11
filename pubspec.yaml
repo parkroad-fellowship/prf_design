@@ -1,0 +1,26 @@
+name: prf_design_system
+description: PRF Design System - Shared widgets, theme system, and essential utilities.
+version: "0.1.0"
+publish_to: none
+
+environment:
+  sdk: ^3.10.3
+  flutter: ^3.38.5
+
+dependencies:
+  device_info_plus: ^12.3.0
+  flutter:
+    sdk: flutter
+  flutter_adaptive_ui: ^0.8.0+1
+  flutter_animate: ^4.5.2
+  google_fonts: ^8.0.0
+  http: ^1.6.0
+  intl: ^0.20.2
+  pdfx: ^2.9.2
+  timezone: ^0.11.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  very_good_analysis: ^10.1.0

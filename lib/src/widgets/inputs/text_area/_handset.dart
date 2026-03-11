@@ -67,8 +67,8 @@ class PRFTextAreaInputHandset extends StatelessWidget {
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
+          horizontal: PRFSpacingTokens.lg,
+          vertical: PRFSpacingTokens.lg,
         ),
         alignLabelWithHint: true,
       ),

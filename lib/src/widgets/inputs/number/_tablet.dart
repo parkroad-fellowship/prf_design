@@ -34,8 +34,8 @@ class PRFNumberInputTablet extends StatelessWidget {
           color: theme.colorScheme.onSurfaceVariant,
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 20,
+          horizontal: PRFSpacingTokens.xl,
+          vertical: PRFSpacingTokens.xxl,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFEmailInputTablet extends StatelessWidget {
   const PRFEmailInputTablet({
@@ -23,13 +24,29 @@ class PRFEmailInputTablet extends StatelessWidget {
       style: theme.textTheme.titleMedium,
       decoration: InputDecoration(
         hintText: hintText,
+        hintStyle: theme.textTheme.titleMedium?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
         prefixIcon: const Icon(
           Icons.email_outlined,
-          size: 24,
+          size: 28,
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 20,
+          horizontal: PRFSpacingTokens.xl,
+          vertical: PRFSpacingTokens.xxl,
+        ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+          borderSide: BorderSide(
+            color: theme.colorScheme.primary,
+            width: 2,
+          ),
         ),
       ),
       semanticsLabel: hintText,

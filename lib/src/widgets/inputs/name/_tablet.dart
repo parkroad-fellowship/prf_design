@@ -59,7 +59,7 @@ class PRFNameInputTablet extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 20,
+          vertical: 24,
         ),
       ),
       semanticsLabel: hintText,

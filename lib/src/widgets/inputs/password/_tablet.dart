@@ -34,7 +34,7 @@ class PRFPasswordInputTablet extends StatelessWidget {
           ),
           prefixIcon: const Icon(
             Icons.lock_outline,
-            size: 24,
+            size: 28,
           ),
           suffixIcon: Semantics(
             label: 'Toggle password visibility',
@@ -46,13 +46,13 @@ class PRFPasswordInputTablet extends StatelessWidget {
                 hidePassword
                     ? Icons.visibility_outlined
                     : Icons.visibility_off_outlined,
-                size: 24,
+                size: 28,
               ),
             ),
           ),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 20,
-            vertical: 20,
+            vertical: 24,
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),

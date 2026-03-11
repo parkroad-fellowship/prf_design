@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/_index.dart';
+import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
 import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class PRFDestroyButtonHandset extends StatelessWidget {
@@ -21,26 +23,25 @@ class PRFDestroyButtonHandset extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
+      height: PRFButtonTokens.handsetHeight,
       child: ElevatedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
-        style: theme.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.disabled)) {
-              return theme.colorScheme.error.withValues(alpha: 0.4);
-            }
-            return theme.colorScheme.error;
-          }),
+        style: PRFButtonStyles.primary(
+          theme,
+          isTablet: false,
+          backgroundColor: theme.colorScheme.error,
+          foregroundColor: theme.colorScheme.onError,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading ?? false) ...[
-              const SizedBox(
-                height: 16,
-                width: 16,
+              SizedBox(
+                height: PRFButtonTokens.handsetLoaderSize,
+                width: PRFButtonTokens.handsetLoaderSize,
                 child: PRFCircularProgressIndicator(color: Colors.white),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
             ],
             Text(
               title,

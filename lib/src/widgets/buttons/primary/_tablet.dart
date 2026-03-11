@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/_index.dart';
+import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
 
 class PRFPrimaryButtonTablet extends StatelessWidget {
   const PRFPrimaryButtonTablet({
@@ -20,36 +22,23 @@ class PRFPrimaryButtonTablet extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: 72,
+      height: PRFButtonTokens.tabletHeight,
       child: ElevatedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.primary,
-          foregroundColor: theme.colorScheme.onPrimary,
-          disabledBackgroundColor: theme.colorScheme.primary.withValues(
-            alpha: 0.4,
-          ),
-          disabledForegroundColor: theme.colorScheme.onPrimary.withValues(
-            alpha: 0.7,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          elevation: 3,
-        ),
+        style: PRFButtonStyles.primary(theme, isTablet: true),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading ?? false) ...[
-              const SizedBox(
-                height: 24,
-                width: 24,
+              SizedBox(
+                height: PRFButtonTokens.tabletLoaderSize,
+                width: PRFButtonTokens.tabletLoaderSize,
                 child: CircularProgressIndicator(
                   color: Colors.white,
-                  strokeWidth: 2.5,
+                  strokeWidth: PRFButtonTokens.strokeWidthTablet,
                 ),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
             ],
             Text(
               title,

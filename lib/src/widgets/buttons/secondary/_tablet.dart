@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/_index.dart';
+import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
 import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class PRFSecondaryButtonTablet extends StatelessWidget {
@@ -21,35 +23,22 @@ class PRFSecondaryButtonTablet extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: 72,
+      height: PRFButtonTokens.tabletHeight,
       child: OutlinedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
-        style: OutlinedButton.styleFrom(
-          foregroundColor: theme.colorScheme.primary,
-          side: BorderSide(
-            color: theme.colorScheme.primary,
-            width: 1.5,
-          ),
-          disabledForegroundColor: theme.colorScheme.primary.withValues(
-            alpha: 0.4,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          elevation: 1,
-        ),
+        style: PRFButtonStyles.secondary(theme, isTablet: true),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading ?? false) ...[
               SizedBox(
-                height: 20,
-                width: 20,
+                height: PRFButtonTokens.tabletLoaderSize,
+                width: PRFButtonTokens.tabletLoaderSize,
                 child: PRFCircularProgressIndicator(
                   color: theme.colorScheme.primary,
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
             ],
             Text(
               title,

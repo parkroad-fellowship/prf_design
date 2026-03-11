@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/_index.dart';
+import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
 
 class PRFPrimaryButtonHandset extends StatelessWidget {
   const PRFPrimaryButtonHandset({
@@ -20,36 +22,23 @@ class PRFPrimaryButtonHandset extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: 56,
+      height: PRFButtonTokens.handsetHeight,
       child: ElevatedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: theme.colorScheme.primary,
-          foregroundColor: theme.colorScheme.onPrimary,
-          disabledBackgroundColor: theme.colorScheme.primary.withValues(
-            alpha: 0.4,
-          ),
-          disabledForegroundColor: theme.colorScheme.onPrimary.withValues(
-            alpha: 0.7,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 2,
-        ),
+        style: PRFButtonStyles.primary(theme, isTablet: false),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading ?? false) ...[
-              const SizedBox(
-                height: 20,
-                width: 20,
+              SizedBox(
+                height: PRFButtonTokens.handsetLoaderSize,
+                width: PRFButtonTokens.handsetLoaderSize,
                 child: CircularProgressIndicator(
                   color: Colors.white,
-                  strokeWidth: 2,
+                  strokeWidth: PRFButtonTokens.strokeWidthHandset,
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
             ],
             Text(
               title,

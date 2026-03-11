@@ -7,7 +7,9 @@ Widget buildSubject(Widget button) {
     home: Scaffold(
       body: Builder(
         builder: (context) => Theme(
-          data: PRFTheme.light(context),
+          data: PRFTheme.light(
+            scaleFactor: DeviceHelper.getScaleFactor(context: context),
+          ),
           child: button,
         ),
       ),

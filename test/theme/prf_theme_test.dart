@@ -12,16 +12,16 @@ void main() {
   });
 
   group('PRFTheme', () {
-    test('light can be built without BuildContext', () {
-      final theme = PRFTheme.light();
+    test('light can be built with explicit scaleFactor', () {
+      final theme = PRFTheme.light(scaleFactor: 1);
 
       expect(theme.useMaterial3, isTrue);
       expect(theme.extensions[PRFColorsExtension], isNotNull);
       expect(theme.extensions[PRFStatusExtension], isNotNull);
     });
 
-    test('dark can be built without BuildContext', () {
-      final theme = PRFTheme.dark();
+    test('dark can be built with explicit scaleFactor', () {
+      final theme = PRFTheme.dark(scaleFactor: 1);
 
       expect(theme.useMaterial3, isTrue);
       expect(theme.extensions[PRFColorsExtension], isNotNull);

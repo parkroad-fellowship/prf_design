@@ -3,19 +3,13 @@ import 'package:prf_design/src/theme/colors/_index.dart';
 import 'package:prf_design/src/theme/extensions/_index.dart';
 import 'package:prf_design/src/theme/text_theme.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
-import 'package:prf_design/src/utils/device_helper.dart';
 
 class PRFTheme {
   PRFTheme._();
 
-  /// Builds the light theme.
-  ///
-  /// Pass [context] when available to enable responsive text/icon scaling.
-  /// If [context] is omitted (for example in top-level app setup), safe
-  /// baseline values are used.
-  static ThemeData light([BuildContext? context]) {
-    final textTheme = PRFTextTheme.getLightTheme(context);
-    final scaleFactor = DeviceHelper.getScaleFactor(context: context);
+  /// Builds the light theme using an explicit typography/icon scale.
+  static ThemeData light({required double scaleFactor}) {
+    final textTheme = PRFTextTheme.getLightTheme(scaleFactor: scaleFactor);
 
     return ThemeData(
       useMaterial3: true,
@@ -77,9 +71,12 @@ class PRFTheme {
           ),
           elevation: PRFElevationTokens.sm,
           shadowColor: const Color(0x1F000000),
-          textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
-            color: PRFColors.white,
-          ),
+          textStyle:
+              PRFTextTheme.getButtonTextStyle(
+                scaleFactor: scaleFactor,
+              ).copyWith(
+                color: PRFColors.white,
+              ),
         ),
       ),
 
@@ -96,18 +93,24 @@ class PRFTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           ),
-          textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
-            color: PRFColors.navyBlue,
-          ),
+          textStyle:
+              PRFTextTheme.getButtonTextStyle(
+                scaleFactor: scaleFactor,
+              ).copyWith(
+                color: PRFColors.navyBlue,
+              ),
         ),
       ),
 
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: PRFColors.navyBlue,
-          textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
-            color: PRFColors.navyBlue,
-          ),
+          textStyle:
+              PRFTextTheme.getButtonTextStyle(
+                scaleFactor: scaleFactor,
+              ).copyWith(
+                color: PRFColors.navyBlue,
+              ),
         ),
       ),
 
@@ -151,7 +154,9 @@ class PRFTheme {
         labelStyle: textTheme.bodyMedium?.copyWith(
           color: PRFColors.gray600,
         ),
-        errorStyle: PRFTextTheme.getErrorTextStyle(context),
+        errorStyle: PRFTextTheme.getErrorTextStyle(
+          scaleFactor: scaleFactor,
+        ),
       ),
 
       // Card Theme
@@ -257,14 +262,9 @@ class PRFTheme {
     );
   }
 
-  /// Builds the dark theme.
-  ///
-  /// Pass [context] when available to enable responsive text/icon scaling.
-  /// If [context] is omitted (for example in top-level app setup), safe
-  /// baseline values are used.
-  static ThemeData dark([BuildContext? context]) {
-    final textTheme = PRFTextTheme.getDarkTheme(context);
-    final scaleFactor = DeviceHelper.getScaleFactor(context: context);
+  /// Builds the dark theme using an explicit typography/icon scale.
+  static ThemeData dark({required double scaleFactor}) {
+    final textTheme = PRFTextTheme.getDarkTheme(scaleFactor: scaleFactor);
 
     return ThemeData(
       useMaterial3: true,
@@ -326,9 +326,12 @@ class PRFTheme {
           ),
           elevation: PRFElevationTokens.sm,
           shadowColor: const Color(0x3F000000),
-          textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
-            color: PRFColors.black,
-          ),
+          textStyle:
+              PRFTextTheme.getButtonTextStyle(
+                scaleFactor: scaleFactor,
+              ).copyWith(
+                color: PRFColors.black,
+              ),
         ),
       ),
 
@@ -345,18 +348,24 @@ class PRFTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           ),
-          textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
-            color: PRFColors.limeGreen,
-          ),
+          textStyle:
+              PRFTextTheme.getButtonTextStyle(
+                scaleFactor: scaleFactor,
+              ).copyWith(
+                color: PRFColors.limeGreen,
+              ),
         ),
       ),
 
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: PRFColors.limeGreen,
-          textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
-            color: PRFColors.limeGreen,
-          ),
+          textStyle:
+              PRFTextTheme.getButtonTextStyle(
+                scaleFactor: scaleFactor,
+              ).copyWith(
+                color: PRFColors.limeGreen,
+              ),
         ),
       ),
 
@@ -400,7 +409,9 @@ class PRFTheme {
         labelStyle: textTheme.bodyMedium?.copyWith(
           color: PRFColors.gray400,
         ),
-        errorStyle: PRFTextTheme.getErrorTextStyle(context),
+        errorStyle: PRFTextTheme.getErrorTextStyle(
+          scaleFactor: scaleFactor,
+        ),
       ),
 
       // Card Theme

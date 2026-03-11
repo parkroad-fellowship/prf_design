@@ -35,8 +35,8 @@ dependencies:
 import 'package:prf_design/prf_design.dart';
 
 MaterialApp(
-  theme: PRFTheme.light(),
-  darkTheme: PRFTheme.dark(),
+  theme: PRFTheme.light(scaleFactor: DeviceHelper.getScaleFactor(context: context)),
+  darkTheme: PRFTheme.dark(scaleFactor: DeviceHelper.getScaleFactor(context: context)),
   home: const MyHomePage(),
 )
 ```
@@ -72,9 +72,9 @@ import 'package:prf_design/exports/enums.dart';
 Provides complete Material 3 theme configurations for light and dark modes.
 
 ```dart
-// Static factory methods
-static ThemeData light([BuildContext? context])
-static ThemeData dark([BuildContext? context])
+// Static factory methods (breaking API)
+static ThemeData light({required double scaleFactor})
+static ThemeData dark({required double scaleFactor})
 ```
 
 Both methods configure: color scheme, text theme, app bar, buttons, inputs, cards, dividers, tab bar, data table, snackbar, icon, dialog, list tile, chip, and dropdown menu themes.
@@ -161,19 +161,19 @@ context.theme        // ThemeData
 Typography system using Google Fonts (Lato) with responsive scaling and light/dark variants.
 
 ```dart
-static TextTheme getLightTheme(BuildContext context)
-static TextTheme getDarkTheme(BuildContext context)
+static TextTheme getLightTheme({required double scaleFactor})
+static TextTheme getDarkTheme({required double scaleFactor})
 ```
 
 Utility text styles:
 
 ```dart
-PRFTextTheme.getErrorTextStyle(context)
-PRFTextTheme.getSuccessTextStyle(context)
-PRFTextTheme.getWarningTextStyle(context)
-PRFTextTheme.getInfoTextStyle(context)
-PRFTextTheme.getButtonTextStyle(context)
-PRFTextTheme.getCaptionTextStyle(context)
+PRFTextTheme.getErrorTextStyle(scaleFactor: 1)
+PRFTextTheme.getSuccessTextStyle(scaleFactor: 1)
+PRFTextTheme.getWarningTextStyle(scaleFactor: 1)
+PRFTextTheme.getInfoTextStyle(scaleFactor: 1)
+PRFTextTheme.getButtonTextStyle(scaleFactor: 1)
+PRFTextTheme.getCaptionTextStyle(scaleFactor: 1)
 ```
 
 ## Widgets

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/_index.dart';
+import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
+import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class GoogleAuthButtonHandset extends StatelessWidget {
   const GoogleAuthButtonHandset({
@@ -22,42 +25,33 @@ class GoogleAuthButtonHandset extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: 56,
+      height: PRFButtonTokens.handsetHeight,
       child: OutlinedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
-        style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.white,
-          foregroundColor: theme.colorScheme.onSurface,
-          side: BorderSide(
-            color: theme.colorScheme.outline,
-            width: 1.5,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 1,
-        ),
+        style: PRFButtonStyles.google(theme, isTablet: false),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading ?? false)
               SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
+                height: PRFButtonTokens.handsetLoaderSize,
+                width: PRFButtonTokens.handsetLoaderSize,
+                child: PRFCircularProgressIndicator(
                   color: theme.colorScheme.primary,
-                  strokeWidth: 2,
                 ),
               )
             else if (googleLogoAsset != null)
               SizedBox(
-                height: 20,
-                width: 20,
+                height: PRFButtonTokens.handsetLoaderSize,
+                width: PRFButtonTokens.handsetLoaderSize,
                 child: googleLogoAsset,
               )
             else
-              const SizedBox(width: 20, height: 20),
-            const SizedBox(width: 12),
+              SizedBox(
+                width: PRFButtonTokens.handsetLoaderSize,
+                height: PRFButtonTokens.handsetLoaderSize,
+              ),
+            const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
             Text(
               title,
               style: theme.textTheme.titleMedium?.copyWith(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/_index.dart';
 import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
+import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class PRFPrimaryButtonTablet extends StatelessWidget {
   const PRFPrimaryButtonTablet({
@@ -33,10 +34,7 @@ class PRFPrimaryButtonTablet extends StatelessWidget {
               SizedBox(
                 height: PRFButtonTokens.tabletLoaderSize,
                 width: PRFButtonTokens.tabletLoaderSize,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: PRFButtonTokens.strokeWidthTablet,
-                ),
+                child: PRFCircularProgressIndicator(color: Colors.white),
               ),
               const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
             ],

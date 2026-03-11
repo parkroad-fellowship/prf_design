@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/_index.dart';
+import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
+import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class GoogleAuthButtonTablet extends StatelessWidget {
   const GoogleAuthButtonTablet({
@@ -22,42 +25,33 @@ class GoogleAuthButtonTablet extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
-      height: 72,
+      height: PRFButtonTokens.tabletHeight,
       child: OutlinedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
-        style: OutlinedButton.styleFrom(
-          backgroundColor: Colors.white,
-          foregroundColor: theme.colorScheme.onSurface,
-          side: BorderSide(
-            color: theme.colorScheme.outline,
-            width: 1.5,
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          elevation: 2,
-        ),
+        style: PRFButtonStyles.google(theme, isTablet: true),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (isLoading ?? false)
               SizedBox(
-                height: 24,
-                width: 24,
-                child: CircularProgressIndicator(
+                height: PRFButtonTokens.tabletLoaderSize,
+                width: PRFButtonTokens.tabletLoaderSize,
+                child: PRFCircularProgressIndicator(
                   color: theme.colorScheme.primary,
-                  strokeWidth: 2.5,
                 ),
               )
             else if (googleLogoAsset != null)
               SizedBox(
-                height: 24,
-                width: 24,
+                height: PRFButtonTokens.tabletLoaderSize,
+                width: PRFButtonTokens.tabletLoaderSize,
                 child: googleLogoAsset,
               )
             else
-              const SizedBox(width: 24, height: 24),
-            const SizedBox(width: 16),
+              SizedBox(
+                width: PRFButtonTokens.tabletLoaderSize,
+                height: PRFButtonTokens.tabletLoaderSize,
+              ),
+            const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
             Text(
               title,
               style: theme.textTheme.titleLarge?.copyWith(

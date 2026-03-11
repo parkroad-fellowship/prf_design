@@ -32,8 +32,8 @@ class PRFEmailInputTablet extends StatelessWidget {
           size: 28,
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 24,
+          horizontal: PRFSpacingTokens.xl,
+          vertical: PRFSpacingTokens.xxl,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),

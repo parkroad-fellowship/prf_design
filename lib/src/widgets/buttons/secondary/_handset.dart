@@ -21,8 +21,23 @@ class PRFSecondaryButtonHandset extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
+      height: 56,
       child: OutlinedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
+        style: OutlinedButton.styleFrom(
+          foregroundColor: theme.colorScheme.primary,
+          side: BorderSide(
+            color: theme.colorScheme.primary,
+            width: 1.5,
+          ),
+          disabledForegroundColor: theme.colorScheme.primary.withValues(
+            alpha: 0.4,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 1,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

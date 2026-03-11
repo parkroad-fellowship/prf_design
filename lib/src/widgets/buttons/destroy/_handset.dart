@@ -21,15 +21,22 @@ class PRFDestroyButtonHandset extends StatelessWidget {
 
     return SizedBox(
       width: double.infinity,
+      height: 56,
       child: ElevatedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
-        style: theme.elevatedButtonTheme.style?.copyWith(
-          backgroundColor: WidgetStateProperty.resolveWith((states) {
-            if (states.contains(WidgetState.disabled)) {
-              return theme.colorScheme.error.withValues(alpha: 0.4);
-            }
-            return theme.colorScheme.error;
-          }),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: theme.colorScheme.error,
+          foregroundColor: theme.colorScheme.onError,
+          disabledBackgroundColor: theme.colorScheme.error.withValues(
+            alpha: 0.4,
+          ),
+          disabledForegroundColor: theme.colorScheme.onError.withValues(
+            alpha: 0.7,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 2,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

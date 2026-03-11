@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class PRFPrimaryButtonHandset extends StatelessWidget {
   const PRFPrimaryButtonHandset({
@@ -44,10 +45,7 @@ class PRFPrimaryButtonHandset extends StatelessWidget {
               const SizedBox(
                 height: 20,
                 width: 20,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 2,
-                ),
+                child: PRFCircularProgressIndicator(color: Colors.white),
               ),
               const SizedBox(width: 12),
             ],

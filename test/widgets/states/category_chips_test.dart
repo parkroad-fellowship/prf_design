@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prf_design/src/widgets/states/category_chips.dart';
 
@@ -126,6 +127,39 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.byType(ListView), findsNothing);
+    });
+
+    testWidgets('chips have Semantics with button and selected properties',
+        (tester) async {
+      await tester.pumpWidget(
+        _buildApp(
+          PRFCategoryChips<String>(
+            categories: categories,
+            selectedCategory: 'Sports',
+            onCategorySelected: (_) {},
+            labelBuilder: (c) => c,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final sportsSemantics = tester.getSemantics(
+        find.ancestor(
+          of: find.text('SPORTS'),
+          matching: find.byType(Semantics),
+        ).first,
+      );
+      expect(sportsSemantics.hasFlag(SemanticsFlag.isButton), isTrue);
+      expect(sportsSemantics.hasFlag(SemanticsFlag.isSelected), isTrue);
+
+      final musicSemantics = tester.getSemantics(
+        find.ancestor(
+          of: find.text('MUSIC'),
+          matching: find.byType(Semantics),
+        ).first,
+      );
+      expect(musicSemantics.hasFlag(SemanticsFlag.isButton), isTrue);
+      expect(musicSemantics.hasFlag(SemanticsFlag.isSelected), isFalse);
     });
   });
 }

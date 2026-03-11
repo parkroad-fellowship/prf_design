@@ -148,6 +148,61 @@ void main() {
           expect(callCount, equals(0));
         },
       );
+
+      testWidgets('has correct semantics label in normal state', (tester) async {
+        setHandsetSize(tester);
+
+        await tester.pumpWidget(
+          buildSubject(
+            PRFPrimaryButton(
+              title: 'Submit',
+              disabled: false,
+              onPressed: () {},
+            ),
+          ),
+        );
+        await tester.pump();
+
+        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        expect(semantics.label, equals('Submit'));
+      });
+
+      testWidgets('has correct semantics label when disabled', (tester) async {
+        setHandsetSize(tester);
+
+        await tester.pumpWidget(
+          buildSubject(
+            PRFPrimaryButton(
+              title: 'Submit',
+              disabled: true,
+              onPressed: () {},
+            ),
+          ),
+        );
+        await tester.pump();
+
+        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        expect(semantics.label, equals('Submit, disabled'));
+      });
+
+      testWidgets('has correct semantics label when loading', (tester) async {
+        setHandsetSize(tester);
+
+        await tester.pumpWidget(
+          buildSubject(
+            PRFPrimaryButton(
+              title: 'Submit',
+              disabled: false,
+              isLoading: true,
+              onPressed: () {},
+            ),
+          ),
+        );
+        await tester.pump();
+
+        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        expect(semantics.label, equals('Submit, loading'));
+      });
     });
 
     group('tablet', () {
@@ -287,6 +342,61 @@ void main() {
           expect(callCount, equals(0));
         },
       );
+
+      testWidgets('has correct semantics label in normal state', (tester) async {
+        setTabletSize(tester);
+
+        await tester.pumpWidget(
+          buildSubject(
+            PRFPrimaryButton(
+              title: 'Submit',
+              disabled: false,
+              onPressed: () {},
+            ),
+          ),
+        );
+        await tester.pump();
+
+        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        expect(semantics.label, equals('Submit'));
+      });
+
+      testWidgets('has correct semantics label when disabled', (tester) async {
+        setTabletSize(tester);
+
+        await tester.pumpWidget(
+          buildSubject(
+            PRFPrimaryButton(
+              title: 'Submit',
+              disabled: true,
+              onPressed: () {},
+            ),
+          ),
+        );
+        await tester.pump();
+
+        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        expect(semantics.label, equals('Submit, disabled'));
+      });
+
+      testWidgets('has correct semantics label when loading', (tester) async {
+        setTabletSize(tester);
+
+        await tester.pumpWidget(
+          buildSubject(
+            PRFPrimaryButton(
+              title: 'Submit',
+              disabled: false,
+              isLoading: true,
+              onPressed: () {},
+            ),
+          ),
+        );
+        await tester.pump();
+
+        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        expect(semantics.label, equals('Submit, loading'));
+      });
     });
   });
 }

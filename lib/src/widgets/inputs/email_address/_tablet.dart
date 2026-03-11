@@ -32,6 +32,7 @@ class PRFEmailInputTablet extends StatelessWidget {
           vertical: 20,
         ),
       ),
+      semanticsLabel: hintText,
     );
   }
 }

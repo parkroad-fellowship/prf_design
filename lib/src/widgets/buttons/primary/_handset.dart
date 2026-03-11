@@ -27,25 +27,32 @@ class PRFPrimaryButtonHandset extends StatelessWidget {
       child: ElevatedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
         style: PRFButtonStyles.primary(theme, isTablet: false),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (isLoading ?? false) ...[
-              SizedBox(
-                height: PRFButtonTokens.handsetLoaderSize,
-                width: PRFButtonTokens.handsetLoaderSize,
-                child: PRFCircularProgressIndicator(color: Colors.white),
+        child: Semantics(
+          label: (isLoading ?? false)
+              ? '$title, loading'
+              : (disabled ? '$title, disabled' : title),
+          button: true,
+          enabled: !(disabled || (isLoading ?? false)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (isLoading ?? false) ...[
+                SizedBox(
+                  height: PRFButtonTokens.handsetLoaderSize,
+                  width: PRFButtonTokens.handsetLoaderSize,
+                  child: PRFCircularProgressIndicator(color: Colors.white),
+                ),
+                const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
+              ],
+              Text(
+                title,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-              const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
             ],
-            Text(
-              title,
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.onPrimary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

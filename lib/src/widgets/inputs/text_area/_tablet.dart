@@ -73,6 +73,7 @@ class PRFTextAreaInputTablet extends StatelessWidget {
         ),
         alignLabelWithHint: true,
       ),
+      semanticsLabel: hintText,
     );
   }
 }

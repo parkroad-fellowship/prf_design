@@ -35,15 +35,18 @@ class PRFPasswordInputTablet extends StatelessWidget {
             Icons.lock_outline,
             size: 24,
           ),
-          suffixIcon: IconButton(
-            onPressed: () {
-              hidePasswordNotifier.value = !hidePassword;
-            },
-            icon: Icon(
-              hidePassword
-                  ? Icons.visibility_outlined
-                  : Icons.visibility_off_outlined,
-              size: 24,
+          suffixIcon: Semantics(
+            label: 'Toggle password visibility',
+            child: IconButton(
+              onPressed: () {
+                hidePasswordNotifier.value = !hidePassword;
+              },
+              icon: Icon(
+                hidePassword
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+                size: 24,
+              ),
             ),
           ),
           contentPadding: const EdgeInsets.symmetric(
@@ -64,6 +67,7 @@ class PRFPasswordInputTablet extends StatelessWidget {
             ),
           ),
         ),
+        semanticsLabel: hintText,
       ),
     );
   }

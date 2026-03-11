@@ -27,27 +27,34 @@ class PRFSecondaryButtonHandset extends StatelessWidget {
       child: OutlinedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
         style: PRFButtonStyles.secondary(theme, isTablet: false),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (isLoading ?? false) ...[
-              SizedBox(
-                height: PRFButtonTokens.handsetLoaderSize,
-                width: PRFButtonTokens.handsetLoaderSize,
-                child: PRFCircularProgressIndicator(
+        child: Semantics(
+          label: (isLoading ?? false)
+              ? '$title, loading'
+              : (disabled ? '$title, disabled' : title),
+          button: true,
+          enabled: !(disabled || (isLoading ?? false)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (isLoading ?? false) ...[
+                SizedBox(
+                  height: PRFButtonTokens.handsetLoaderSize,
+                  width: PRFButtonTokens.handsetLoaderSize,
+                  child: PRFCircularProgressIndicator(
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
+              ],
+              Text(
+                title,
+                style: theme.textTheme.titleMedium?.copyWith(
                   color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
             ],
-            Text(
-              title,
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.primary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

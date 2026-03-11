@@ -29,17 +29,21 @@ class PRFPasswordInputHandset extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: const Icon(Icons.lock_outline),
-          suffixIcon: IconButton(
-            onPressed: () {
-              hidePasswordNotifier.value = !hidePassword;
-            },
-            icon: Icon(
-              hidePassword
-                  ? Icons.visibility_outlined
-                  : Icons.visibility_off_outlined,
+          suffixIcon: Semantics(
+            label: 'Toggle password visibility',
+            child: IconButton(
+              onPressed: () {
+                hidePasswordNotifier.value = !hidePassword;
+              },
+              icon: Icon(
+                hidePassword
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+              ),
             ),
           ),
         ),
+        semanticsLabel: hintText,
       ),
     );
   }

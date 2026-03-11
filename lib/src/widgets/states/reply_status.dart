@@ -91,38 +91,43 @@ class _StatusChip extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(right: 10),
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeOut,
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-          decoration: BoxDecoration(
-            color: selected ? selectedColor : unselectedColor,
-            borderRadius: BorderRadius.circular(14),
-            border: Border.all(
-              color: selected
-                  ? selectedColor.withValues(alpha: 0.5)
-                  : theme.colorScheme.outline.withValues(alpha: 0.3),
-              width: 1.1,
+      child: Semantics(
+        button: true,
+        label: label,
+        selected: selected,
+        child: GestureDetector(
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOut,
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+            decoration: BoxDecoration(
+              color: selected ? selectedColor : unselectedColor,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: selected
+                    ? selectedColor.withValues(alpha: 0.5)
+                    : theme.colorScheme.outline.withValues(alpha: 0.3),
+                width: 1.1,
+              ),
+              boxShadow: selected
+                  ? [
+                      BoxShadow(
+                        color: selectedColor.withValues(alpha: 0.13),
+                        blurRadius: 6,
+                        offset: const Offset(0, 2),
+                      ),
+                    ]
+                  : [],
             ),
-            boxShadow: selected
-                ? [
-                    BoxShadow(
-                      color: selectedColor.withValues(alpha: 0.13),
-                      blurRadius: 6,
-                      offset: const Offset(0, 2),
-                    ),
-                  ]
-                : [],
-          ),
-          child: Center(
-            child: Text(
-              label,
-              style: theme.textTheme.labelLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: selected ? selectedTextColor : unselectedTextColor,
-                letterSpacing: 0.2,
+            child: Center(
+              child: Text(
+                label,
+                style: theme.textTheme.labelLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: selected ? selectedTextColor : unselectedTextColor,
+                  letterSpacing: 0.2,
+                ),
               ),
             ),
           ),

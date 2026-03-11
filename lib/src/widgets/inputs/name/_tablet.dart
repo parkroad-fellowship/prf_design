@@ -63,6 +63,7 @@ class PRFNameInputTablet extends StatelessWidget {
           vertical: 20,
         ),
       ),
+      semanticsLabel: hintText,
     );
   }
 }

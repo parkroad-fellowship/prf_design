@@ -81,5 +81,25 @@ void main() {
 
       expect(find.text('Delay'), findsOneWidget);
     });
+
+    testWidgets('has Semantics with title and subtitle', (tester) async {
+      await tester.pumpWidget(
+        _buildApp(
+          const StatHighlightCard(
+            title: 'Total Users',
+            subtitle: '1,234 active accounts',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final semanticsWidgets = tester.widgetList<Semantics>(
+        find.byType(Semantics),
+      );
+      final matchingSemantics = semanticsWidgets.where(
+        (s) => s.properties.label == 'Total Users: 1,234 active accounts',
+      );
+      expect(matchingSemantics, isNotEmpty);
+    });
   });
 }

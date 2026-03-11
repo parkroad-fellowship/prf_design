@@ -106,5 +106,25 @@ void main() {
 
       expect(find.byType(ElevatedButton), findsNothing);
     });
+
+    testWidgets('has Semantics with label and description', (tester) async {
+      await tester.pumpWidget(
+        _buildApp(
+          const PRFEmptyView(
+            label: 'Nothing here',
+            description: 'No items found.',
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final semanticsWidgets = tester.widgetList<Semantics>(
+        find.byType(Semantics),
+      );
+      final matchingSemantics = semanticsWidgets.where(
+        (s) => s.properties.label == 'Nothing here. No items found.',
+      );
+      expect(matchingSemantics, isNotEmpty);
+    });
   });
 }

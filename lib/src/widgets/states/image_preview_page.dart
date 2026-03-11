@@ -98,6 +98,8 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
               child: Image.network(
                 imageUrl,
                 fit: BoxFit.contain,
+                semanticLabel:
+                    'Image ${index + 1} of ${widget.imageUrls.length}',
                 errorBuilder: (context, error, stackTrace) {
                   return ColoredBox(
                     color: theme.colorScheme.surfaceContainerHighest,

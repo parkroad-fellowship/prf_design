@@ -7,10 +7,13 @@ class PRFLinearProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: LinearProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(
-          color ?? Theme.of(context).colorScheme.primary,
+    return Semantics(
+      label: 'Loading',
+      child: Center(
+        child: LinearProgressIndicator(
+          valueColor: AlwaysStoppedAnimation<Color>(
+            color ?? Theme.of(context).colorScheme.primary,
+          ),
         ),
       ),
     );

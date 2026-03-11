@@ -7,11 +7,14 @@ class PRFCircularProgressIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: CircularProgressIndicator(
-        strokeWidth: 2,
-        valueColor: AlwaysStoppedAnimation<Color>(
-          color ?? Theme.of(context).colorScheme.primary,
+    return Semantics(
+      label: 'Loading',
+      child: Center(
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+          valueColor: AlwaysStoppedAnimation<Color>(
+            color ?? Theme.of(context).colorScheme.primary,
+          ),
         ),
       ),
     );

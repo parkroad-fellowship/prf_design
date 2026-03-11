@@ -75,5 +75,22 @@ void main() {
 
       expect(find.text('5'), findsOneWidget);
     });
+
+    testWidgets('has Semantics with label and value', (tester) async {
+      await tester.pumpWidget(
+        _buildApp(
+          const AnimatedStatCard(value: '42', label: 'Members'),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final semanticsWidgets = tester.widgetList<Semantics>(
+        find.byType(Semantics),
+      );
+      final matchingSemantics = semanticsWidgets.where(
+        (s) => s.properties.label == 'Members: 42',
+      );
+      expect(matchingSemantics, isNotEmpty);
+    });
   });
 }

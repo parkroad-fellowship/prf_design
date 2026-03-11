@@ -181,5 +181,48 @@ void main() {
       expect(find.text('Failure message'), findsOneWidget);
       expect(find.text('Request Timeout'), findsOneWidget);
     });
+
+    testWidgets('has Semantics with liveRegion for full layout', (tester) async {
+      await tester.pumpWidget(
+        _buildApp(
+          PRFErrorView(
+            failure: PRFFailure(
+              message: 'Network error occurred',
+              type: PRFErrorType.network,
+            ),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final semanticsWidgets = tester.widgetList<Semantics>(
+        find.byType(Semantics),
+      );
+      final liveRegionSemantics = semanticsWidgets.where(
+        (s) => s.liveRegion == true,
+      );
+      expect(liveRegionSemantics, isNotEmpty);
+    });
+
+    testWidgets('has Semantics with liveRegion for compact layout',
+        (tester) async {
+      await tester.pumpWidget(
+        _buildApp(
+          PRFErrorView(
+            failure: PRFFailure(message: 'Compact error'),
+            compact: true,
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+
+      final semanticsWidgets = tester.widgetList<Semantics>(
+        find.byType(Semantics),
+      );
+      final liveRegionSemantics = semanticsWidgets.where(
+        (s) => s.liveRegion == true,
+      );
+      expect(liveRegionSemantics, isNotEmpty);
+    });
   });
 }

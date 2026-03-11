@@ -1,5 +1,6 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prf_design/src/widgets/states/reply_status.dart';
 
@@ -11,7 +12,7 @@ void main() {
       await tester.pumpWidget(
         _buildApp(
           ReplyStatusView(
-            onStatusSelected: ({required bool status}) {},
+            onStatusSelected: ({required status}) {},
             unreadLabel: 'Unread',
             repliedLabel: 'Replied',
           ),
@@ -23,13 +24,14 @@ void main() {
       expect(find.text('REPLIED'), findsOneWidget);
     });
 
-    testWidgets('calls onStatusSelected with false when unread chip tapped',
-        (tester) async {
+    testWidgets('calls onStatusSelected with false when unread chip tapped', (
+      tester,
+    ) async {
       bool? selected;
       await tester.pumpWidget(
         _buildApp(
           ReplyStatusView(
-            onStatusSelected: ({required bool status}) => selected = status,
+            onStatusSelected: ({required status}) => selected = status,
             unreadLabel: 'Unread',
             repliedLabel: 'Replied',
           ),
@@ -43,13 +45,14 @@ void main() {
       expect(selected, isFalse);
     });
 
-    testWidgets('calls onStatusSelected with true when replied chip tapped',
-        (tester) async {
+    testWidgets('calls onStatusSelected with true when replied chip tapped', (
+      tester,
+    ) async {
       bool? selected;
       await tester.pumpWidget(
         _buildApp(
           ReplyStatusView(
-            onStatusSelected: ({required bool status}) => selected = status,
+            onStatusSelected: ({required status}) => selected = status,
             unreadLabel: 'Unread',
             repliedLabel: 'Replied',
           ),
@@ -63,15 +66,15 @@ void main() {
       expect(selected, isTrue);
     });
 
-    testWidgets('chips have Semantics with button and selected properties',
-        (tester) async {
+    testWidgets('chips have Semantics with button and selected properties', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           ReplyStatusView(
-            onStatusSelected: ({required bool status}) {},
+            onStatusSelected: ({required status}) {},
             unreadLabel: 'Unread',
             repliedLabel: 'Replied',
-            defaultStatus: false,
           ),
         ),
       );
@@ -85,8 +88,8 @@ void main() {
             )
             .first,
       );
-      expect(unreadSemantics.hasFlag(SemanticsFlag.isButton), isTrue);
-      expect(unreadSemantics.hasFlag(SemanticsFlag.isSelected), isTrue);
+      expect(unreadSemantics.flagsCollection.isButton, isTrue);
+      expect(unreadSemantics.flagsCollection.isSelected, Tristate.isTrue);
 
       final repliedSemantics = tester.getSemantics(
         find
@@ -96,8 +99,8 @@ void main() {
             )
             .first,
       );
-      expect(repliedSemantics.hasFlag(SemanticsFlag.isButton), isTrue);
-      expect(repliedSemantics.hasFlag(SemanticsFlag.isSelected), isFalse);
+      expect(repliedSemantics.flagsCollection.isButton, isTrue);
+      expect(repliedSemantics.flagsCollection.isSelected, Tristate.isFalse);
     });
   });
 }

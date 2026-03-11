@@ -34,7 +34,6 @@ void main() {
         expect(
           StringFormatter.getUserNameInitials(
             'John Michael Doe',
-            maxInitials: 2,
           ),
           equals('JM'),
         );
@@ -111,7 +110,7 @@ void main() {
           (_) => StringFormatter.generateRandomString(20),
         );
         final combined = results.join();
-        expect(combined, matches(RegExp(r'[0-9]')));
+        expect(combined, matches(RegExp('[0-9]')));
       });
 
       test('generates string including symbols when requested', () {

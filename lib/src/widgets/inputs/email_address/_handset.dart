@@ -16,16 +16,20 @@ class PRFEmailInputHandset extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return TextFormField(
-      controller: emailController,
+    return Semantics(
+      label: hintText,
+      textField: true,
       enabled: enabled,
-      keyboardType: TextInputType.emailAddress,
-      style: theme.textTheme.bodyMedium,
-      decoration: InputDecoration(
-        hintText: hintText,
-        prefixIcon: const Icon(Icons.email_outlined),
+      child: TextFormField(
+        controller: emailController,
+        enabled: enabled,
+        keyboardType: TextInputType.emailAddress,
+        style: theme.textTheme.bodyMedium,
+        decoration: InputDecoration(
+          hintText: hintText,
+          prefixIcon: const Icon(Icons.email_outlined),
+        ),
       ),
-      semanticsLabel: hintText,
     );
   }
 }

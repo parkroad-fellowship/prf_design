@@ -5,19 +5,20 @@ import 'package:prf_design/src/widgets/states/snackbar.dart';
 
 /// Returns a minimal [ThemeData] that includes [PRFStatusExtension].
 ThemeData _testTheme() => ThemeData(
-      extensions: const [PRFStatusExtension.light],
-    );
+  extensions: const [PRFStatusExtension.light],
+);
 
 /// Wraps [child] in [MaterialApp] + [Scaffold] so snackbars can be shown.
 Widget _buildApp(Widget child) => MaterialApp(
-      theme: _testTheme(),
-      home: Scaffold(body: child),
-    );
+  theme: _testTheme(),
+  home: Scaffold(body: child),
+);
 
 void main() {
   group('PRFSnackbar', () {
-    testWidgets('error() shows snackbar with error icon and message',
-        (tester) async {
+    testWidgets('error() shows snackbar with error icon and message', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           Builder(
@@ -36,8 +37,9 @@ void main() {
       expect(find.byIcon(Icons.error_outline), findsOneWidget);
     });
 
-    testWidgets('success() shows snackbar with success icon and message',
-        (tester) async {
+    testWidgets('success() shows snackbar with success icon and message', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           Builder(
@@ -56,8 +58,9 @@ void main() {
       expect(find.byIcon(Icons.check_circle_outline), findsOneWidget);
     });
 
-    testWidgets('info() shows snackbar with info icon and message',
-        (tester) async {
+    testWidgets('info() shows snackbar with info icon and message', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           Builder(
@@ -76,8 +79,9 @@ void main() {
       expect(find.byIcon(Icons.info_outline), findsOneWidget);
     });
 
-    testWidgets('warning() shows snackbar with warning icon and message',
-        (tester) async {
+    testWidgets('warning() shows snackbar with warning icon and message', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           Builder(
@@ -97,37 +101,42 @@ void main() {
     });
 
     testWidgets(
-        'error() with onRetry shows Retry action and invokes callback on tap',
-        (tester) async {
-      var retryCalled = false;
+      'error() with onRetry shows Retry action and invokes callback on tap',
+      (tester) async {
+        var retryCalled = false;
 
-      await tester.pumpWidget(
-        _buildApp(
-          Builder(
-            builder: (context) => ElevatedButton(
-              onPressed: () => PRFSnackbar.error(
-                context,
-                'Retry message',
-                onRetry: () => retryCalled = true,
+        await tester.pumpWidget(
+          _buildApp(
+            Builder(
+              builder: (context) => ElevatedButton(
+                onPressed: () => PRFSnackbar.error(
+                  context,
+                  'Retry message',
+                  onRetry: () => retryCalled = true,
+                ),
+                child: const Text('show'),
               ),
-              child: const Text('show'),
             ),
           ),
-        ),
-      );
+        );
 
-      await tester.tap(find.text('show'));
-      await tester.pump();
+        await tester.tap(find.text('show'));
+        await tester.pump();
 
-      expect(find.text('Retry'), findsOneWidget);
-      await tester.tap(find.text('Retry'));
-      await tester.pump();
+        expect(find.text('Retry'), findsOneWidget);
+        final action = tester.widget<SnackBarAction>(
+          find.byType(SnackBarAction),
+        );
+        action.onPressed();
+        await tester.pump();
 
-      expect(retryCalled, isTrue);
-    });
+        expect(retryCalled, isTrue);
+      },
+    );
 
-    testWidgets('error() without onRetry does not show Retry action',
-        (tester) async {
+    testWidgets('error() without onRetry does not show Retry action', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           Builder(

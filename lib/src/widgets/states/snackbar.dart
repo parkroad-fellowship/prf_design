@@ -96,7 +96,9 @@ class PRFSnackbar {
       backgroundColor: colors.main,
       duration: duration,
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PRFRadiusTokens.sm)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
+      ),
       action: onRetry != null
           ? SnackBarAction(
               label: 'Retry',

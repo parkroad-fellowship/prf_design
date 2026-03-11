@@ -14,9 +14,9 @@ class DateFormatter {
     return _timezoneCache.putIfAbsent(timezone, () {
       try {
         return tz.getLocation(timezone);
-      } on Exception catch (_) {
-        // Fallback to UTC if timezone is invalid
-        return tz.getLocation('UTC');
+      } on Object catch (_) {
+        // Fallback to UTC if timezone data is missing or timezone is invalid.
+        return tz.UTC;
       }
     });
   }
@@ -36,11 +36,9 @@ class DateFormatter {
   }) {
     try {
       final dateTimeInLocation = _toTimezone(dateTime, timezone);
-      final formatter = locale != null
-          ? DateFormat.yMMMd(locale).add_jm().add_EEEE()
-          : DateFormat.yMMMd().add_jm().add_EEEE();
+      final formatter = DateFormat('EEE, MMM d, y h:mm a', locale);
       return formatter.format(dateTimeInLocation);
-    } on Exception catch (_) {
+    } on Object catch (_) {
       return dateTime.toString();
     }
   }
@@ -125,7 +123,7 @@ class DateFormatter {
           ? DateFormat.jm(locale)
           : DateFormat.jm();
       return formatter.format(dateTimeInLocation);
-    } on Exception catch (_) {
+    } on Object catch (_) {
       return time;
     }
   }

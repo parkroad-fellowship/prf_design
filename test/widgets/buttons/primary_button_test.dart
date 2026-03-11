@@ -149,7 +149,9 @@ void main() {
         },
       );
 
-      testWidgets('has correct semantics label in normal state', (tester) async {
+      testWidgets('has correct semantics label in normal state', (
+        tester,
+      ) async {
         setHandsetSize(tester);
 
         await tester.pumpWidget(
@@ -163,7 +165,14 @@ void main() {
         );
         await tester.pump();
 
-        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        final semantics = tester.getSemantics(
+          find
+              .ancestor(
+                of: find.text('Submit'),
+                matching: find.byType(Semantics),
+              )
+              .first,
+        );
         expect(semantics.label, equals('Submit'));
       });
 
@@ -181,7 +190,14 @@ void main() {
         );
         await tester.pump();
 
-        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        final semantics = tester.getSemantics(
+          find
+              .ancestor(
+                of: find.text('Submit'),
+                matching: find.byType(Semantics),
+              )
+              .first,
+        );
         expect(semantics.label, equals('Submit, disabled'));
       });
 
@@ -200,7 +216,14 @@ void main() {
         );
         await tester.pump();
 
-        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        final semantics = tester.getSemantics(
+          find
+              .ancestor(
+                of: find.text('Submit'),
+                matching: find.byType(Semantics),
+              )
+              .first,
+        );
         expect(semantics.label, equals('Submit, loading'));
       });
     });
@@ -343,7 +366,9 @@ void main() {
         },
       );
 
-      testWidgets('has correct semantics label in normal state', (tester) async {
+      testWidgets('has correct semantics label in normal state', (
+        tester,
+      ) async {
         setTabletSize(tester);
 
         await tester.pumpWidget(
@@ -357,7 +382,14 @@ void main() {
         );
         await tester.pump();
 
-        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        final semantics = tester.getSemantics(
+          find
+              .ancestor(
+                of: find.text('Submit'),
+                matching: find.byType(Semantics),
+              )
+              .first,
+        );
         expect(semantics.label, equals('Submit'));
       });
 
@@ -375,7 +407,14 @@ void main() {
         );
         await tester.pump();
 
-        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        final semantics = tester.getSemantics(
+          find
+              .ancestor(
+                of: find.text('Submit'),
+                matching: find.byType(Semantics),
+              )
+              .first,
+        );
         expect(semantics.label, equals('Submit, disabled'));
       });
 
@@ -394,7 +433,14 @@ void main() {
         );
         await tester.pump();
 
-        final semantics = tester.getSemantics(find.byType(Semantics).first);
+        final semantics = tester.getSemantics(
+          find
+              .ancestor(
+                of: find.text('Submit'),
+                matching: find.byType(Semantics),
+              )
+              .first,
+        );
         expect(semantics.label, equals('Submit, loading'));
       });
     });

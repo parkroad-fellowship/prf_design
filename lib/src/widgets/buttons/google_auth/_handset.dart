@@ -35,8 +35,9 @@ class _GoogleAuthButtonHandsetState extends State<GoogleAuthButtonHandset> {
     return GestureDetector(
       onTapDown: isInteractive ? (_) => setState(() => _pressed = true) : null,
       onTapUp: isInteractive ? (_) => setState(() => _pressed = false) : null,
-      onTapCancel:
-          isInteractive ? () => setState(() => _pressed = false) : null,
+      onTapCancel: isInteractive
+          ? () => setState(() => _pressed = false)
+          : null,
       child: AnimatedScale(
         scale: _pressed ? 0.97 : 1.0,
         duration: PRFMotionTokens.fast,
@@ -53,8 +54,10 @@ class _GoogleAuthButtonHandsetState extends State<GoogleAuthButtonHandset> {
               label: (widget.isLoading ?? false)
                   ? '${widget.title}, loading'
                   : (widget.disabled
-                      ? '${widget.title}, disabled'
-                      : widget.title),
+                        ? '${widget.title}, disabled'
+                        : widget.title),
+              container: true,
+              excludeSemantics: true,
               button: true,
               enabled: !(widget.disabled || (widget.isLoading ?? false)),
               child: Row(
@@ -75,16 +78,19 @@ class _GoogleAuthButtonHandsetState extends State<GoogleAuthButtonHandset> {
                       child: widget.googleLogoAsset,
                     )
                   else
-                    SizedBox(
+                    const SizedBox(
                       width: PRFButtonTokens.handsetLoaderSize,
                       height: PRFButtonTokens.handsetLoaderSize,
                     ),
                   const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
-                  Text(
-                    widget.title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: theme.colorScheme.onSurface,
-                      fontWeight: FontWeight.w600,
+                  Flexible(
+                    child: Text(
+                      widget.title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: theme.colorScheme.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],

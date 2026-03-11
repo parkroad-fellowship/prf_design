@@ -38,8 +38,9 @@ void main() {
       expect(find.byIcon(Icons.wifi_off_outlined), findsOneWidget);
     });
 
-    testWidgets('shows correct title for authentication failure type',
-        (tester) async {
+    testWidgets('shows correct title for authentication failure type', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
@@ -71,8 +72,9 @@ void main() {
       expect(find.text('Server Error'), findsOneWidget);
     });
 
-    testWidgets('shows Try Again button when isRecoverable and onRetry set',
-        (tester) async {
+    testWidgets('shows Try Again button when isRecoverable and onRetry set', (
+      tester,
+    ) async {
       var retryCalled = false;
 
       await tester.pumpWidget(
@@ -80,7 +82,6 @@ void main() {
           PRFErrorView(
             failure: PRFFailure(
               message: 'Error',
-              isRecoverable: true,
             ),
             onRetry: () => retryCalled = true,
           ),
@@ -95,8 +96,9 @@ void main() {
       expect(retryCalled, isTrue);
     });
 
-    testWidgets('does not show Try Again button when isRecoverable is false',
-        (tester) async {
+    testWidgets('does not show Try Again button when isRecoverable is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
@@ -127,8 +129,9 @@ void main() {
       expect(find.text('Compact error'), findsOneWidget);
     });
 
-    testWidgets('compact layout shows refresh icon button when onRetry set',
-        (tester) async {
+    testWidgets('compact layout shows refresh icon button when onRetry set', (
+      tester,
+    ) async {
       var retryCalled = false;
 
       await tester.pumpWidget(
@@ -136,7 +139,6 @@ void main() {
           PRFErrorView(
             failure: PRFFailure(
               message: 'Compact retry',
-              isRecoverable: true,
             ),
             compact: true,
             onRetry: () => retryCalled = true,
@@ -152,8 +154,9 @@ void main() {
       expect(retryCalled, isTrue);
     });
 
-    testWidgets('fromMessage factory creates view with correct message',
-        (tester) async {
+    testWidgets('fromMessage factory creates view with correct message', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView.fromMessage(message: 'Factory message'),
@@ -164,8 +167,9 @@ void main() {
       expect(find.text('Factory message'), findsOneWidget);
     });
 
-    testWidgets('fromFailure factory creates view from PRFFailure',
-        (tester) async {
+    testWidgets('fromFailure factory creates view from PRFFailure', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView.fromFailure(
@@ -182,7 +186,10 @@ void main() {
       expect(find.text('Request Timeout'), findsOneWidget);
     });
 
-    testWidgets('has Semantics with liveRegion for full layout', (tester) async {
+    testWidgets('has Semantics with liveRegion for full layout', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
@@ -195,17 +202,15 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final semanticsWidgets = tester.widgetList<Semantics>(
-        find.byType(Semantics),
-      );
-      final liveRegionSemantics = semanticsWidgets.where(
-        (s) => s.liveRegion == true,
-      );
-      expect(liveRegionSemantics, isNotEmpty);
+      final errorViewNode = tester.getSemantics(find.byType(PRFErrorView));
+      expect(errorViewNode.flagsCollection.isLiveRegion, isTrue);
+      semantics.dispose();
     });
 
-    testWidgets('has Semantics with liveRegion for compact layout',
-        (tester) async {
+    testWidgets('has Semantics with liveRegion for compact layout', (
+      tester,
+    ) async {
+      final semantics = tester.ensureSemantics();
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
@@ -216,13 +221,9 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      final semanticsWidgets = tester.widgetList<Semantics>(
-        find.byType(Semantics),
-      );
-      final liveRegionSemantics = semanticsWidgets.where(
-        (s) => s.liveRegion == true,
-      );
-      expect(liveRegionSemantics, isNotEmpty);
+      final errorViewNode = tester.getSemantics(find.byType(PRFErrorView));
+      expect(errorViewNode.flagsCollection.isLiveRegion, isTrue);
+      semantics.dispose();
     });
   });
 }

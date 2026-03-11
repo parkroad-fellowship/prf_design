@@ -1,5 +1,6 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prf_design/src/widgets/states/category_chips.dart';
 
@@ -9,8 +10,9 @@ void main() {
   group('PRFCategoryChips', () {
     const categories = ['Sports', 'Music', 'Art'];
 
-    testWidgets('renders a chip for each category plus All chip by default',
-        (tester) async {
+    testWidgets('renders a chip for each category plus All chip by default', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFCategoryChips<String>(
@@ -29,8 +31,9 @@ void main() {
       expect(find.text('ART'), findsOneWidget);
     });
 
-    testWidgets('does not show All chip when showAllOption is false',
-        (tester) async {
+    testWidgets('does not show All chip when showAllOption is false', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFCategoryChips<String>(
@@ -46,8 +49,9 @@ void main() {
       expect(find.text('ALL'), findsNothing);
     });
 
-    testWidgets('fires onCategorySelected with null when All chip is tapped',
-        (tester) async {
+    testWidgets('fires onCategorySelected with null when All chip is tapped', (
+      tester,
+    ) async {
       String? selected = 'Sports';
 
       await tester.pumpWidget(
@@ -70,8 +74,9 @@ void main() {
       expect(selected, isNull);
     });
 
-    testWidgets('fires onCategorySelected with correct category on tap',
-        (tester) async {
+    testWidgets('fires onCategorySelected with correct category on tap', (
+      tester,
+    ) async {
       String? selected;
 
       await tester.pumpWidget(
@@ -94,8 +99,9 @@ void main() {
       expect(selected, equals('Music'));
     });
 
-    testWidgets('shows progress indicator when isLoading is true',
-        (tester) async {
+    testWidgets('shows progress indicator when isLoading is true', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFCategoryChips<String>(
@@ -112,25 +118,28 @@ void main() {
       expect(find.text('ALL'), findsNothing);
     });
 
-    testWidgets('renders empty when categories is empty and showAllOption false',
-        (tester) async {
-      await tester.pumpWidget(
-        _buildApp(
-          PRFCategoryChips<String>(
-            categories: const [],
-            onCategorySelected: (_) {},
-            labelBuilder: (c) => c,
-            showAllOption: false,
+    testWidgets(
+      'renders empty when categories is empty and showAllOption false',
+      (tester) async {
+        await tester.pumpWidget(
+          _buildApp(
+            PRFCategoryChips<String>(
+              categories: const [],
+              onCategorySelected: (_) {},
+              labelBuilder: (c) => c,
+              showAllOption: false,
+            ),
           ),
-        ),
-      );
-      await tester.pumpAndSettle();
+        );
+        await tester.pumpAndSettle();
 
-      expect(find.byType(ListView), findsNothing);
-    });
+        expect(find.byType(ListView), findsNothing);
+      },
+    );
 
-    testWidgets('chips have Semantics with button and selected properties',
-        (tester) async {
+    testWidgets('chips have Semantics with button and selected properties', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFCategoryChips<String>(
@@ -144,22 +153,26 @@ void main() {
       await tester.pumpAndSettle();
 
       final sportsSemantics = tester.getSemantics(
-        find.ancestor(
-          of: find.text('SPORTS'),
-          matching: find.byType(Semantics),
-        ).first,
+        find
+            .ancestor(
+              of: find.text('SPORTS'),
+              matching: find.byType(Semantics),
+            )
+            .first,
       );
-      expect(sportsSemantics.hasFlag(SemanticsFlag.isButton), isTrue);
-      expect(sportsSemantics.hasFlag(SemanticsFlag.isSelected), isTrue);
+      expect(sportsSemantics.flagsCollection.isButton, isTrue);
+      expect(sportsSemantics.flagsCollection.isSelected, Tristate.isTrue);
 
       final musicSemantics = tester.getSemantics(
-        find.ancestor(
-          of: find.text('MUSIC'),
-          matching: find.byType(Semantics),
-        ).first,
+        find
+            .ancestor(
+              of: find.text('MUSIC'),
+              matching: find.byType(Semantics),
+            )
+            .first,
       );
-      expect(musicSemantics.hasFlag(SemanticsFlag.isButton), isTrue);
-      expect(musicSemantics.hasFlag(SemanticsFlag.isSelected), isFalse);
+      expect(musicSemantics.flagsCollection.isButton, isTrue);
+      expect(musicSemantics.flagsCollection.isSelected, Tristate.isFalse);
     });
   });
 }

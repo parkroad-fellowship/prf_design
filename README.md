@@ -300,13 +300,24 @@ FormFieldLabel({
 #### PRFCircularProgressIndicator
 
 ```dart
-PRFCircularProgressIndicator({Color? color})
+PRFCircularProgressIndicator({
+  Color? color,
+  double? value,
+  double size = 24,
+  double strokeWidth = 2,
+})
 ```
 
 #### PRFLinearProgressIndicator
 
 ```dart
-PRFLinearProgressIndicator({Color? color})
+PRFLinearProgressIndicator({
+  Color? color,
+  double? value,
+  double height = 4,
+  double? borderRadius,
+  Color? backgroundColor,
+})
 ```
 
 ### State Displays

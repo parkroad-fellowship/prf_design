@@ -22,8 +22,7 @@ class PRFSecondaryButtonHandset extends StatefulWidget {
       _PRFSecondaryButtonHandsetState();
 }
 
-class _PRFSecondaryButtonHandsetState
-    extends State<PRFSecondaryButtonHandset> {
+class _PRFSecondaryButtonHandsetState extends State<PRFSecondaryButtonHandset> {
   bool _pressed = false;
 
   @override
@@ -34,8 +33,9 @@ class _PRFSecondaryButtonHandsetState
     return GestureDetector(
       onTapDown: isInteractive ? (_) => setState(() => _pressed = true) : null,
       onTapUp: isInteractive ? (_) => setState(() => _pressed = false) : null,
-      onTapCancel:
-          isInteractive ? () => setState(() => _pressed = false) : null,
+      onTapCancel: isInteractive
+          ? () => setState(() => _pressed = false)
+          : null,
       child: AnimatedScale(
         scale: _pressed ? 0.97 : 1.0,
         duration: PRFMotionTokens.fast,
@@ -52,8 +52,10 @@ class _PRFSecondaryButtonHandsetState
               label: (widget.isLoading ?? false)
                   ? '${widget.title}, loading'
                   : (widget.disabled
-                      ? '${widget.title}, disabled'
-                      : widget.title),
+                        ? '${widget.title}, disabled'
+                        : widget.title),
+              container: true,
+              excludeSemantics: true,
               button: true,
               enabled: !(widget.disabled || (widget.isLoading ?? false)),
               child: Row(

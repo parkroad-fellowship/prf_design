@@ -16,7 +16,9 @@ abstract final class PRFButtonStyles {
       minimumSize: WidgetStateProperty.all(
         Size(
           double.infinity,
-          isTablet ? PRFButtonTokens.tabletHeight : PRFButtonTokens.handsetHeight,
+          isTablet
+              ? PRFButtonTokens.tabletHeight
+              : PRFButtonTokens.handsetHeight,
         ),
       ),
       padding: WidgetStateProperty.all(
@@ -29,7 +31,9 @@ abstract final class PRFButtonStyles {
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            isTablet ? PRFButtonTokens.tabletRadius : PRFButtonTokens.handsetRadius,
+            isTablet
+                ? PRFButtonTokens.tabletRadius
+                : PRFButtonTokens.handsetRadius,
           ),
         ),
       ),
@@ -74,9 +78,10 @@ abstract final class PRFButtonStyles {
       }),
       shadowColor: WidgetStateProperty.all(theme.colorScheme.shadow),
       textStyle: WidgetStateProperty.all(
-        (isTablet ? theme.textTheme.titleLarge : theme.textTheme.titleMedium)?.copyWith(
-          fontWeight: FontWeight.w600,
-        ),
+        (isTablet ? theme.textTheme.titleLarge : theme.textTheme.titleMedium)
+            ?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
       ),
     );
   }
@@ -88,7 +93,9 @@ abstract final class PRFButtonStyles {
       minimumSize: WidgetStateProperty.all(
         Size(
           double.infinity,
-          isTablet ? PRFButtonTokens.tabletHeight : PRFButtonTokens.handsetHeight,
+          isTablet
+              ? PRFButtonTokens.tabletHeight
+              : PRFButtonTokens.handsetHeight,
         ),
       ),
       padding: WidgetStateProperty.all(
@@ -110,7 +117,9 @@ abstract final class PRFButtonStyles {
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
-            isTablet ? PRFButtonTokens.tabletRadius : PRFButtonTokens.handsetRadius,
+            isTablet
+                ? PRFButtonTokens.tabletRadius
+                : PRFButtonTokens.handsetRadius,
           ),
         ),
       ),
@@ -134,9 +143,10 @@ abstract final class PRFButtonStyles {
       }),
       elevation: WidgetStateProperty.all(0),
       textStyle: WidgetStateProperty.all(
-        (isTablet ? theme.textTheme.titleLarge : theme.textTheme.titleMedium)?.copyWith(
-          fontWeight: FontWeight.w600,
-        ),
+        (isTablet ? theme.textTheme.titleLarge : theme.textTheme.titleMedium)
+            ?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
       ),
     );
   }

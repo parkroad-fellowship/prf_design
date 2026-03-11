@@ -67,7 +67,7 @@ void main() {
 
       test('handles zero', () {
         expect(
-          NumberFormatter.truncateToDecimalPlaces(0.0, 3),
+          NumberFormatter.truncateToDecimalPlaces(0, 3),
           equals(0.0),
         );
       });
@@ -111,7 +111,7 @@ void main() {
 
       test('handles zero', () {
         expect(
-          NumberFormatter.roundToDecimalPlaces(0.0, 2),
+          NumberFormatter.roundToDecimalPlaces(0, 2),
           equals(0.0),
         );
       });

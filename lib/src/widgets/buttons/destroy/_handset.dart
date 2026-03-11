@@ -33,8 +33,9 @@ class _PRFDestroyButtonHandsetState extends State<PRFDestroyButtonHandset> {
     return GestureDetector(
       onTapDown: isInteractive ? (_) => setState(() => _pressed = true) : null,
       onTapUp: isInteractive ? (_) => setState(() => _pressed = false) : null,
-      onTapCancel:
-          isInteractive ? () => setState(() => _pressed = false) : null,
+      onTapCancel: isInteractive
+          ? () => setState(() => _pressed = false)
+          : null,
       child: AnimatedScale(
         scale: _pressed ? 0.97 : 1.0,
         duration: PRFMotionTokens.fast,
@@ -56,15 +57,17 @@ class _PRFDestroyButtonHandsetState extends State<PRFDestroyButtonHandset> {
               label: (widget.isLoading ?? false)
                   ? '${widget.title}, loading'
                   : (widget.disabled
-                      ? '${widget.title}, disabled'
-                      : widget.title),
+                        ? '${widget.title}, disabled'
+                        : widget.title),
+              container: true,
+              excludeSemantics: true,
               button: true,
               enabled: !(widget.disabled || (widget.isLoading ?? false)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (widget.isLoading ?? false) ...[
-                    SizedBox(
+                    const SizedBox(
                       height: PRFButtonTokens.handsetLoaderSize,
                       width: PRFButtonTokens.handsetLoaderSize,
                       child: PRFCircularProgressIndicator(color: Colors.white),

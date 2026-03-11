@@ -46,7 +46,7 @@ class PRFTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: PRFColors.white,
         foregroundColor: PRFColors.navyBlue,
-        elevation: 0,
+        elevation: PRFElevationTokens.none,
         centerTitle: true,
         surfaceTintColor: PRFColors.transparent,
         titleTextStyle: textTheme.titleLarge?.copyWith(
@@ -290,7 +290,7 @@ class PRFTheme {
       appBarTheme: AppBarTheme(
         backgroundColor: PRFColors.gray900,
         foregroundColor: PRFColors.white,
-        elevation: 0,
+        elevation: PRFElevationTokens.none,
         centerTitle: true,
         surfaceTintColor: PRFColors.transparent,
         titleTextStyle: textTheme.titleLarge?.copyWith(

@@ -17,39 +17,43 @@ class PRFEmailInputTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return TextFormField(
-      controller: emailController,
+    return Semantics(
+      label: hintText,
+      textField: true,
       enabled: enabled,
-      keyboardType: TextInputType.emailAddress,
-      style: theme.textTheme.titleMedium,
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: theme.textTheme.titleMedium?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
-        prefixIcon: const Icon(
-          Icons.email_outlined,
-          size: 28,
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: PRFSpacingTokens.xl,
-          vertical: PRFSpacingTokens.xxl,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-          borderSide: BorderSide(
-            color: theme.colorScheme.primary,
-            width: 2,
+      child: TextFormField(
+        controller: emailController,
+        enabled: enabled,
+        keyboardType: TextInputType.emailAddress,
+        style: theme.textTheme.titleMedium,
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: theme.textTheme.titleMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          prefixIcon: const Icon(
+            Icons.email_outlined,
+            size: 28,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: PRFSpacingTokens.xl,
+            vertical: PRFSpacingTokens.xxl,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+            borderSide: BorderSide(
+              color: theme.colorScheme.primary,
+              width: 2,
+            ),
           ),
         ),
       ),
-      semanticsLabel: hintText,
     );
   }
 }

@@ -32,8 +32,9 @@ class _PRFDestroyButtonTabletState extends State<PRFDestroyButtonTablet> {
     return GestureDetector(
       onTapDown: isInteractive ? (_) => setState(() => _pressed = true) : null,
       onTapUp: isInteractive ? (_) => setState(() => _pressed = false) : null,
-      onTapCancel:
-          isInteractive ? () => setState(() => _pressed = false) : null,
+      onTapCancel: isInteractive
+          ? () => setState(() => _pressed = false)
+          : null,
       child: AnimatedScale(
         scale: _pressed ? 0.97 : 1.0,
         duration: PRFMotionTokens.fast,
@@ -55,15 +56,17 @@ class _PRFDestroyButtonTabletState extends State<PRFDestroyButtonTablet> {
               label: (widget.isLoading ?? false)
                   ? '${widget.title}, loading'
                   : (widget.disabled
-                      ? '${widget.title}, disabled'
-                      : widget.title),
+                        ? '${widget.title}, disabled'
+                        : widget.title),
+              container: true,
+              excludeSemantics: true,
               button: true,
               enabled: !(widget.disabled || (widget.isLoading ?? false)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (widget.isLoading ?? false) ...[
-                    SizedBox(
+                    const SizedBox(
                       height: PRFButtonTokens.tabletLoaderSize,
                       width: PRFButtonTokens.tabletLoaderSize,
                       child: PRFCircularProgressIndicator(color: Colors.white),

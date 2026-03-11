@@ -3,13 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 Widget _buildApp(Widget child) => MaterialApp(
-      home: Scaffold(body: child),
-    );
+  home: Scaffold(body: child),
+);
 
 void main() {
   group('PRFCircularProgressIndicator', () {
-    testWidgets('renders with default parameters (indeterminate)',
-        (tester) async {
+    testWidgets('renders with default parameters (indeterminate)', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(const PRFCircularProgressIndicator()),
       );
@@ -38,10 +39,12 @@ void main() {
       );
 
       final sizedBox = tester.widget<SizedBox>(
-        find.ancestor(
-          of: find.byType(CircularProgressIndicator),
-          matching: find.byType(SizedBox),
-        ).first,
+        find
+            .ancestor(
+              of: find.byType(CircularProgressIndicator),
+              matching: find.byType(SizedBox),
+            )
+            .first,
       );
       expect(sizedBox.width, 48.0);
       expect(sizedBox.height, 48.0);
@@ -66,8 +69,7 @@ void main() {
       final indicator = tester.widget<CircularProgressIndicator>(
         find.byType(CircularProgressIndicator),
       );
-      final animation =
-          indicator.valueColor as AlwaysStoppedAnimation<Color>;
+      final animation = indicator.valueColor! as AlwaysStoppedAnimation<Color>;
       expect(animation.value, Colors.red);
     });
 

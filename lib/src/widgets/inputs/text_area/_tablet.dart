@@ -23,56 +23,60 @@ class PRFTextAreaInputTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return TextFormField(
-      textCapitalization: TextCapitalization.sentences,
-      textInputAction: textInputAction,
-      controller: controller,
+    return Semantics(
+      label: hintText,
+      textField: true,
       enabled: enabled,
-      minLines: minLines,
-      maxLines: maxLines,
-      style: theme.textTheme.titleMedium?.copyWith(
-        color: theme.colorScheme.onSurface,
-        height: 1.5,
+      child: TextFormField(
+        textCapitalization: TextCapitalization.sentences,
+        textInputAction: textInputAction,
+        controller: controller,
+        enabled: enabled,
+        minLines: minLines,
+        maxLines: maxLines,
+        style: theme.textTheme.titleMedium?.copyWith(
+          color: theme.colorScheme.onSurface,
+          height: 1.5,
+        ),
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: theme.textTheme.titleMedium?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          filled: true,
+          fillColor: theme.colorScheme.surface,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+            borderSide: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: .2),
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+            borderSide: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: .2),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+            borderSide: BorderSide(
+              color: theme.colorScheme.primary,
+              width: 2,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+            borderSide: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: .1),
+            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: PRFSpacingTokens.xl,
+            vertical: PRFSpacingTokens.xxl,
+          ),
+          alignLabelWithHint: true,
+        ),
       ),
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: theme.textTheme.titleMedium?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
-        filled: true,
-        fillColor: theme.colorScheme.surface,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: .2),
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: .2),
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-          borderSide: BorderSide(
-            color: theme.colorScheme.primary,
-            width: 2,
-          ),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-          borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: .1),
-          ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: PRFSpacingTokens.xl,
-          vertical: PRFSpacingTokens.xxl,
-        ),
-        alignLabelWithHint: true,
-      ),
-      semanticsLabel: hintText,
     );
   }
 }

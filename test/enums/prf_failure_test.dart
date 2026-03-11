@@ -107,14 +107,14 @@ void main() {
       });
 
       test('maps SocketException to noConnection failure', () {
-        final socketException = const SocketException('Connection refused');
+        const socketException = SocketException('Connection refused');
         final failure = PRFFailure.fromException(socketException);
         expect(failure.type, equals(PRFErrorType.network));
         expect(failure.severity, equals(PRFErrorSeverity.high));
       });
 
       test('maps HttpException to network failure', () {
-        final httpException = const HttpException('Bad request');
+        const httpException = HttpException('Bad request');
         final failure = PRFFailure.fromException(httpException);
         expect(failure.type, equals(PRFErrorType.network));
         expect(failure.severity, equals(PRFErrorSeverity.high));
@@ -122,7 +122,7 @@ void main() {
       });
 
       test('maps FormatException to validation failure', () {
-        final formatException = const FormatException('Invalid JSON');
+        const formatException = FormatException('Invalid JSON');
         final failure = PRFFailure.fromException(formatException);
         expect(failure.type, equals(PRFErrorType.validation));
         expect(failure.technicalMessage, equals('Invalid JSON'));

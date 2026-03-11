@@ -116,7 +116,9 @@ class PRFCategoryChips<T> extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: isSelected ? selectedColor : unselectedColor,
-                            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+                            borderRadius: BorderRadius.circular(
+                              PRFRadiusTokens.lg,
+                            ),
                             border: Border.all(
                               color: isSelected
                                   ? selectedColor.withValues(alpha: .5)
@@ -128,7 +130,9 @@ class PRFCategoryChips<T> extends StatelessWidget {
                             boxShadow: isSelected
                                 ? [
                                     BoxShadow(
-                                      color: selectedColor.withValues(alpha: .13),
+                                      color: selectedColor.withValues(
+                                        alpha: .13,
+                                      ),
                                       blurRadius: 6,
                                       offset: const Offset(0, 2),
                                     ),

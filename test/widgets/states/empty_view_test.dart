@@ -36,8 +36,9 @@ void main() {
       expect(find.byIcon(Icons.folder_open), findsOneWidget);
     });
 
-    testWidgets('falls back to default inbox icon when no icon provided',
-        (tester) async {
+    testWidgets('falls back to default inbox icon when no icon provided', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           const PRFEmptyView(
@@ -51,8 +52,9 @@ void main() {
       expect(find.byIcon(Icons.inbox_outlined), findsOneWidget);
     });
 
-    testWidgets('shows action button with actionLabel and fires callback',
-        (tester) async {
+    testWidgets('shows action button with actionLabel and fires callback', (
+      tester,
+    ) async {
       var actionCalled = false;
 
       await tester.pumpWidget(
@@ -92,8 +94,9 @@ void main() {
       expect(find.text('Custom Action'), findsOneWidget);
     });
 
-    testWidgets('does not show button when actionLabel and action are absent',
-        (tester) async {
+    testWidgets('does not show button when actionLabel and action are absent', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(
           const PRFEmptyView(

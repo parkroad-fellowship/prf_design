@@ -4,85 +4,88 @@ import 'package:prf_design/src/widgets/cards/animated_stat_card.dart';
 
 Widget _buildApp(Widget child) => MaterialApp(home: Scaffold(body: child));
 
+Future<void> _pumpAnimatedCard(WidgetTester tester, Widget child) async {
+  await tester.pumpWidget(_buildApp(child));
+  await tester.pump(const Duration(seconds: 2));
+}
+
+Future<void> _disposeTree(WidgetTester tester) async {
+  await tester.pumpWidget(const SizedBox.shrink());
+  await tester.pump();
+}
+
 void main() {
   group('AnimatedStatCard', () {
     testWidgets('renders value and label', (tester) async {
-      await tester.pumpWidget(
-        _buildApp(
-          const AnimatedStatCard(value: '42', label: 'Members'),
-        ),
+      await _pumpAnimatedCard(
+        tester,
+        const AnimatedStatCard(value: '42', label: 'Members'),
       );
-      await tester.pumpAndSettle();
 
       expect(find.text('42'), findsOneWidget);
       expect(find.text('Members'), findsOneWidget);
+      await _disposeTree(tester);
     });
 
     testWidgets('renders icon when provided', (tester) async {
-      await tester.pumpWidget(
-        _buildApp(
-          const AnimatedStatCard(
-            value: '10',
-            label: 'Events',
-            icon: Icons.event,
-          ),
+      await _pumpAnimatedCard(
+        tester,
+        const AnimatedStatCard(
+          value: '10',
+          label: 'Events',
+          icon: Icons.event,
         ),
       );
-      await tester.pumpAndSettle();
 
       expect(find.byIcon(Icons.event), findsOneWidget);
+      await _disposeTree(tester);
     });
 
     testWidgets('does not render icon when not provided', (tester) async {
-      await tester.pumpWidget(
-        _buildApp(
-          const AnimatedStatCard(value: '10', label: 'Events'),
-        ),
+      await _pumpAnimatedCard(
+        tester,
+        const AnimatedStatCard(value: '10', label: 'Events'),
       );
-      await tester.pumpAndSettle();
 
       // No icon widget should be in the tree (no IconData supplied)
       expect(find.byType(Icon), findsNothing);
+      await _disposeTree(tester);
     });
 
     testWidgets('accepts custom color without error', (tester) async {
-      await tester.pumpWidget(
-        _buildApp(
-          const AnimatedStatCard(
-            value: '99',
-            label: 'Score',
-            color: Colors.orange,
-          ),
+      await _pumpAnimatedCard(
+        tester,
+        const AnimatedStatCard(
+          value: '99',
+          label: 'Score',
+          color: Colors.orange,
         ),
       );
-      await tester.pumpAndSettle();
 
       expect(find.text('99'), findsOneWidget);
       expect(find.text('Score'), findsOneWidget);
+      await _disposeTree(tester);
     });
 
     testWidgets('accepts custom delay without error', (tester) async {
-      await tester.pumpWidget(
-        _buildApp(
-          const AnimatedStatCard(
-            value: '5',
-            label: 'Days',
-            delay: Duration(milliseconds: 200),
-          ),
+      await _pumpAnimatedCard(
+        tester,
+        const AnimatedStatCard(
+          value: '5',
+          label: 'Days',
+          delay: Duration(milliseconds: 200),
         ),
       );
-      await tester.pumpAndSettle();
 
       expect(find.text('5'), findsOneWidget);
+      await _disposeTree(tester);
     });
 
     testWidgets('has Semantics with label and value', (tester) async {
-      await tester.pumpWidget(
-        _buildApp(
-          const AnimatedStatCard(value: '42', label: 'Members'),
-        ),
+      await _pumpAnimatedCard(
+        tester,
+        const AnimatedStatCard(value: '42', label: 'Members'),
       );
-      await tester.pumpAndSettle();
 
       final semanticsWidgets = tester.widgetList<Semantics>(
         find.byType(Semantics),
@@ -91,6 +94,7 @@ void main() {
         (s) => s.properties.label == 'Members: 42',
       );
       expect(matchingSemantics, isNotEmpty);
+      await _disposeTree(tester);
     });
   });
 }

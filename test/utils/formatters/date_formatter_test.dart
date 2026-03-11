@@ -1,15 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prf_design/src/utils/formatters/date_formatter.dart';
-import 'package:timezone/standalone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
 
 void main() {
-  setUpAll(() async {
-    await tz.initializeTimeZones();
-  });
+  setUpAll(tz.initializeTimeZones);
 
-  setUp(() {
-    DateFormatter.clearTimezoneCache();
-  });
+  setUp(DateFormatter.clearTimezoneCache);
 
   group('DateFormatter', () {
     group('formatDateTime', () {
@@ -22,23 +18,27 @@ void main() {
 
       test('includes day of week in output', () {
         // June 15, 2024 is a Saturday
-        final dateTime = DateTime.utc(2024, 6, 15, 10, 0);
+        final dateTime = DateTime.utc(2024, 6, 15, 10);
         final result = DateFormatter.formatDateTime(dateTime, 'UTC');
         expect(result, contains('Sat'));
       });
 
       test('converts to different timezone', () {
-        final dateTime = DateTime.utc(2024, 1, 1, 0, 0);
+        final dateTime = DateTime.utc(2024);
         final utcResult = DateFormatter.formatDateTime(dateTime, 'UTC');
-        final nyResult =
-            DateFormatter.formatDateTime(dateTime, 'America/New_York');
+        final nyResult = DateFormatter.formatDateTime(
+          dateTime,
+          'America/New_York',
+        );
         expect(utcResult, isNot(equals(nyResult)));
       });
 
       test('falls back gracefully for invalid timezone', () {
         final dateTime = DateTime.utc(2024, 6, 15, 14, 30);
-        final result =
-            DateFormatter.formatDateTime(dateTime, 'Invalid/Timezone');
+        final result = DateFormatter.formatDateTime(
+          dateTime,
+          'Invalid/Timezone',
+        );
         expect(result, isA<String>());
         expect(result, isNotEmpty);
       });
@@ -101,8 +101,7 @@ void main() {
 
       test('converts time across timezones', () {
         final utcResult = DateFormatter.formatTime('12:00', 'UTC');
-        final tokyoResult =
-            DateFormatter.formatTime('12:00', 'Asia/Tokyo');
+        final tokyoResult = DateFormatter.formatTime('12:00', 'Asia/Tokyo');
         expect(utcResult, isNot(equals(tokyoResult)));
       });
 
@@ -121,22 +120,23 @@ void main() {
       });
 
       test('returns minutes ago for recent time', () {
-        final fiveMinutesAgo =
-            DateTime.now().subtract(const Duration(minutes: 5));
+        final fiveMinutesAgo = DateTime.now().subtract(
+          const Duration(minutes: 5),
+        );
         final result = DateFormatter.getRelativeTime(fiveMinutesAgo);
         expect(result, equals('5 minutes ago'));
       });
 
       test('returns "1 minute ago" for exactly one minute', () {
-        final oneMinuteAgo =
-            DateTime.now().subtract(const Duration(minutes: 1));
+        final oneMinuteAgo = DateTime.now().subtract(
+          const Duration(minutes: 1),
+        );
         final result = DateFormatter.getRelativeTime(oneMinuteAgo);
         expect(result, equals('1 minute ago'));
       });
 
       test('returns hours ago for older time', () {
-        final threeHoursAgo =
-            DateTime.now().subtract(const Duration(hours: 3));
+        final threeHoursAgo = DateTime.now().subtract(const Duration(hours: 3));
         final result = DateFormatter.getRelativeTime(threeHoursAgo);
         expect(result, equals('3 hours ago'));
       });

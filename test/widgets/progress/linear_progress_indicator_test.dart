@@ -3,13 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:prf_design/src/widgets/progress/linear_progress_indicator.dart';
 
 Widget _buildApp(Widget child) => MaterialApp(
-      home: Scaffold(body: child),
-    );
+  home: Scaffold(body: child),
+);
 
 void main() {
   group('PRFLinearProgressIndicator', () {
-    testWidgets('renders with default parameters (indeterminate)',
-        (tester) async {
+    testWidgets('renders with default parameters (indeterminate)', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(const PRFLinearProgressIndicator()),
       );
@@ -54,8 +55,9 @@ void main() {
       expect(indicator.borderRadius, BorderRadius.circular(4));
     });
 
-    testWidgets('renders with default BorderRadius.zero when no borderRadius',
-        (tester) async {
+    testWidgets('renders with default BorderRadius.zero when no borderRadius', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         _buildApp(const PRFLinearProgressIndicator()),
       );
@@ -87,8 +89,7 @@ void main() {
       final indicator = tester.widget<LinearProgressIndicator>(
         find.byType(LinearProgressIndicator),
       );
-      final animation =
-          indicator.valueColor as AlwaysStoppedAnimation<Color>;
+      final animation = indicator.valueColor! as AlwaysStoppedAnimation<Color>;
       expect(animation.value, Colors.green);
     });
 

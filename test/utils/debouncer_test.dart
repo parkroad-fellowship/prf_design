@@ -18,8 +18,9 @@ void main() {
       final debouncer = Debouncer(milliseconds: 100);
       var executed = false;
 
-      debouncer.run(() => executed = true);
-      debouncer.cancel();
+      debouncer
+        ..run(() => executed = true)
+        ..cancel();
 
       await Future<void>.delayed(const Duration(milliseconds: 200));
       expect(executed, isFalse);
@@ -28,11 +29,8 @@ void main() {
     test('cancel sets isPending to false', () {
       final debouncer = Debouncer(milliseconds: 500);
 
-      debouncer.run(() {});
-      expect(debouncer.isPending, isTrue);
-
-      debouncer.cancel();
-      expect(debouncer.isPending, isFalse);
+      expect((debouncer..run(() {})).isPending, isTrue);
+      expect((debouncer..cancel()).isPending, isFalse);
     });
 
     test('flush cancels the timer without executing the action', () async {
@@ -57,9 +55,7 @@ void main() {
     test('isPending returns true while action is pending', () {
       final debouncer = Debouncer(milliseconds: 500);
 
-      debouncer.run(() {});
-      expect(debouncer.isPending, isTrue);
-
+      expect((debouncer..run(() {})).isPending, isTrue);
       debouncer.cancel();
     });
 
@@ -79,8 +75,9 @@ void main() {
       final debouncer = Debouncer(milliseconds: 100);
       var executed = false;
 
-      debouncer.run(() => executed = true);
-      debouncer.dispose();
+      debouncer
+        ..run(() => executed = true)
+        ..dispose();
 
       await Future<void>.delayed(const Duration(milliseconds: 200));
       expect(executed, isFalse);

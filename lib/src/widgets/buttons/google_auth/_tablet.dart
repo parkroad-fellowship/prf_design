@@ -3,8 +3,8 @@ import 'package:prf_design/src/theme/_index.dart';
 import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
 import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
-class GoogleAuthButtonTablet extends StatefulWidget {
-  const GoogleAuthButtonTablet({
+class PRFGoogleAuthButtonTablet extends StatefulWidget {
+  const PRFGoogleAuthButtonTablet({
     required this.onPressed,
     required this.title,
     required this.disabled,
@@ -20,10 +20,11 @@ class GoogleAuthButtonTablet extends StatefulWidget {
   final Widget? googleLogoAsset;
 
   @override
-  State<GoogleAuthButtonTablet> createState() => _GoogleAuthButtonTabletState();
+  State<PRFGoogleAuthButtonTablet> createState() =>
+      _PRFGoogleAuthButtonTabletState();
 }
 
-class _GoogleAuthButtonTabletState extends State<GoogleAuthButtonTablet> {
+class _PRFGoogleAuthButtonTabletState extends State<PRFGoogleAuthButtonTablet> {
   bool _pressed = false;
 
   @override

@@ -37,7 +37,7 @@ class StatHighlightCard extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: gradient ?? defaultGradient,
           ),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.xl),
           boxShadow: [
             BoxShadow(
               color: (gradient?.first ?? theme.colorScheme.primary).withValues(

@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/foundation.dart';
 import 'package:prf_design/src/enums/prf_error_severity.dart';
 import 'package:prf_design/src/enums/prf_error_type.dart';
 
@@ -15,8 +14,9 @@ import 'package:prf_design/src/enums/prf_error_type.dart';
 ///   technicalMessage: 'GET /api/users/123 returned 404',
 /// );
 /// ```
+@immutable
 class PRFFailure implements Exception {
-  PRFFailure({
+  const PRFFailure({
     required this.message,
     this.statusCode,
     this.type = PRFErrorType.unknown,
@@ -48,21 +48,27 @@ class PRFFailure implements Exception {
   }
 
   /// Create a PRFFailure from a generic exception.
+  ///
+  /// Detects network-related exceptions (SocketException, HttpException)
+  /// by runtime type name to avoid a `dart:io` dependency, keeping this
+  /// package compatible with Flutter web.
   factory PRFFailure.fromException(Object error, [StackTrace? stackTrace]) {
     if (error is PRFFailure) {
       return error;
     }
 
-    if (error is SocketException) {
+    final typeName = error.runtimeType.toString();
+
+    if (typeName == 'SocketException') {
       return PRFFailure.noConnection(stackTrace: stackTrace);
     }
 
-    if (error is HttpException) {
+    if (typeName == 'HttpException') {
       return PRFFailure(
         message: 'Network request failed',
         type: PRFErrorType.network,
         severity: PRFErrorSeverity.high,
-        technicalMessage: error.message,
+        technicalMessage: error.toString(),
         stackTrace: stackTrace,
       );
     }
@@ -200,6 +206,28 @@ class PRFFailure implements Exception {
       context: context ?? this.context,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PRFFailure &&
+          runtimeType == other.runtimeType &&
+          message == other.message &&
+          statusCode == other.statusCode &&
+          type == other.type &&
+          severity == other.severity &&
+          technicalMessage == other.technicalMessage &&
+          isRecoverable == other.isRecoverable;
+
+  @override
+  int get hashCode => Object.hash(
+    message,
+    statusCode,
+    type,
+    severity,
+    technicalMessage,
+    isRecoverable,
+  );
 
   @override
   String toString() {

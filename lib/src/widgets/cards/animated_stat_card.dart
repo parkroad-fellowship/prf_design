@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:prf_design/src/theme/colors/prf_colors.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class AnimatedStatCard extends StatelessWidget {
   const AnimatedStatCard({
@@ -36,7 +37,7 @@ class AnimatedStatCard extends StatelessWidget {
               effectiveColor.withValues(alpha: 0.05),
             ],
           ),
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.xxl),
           border: Border.all(
             color: effectiveColor.withValues(alpha: 0.3),
             width: 2,
@@ -75,7 +76,6 @@ class AnimatedStatCard extends StatelessWidget {
                   style: theme.textTheme.displayLarge?.copyWith(
                     color: effectiveColor,
                     fontWeight: FontWeight.w800,
-                    fontSize: 56,
                   ),
                   textAlign: TextAlign.center,
                 )

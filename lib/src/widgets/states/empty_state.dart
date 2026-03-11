@@ -66,9 +66,9 @@ class PRFEmptyView extends StatelessWidget {
             ] else if (actionLabel != null && onActionPressed != null) ...[
               const SizedBox(height: 24),
               PRFPrimaryButton(
-                onPressed: () => onActionPressed?.call(),
+                onPressed: onActionPressed!,
                 title: actionLabel!,
-                disabled: onActionPressed == null,
+                disabled: false,
               ).animate().fadeIn(delay: 500.ms).scale(delay: 100.ms),
             ],
           ],

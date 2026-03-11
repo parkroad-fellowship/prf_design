@@ -137,8 +137,8 @@ class PRFTheme {
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 20,
+          horizontal: PRFSpacingTokens.lg,
+          vertical: PRFSpacingTokens.xl,
         ),
         hintStyle: textTheme.bodyMedium?.copyWith(
           color: PRFColors.gray600,
@@ -381,8 +381,8 @@ class PRFTheme {
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 20,
+          horizontal: PRFSpacingTokens.lg,
+          vertical: PRFSpacingTokens.xl,
         ),
         hintStyle: textTheme.bodyMedium?.copyWith(
           color: PRFColors.gray500,

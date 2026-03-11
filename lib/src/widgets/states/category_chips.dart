@@ -108,7 +108,7 @@ class PRFCategoryChips<T> extends StatelessWidget {
                 },
                 child:
                     AnimatedContainer(
-                          duration: const Duration(milliseconds: 250),
+                          duration: PRFMotionTokens.standard,
                           curve: Curves.easeOut,
                           padding: const EdgeInsets.symmetric(
                             horizontal: 12,
@@ -156,7 +156,7 @@ class PRFCategoryChips<T> extends StatelessWidget {
                         .scaleXY(
                           begin: 1,
                           end: 1.06,
-                          duration: const Duration(milliseconds: 220),
+                          duration: PRFMotionTokens.standard,
                           curve: Curves.easeOut,
                         ),
               ),

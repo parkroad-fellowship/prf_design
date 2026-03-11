@@ -33,18 +33,25 @@ void main() {
       expect((debouncer..cancel()).isPending, isFalse);
     });
 
-    test('flush cancels the timer without executing the action', () async {
+    test('flush executes the pending action immediately', () async {
       final debouncer = Debouncer(milliseconds: 500);
-      var executed = false;
+      var callCount = 0;
 
-      debouncer.run(() => executed = true);
+      debouncer.run(() => callCount++);
       expect(debouncer.isPending, isTrue);
 
       debouncer.flush();
       expect(debouncer.isPending, isFalse);
+      expect(callCount, equals(1));
 
+      // Ensure the timer doesn't fire again after flush.
       await Future<void>.delayed(const Duration(milliseconds: 600));
-      expect(executed, isFalse);
+      expect(callCount, equals(1));
+    });
+
+    test('flush does nothing when no action is pending', () {
+      final debouncer = Debouncer(milliseconds: 500)..flush();
+      expect(debouncer.isPending, isFalse);
     });
 
     test('isPending returns false when no action is scheduled', () {

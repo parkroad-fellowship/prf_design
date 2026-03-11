@@ -61,10 +61,12 @@ class _PRFPrimaryButtonTabletState extends State<PRFPrimaryButtonTablet> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (widget.isLoading ?? false) ...[
-                    const SizedBox(
+                    SizedBox(
                       height: PRFButtonTokens.tabletLoaderSize,
                       width: PRFButtonTokens.tabletLoaderSize,
-                      child: PRFCircularProgressIndicator(color: Colors.white),
+                      child: PRFCircularProgressIndicator(
+                        color: theme.colorScheme.onPrimary,
+                      ),
                     ),
                     const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
                   ],

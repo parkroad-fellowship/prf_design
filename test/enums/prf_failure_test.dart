@@ -9,7 +9,7 @@ void main() {
   group('PRFFailure', () {
     group('constructor', () {
       test('creates instance with required message', () {
-        final failure = PRFFailure(message: 'Something went wrong');
+        const failure = PRFFailure(message: 'Something went wrong');
         expect(failure.message, equals('Something went wrong'));
         expect(failure.type, equals(PRFErrorType.unknown));
         expect(failure.severity, equals(PRFErrorSeverity.medium));
@@ -21,7 +21,7 @@ void main() {
       });
 
       test('creates instance with all fields', () {
-        final failure = PRFFailure(
+        const failure = PRFFailure(
           message: 'Error',
           statusCode: 404,
           type: PRFErrorType.notFound,
@@ -39,7 +39,7 @@ void main() {
       });
 
       test('implements Exception', () {
-        final failure = PRFFailure(message: 'Error');
+        const failure = PRFFailure(message: 'Error');
         expect(failure, isA<Exception>());
       });
     });
@@ -101,7 +101,7 @@ void main() {
 
     group('fromException', () {
       test('returns same PRFFailure when input is PRFFailure', () {
-        final original = PRFFailure(message: 'Original error');
+        const original = PRFFailure(message: 'Original error');
         final result = PRFFailure.fromException(original);
         expect(result, same(original));
       });
@@ -118,7 +118,7 @@ void main() {
         final failure = PRFFailure.fromException(httpException);
         expect(failure.type, equals(PRFErrorType.network));
         expect(failure.severity, equals(PRFErrorSeverity.high));
-        expect(failure.technicalMessage, equals('Bad request'));
+        expect(failure.technicalMessage, contains('Bad request'));
       });
 
       test('maps FormatException to validation failure', () {
@@ -189,14 +189,14 @@ void main() {
 
     group('copyWith', () {
       test('returns new instance with updated message', () {
-        final original = PRFFailure(message: 'Original');
+        const original = PRFFailure(message: 'Original');
         final copy = original.copyWith(message: 'Updated');
         expect(copy.message, equals('Updated'));
         expect(original.message, equals('Original'));
       });
 
       test('preserves unmodified fields', () {
-        final original = PRFFailure(
+        const original = PRFFailure(
           message: 'Error',
           statusCode: 404,
           type: PRFErrorType.notFound,
@@ -209,7 +209,7 @@ void main() {
       });
 
       test('can update multiple fields at once', () {
-        final original = PRFFailure(message: 'Error');
+        const original = PRFFailure(message: 'Error');
         final copy = original.copyWith(
           message: 'New error',
           statusCode: 500,
@@ -225,13 +225,13 @@ void main() {
       });
 
       test('can update context', () {
-        final original = PRFFailure(message: 'Error');
+        const original = PRFFailure(message: 'Error');
         final copy = original.copyWith(context: {'key': 'value'});
         expect(copy.context, equals({'key': 'value'}));
       });
 
       test('can update technicalMessage', () {
-        final original = PRFFailure(message: 'Error');
+        const original = PRFFailure(message: 'Error');
         final copy = original.copyWith(technicalMessage: 'Debug info');
         expect(copy.technicalMessage, equals('Debug info'));
       });
@@ -239,17 +239,17 @@ void main() {
 
     group('toString', () {
       test('includes message in output', () {
-        final failure = PRFFailure(message: 'Something failed');
+        const failure = PRFFailure(message: 'Something failed');
         expect(failure.toString(), contains('Something failed'));
       });
 
       test('includes status code when present', () {
-        final failure = PRFFailure(message: 'Error', statusCode: 404);
+        const failure = PRFFailure(message: 'Error', statusCode: 404);
         expect(failure.toString(), contains('404'));
       });
 
       test('includes technical message when present', () {
-        final failure = PRFFailure(
+        const failure = PRFFailure(
           message: 'Error',
           technicalMessage: 'Detailed debug info',
         );
@@ -257,7 +257,7 @@ void main() {
       });
 
       test('omits status code when not present', () {
-        final failure = PRFFailure(message: 'Error');
+        const failure = PRFFailure(message: 'Error');
         expect(failure.toString(), isNot(contains('Status')));
       });
     });

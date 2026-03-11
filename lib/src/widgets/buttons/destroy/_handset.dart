@@ -67,10 +67,12 @@ class _PRFDestroyButtonHandsetState extends State<PRFDestroyButtonHandset> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (widget.isLoading ?? false) ...[
-                    const SizedBox(
+                    SizedBox(
                       height: PRFButtonTokens.handsetLoaderSize,
                       width: PRFButtonTokens.handsetLoaderSize,
-                      child: PRFCircularProgressIndicator(color: Colors.white),
+                      child: PRFCircularProgressIndicator(
+                        color: theme.colorScheme.onError,
+                      ),
                     ),
                     const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
                   ],

@@ -3,8 +3,8 @@ import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:prf_design/src/widgets/buttons/google_auth/_handset.dart';
 import 'package:prf_design/src/widgets/buttons/google_auth/_tablet.dart';
 
-class GoogleAuthButton extends StatelessWidget {
-  const GoogleAuthButton({
+class PRFGoogleAuthButton extends StatelessWidget {
+  const PRFGoogleAuthButton({
     required this.onPressed,
     required this.title,
     required this.disabled,
@@ -22,7 +22,7 @@ class GoogleAuthButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveBuilder(
-      defaultBuilder: (_, _) => GoogleAuthButtonTablet(
+      defaultBuilder: (_, _) => PRFGoogleAuthButtonTablet(
         onPressed: onPressed,
         title: title,
         disabled: disabled,
@@ -30,14 +30,14 @@ class GoogleAuthButton extends StatelessWidget {
         googleLogoAsset: googleLogoAsset,
       ),
       layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
-        handset: (_, _) => GoogleAuthButtonHandset(
+        handset: (_, _) => PRFGoogleAuthButtonHandset(
           onPressed: onPressed,
           title: title,
           disabled: disabled,
           isLoading: isLoading,
           googleLogoAsset: googleLogoAsset,
         ),
-        tablet: (_, _) => GoogleAuthButtonTablet(
+        tablet: (_, _) => PRFGoogleAuthButtonTablet(
           onPressed: onPressed,
           title: title,
           disabled: disabled,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pdfx/pdfx.dart';
+import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class PDFViewerPage extends StatefulWidget {
   const PDFViewerPage({
@@ -69,14 +70,14 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         foregroundColor: theme.colorScheme.onSurface,
         title: Text(widget.title),
       ),
       body: _isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(child: PRFCircularProgressIndicator())
           : _error != null
           ? Center(
               child: Padding(
@@ -108,8 +109,8 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
           : _pdfController != null
           ? PdfViewPinch(
               controller: _pdfController!,
-              backgroundDecoration: const BoxDecoration(
-                color: Colors.white,
+              backgroundDecoration: BoxDecoration(
+                color: theme.colorScheme.surface,
               ),
             )
           : const SizedBox.shrink(),

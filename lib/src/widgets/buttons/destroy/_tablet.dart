@@ -66,10 +66,12 @@ class _PRFDestroyButtonTabletState extends State<PRFDestroyButtonTablet> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (widget.isLoading ?? false) ...[
-                    const SizedBox(
+                    SizedBox(
                       height: PRFButtonTokens.tabletLoaderSize,
                       width: PRFButtonTokens.tabletLoaderSize,
-                      child: PRFCircularProgressIndicator(color: Colors.white),
+                      child: PRFCircularProgressIndicator(
+                        color: theme.colorScheme.onError,
+                      ),
                     ),
                     const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
                   ],

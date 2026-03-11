@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class WrappedPageIndicator extends StatelessWidget {
   const WrappedPageIndicator({
@@ -21,7 +22,7 @@ class WrappedPageIndicator extends StatelessWidget {
         children: List.generate(
           pageCount,
           (index) => AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
+            duration: PRFMotionTokens.slow,
             margin: const EdgeInsets.symmetric(horizontal: 4),
             width: currentPage == index ? 32 : 8,
             height: 8,
@@ -29,7 +30,7 @@ class WrappedPageIndicator extends StatelessWidget {
               color: currentPage == index
                   ? theme.colorScheme.primary
                   : theme.colorScheme.primary.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(PRFRadiusTokens.xs),
             ),
           ),
         ),

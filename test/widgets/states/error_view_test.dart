@@ -11,7 +11,7 @@ void main() {
     testWidgets('renders message text in full layout', (tester) async {
       await tester.pumpWidget(
         _buildApp(
-          PRFErrorView(
+          const PRFErrorView(
             failure: PRFFailure(message: 'Something broke'),
           ),
         ),
@@ -24,7 +24,7 @@ void main() {
     testWidgets('shows correct title for network failure type', (tester) async {
       await tester.pumpWidget(
         _buildApp(
-          PRFErrorView(
+          const PRFErrorView(
             failure: PRFFailure(
               message: 'No internet',
               type: PRFErrorType.network,
@@ -43,7 +43,7 @@ void main() {
     ) async {
       await tester.pumpWidget(
         _buildApp(
-          PRFErrorView(
+          const PRFErrorView(
             failure: PRFFailure(
               message: 'Please sign in',
               type: PRFErrorType.authentication,
@@ -59,7 +59,7 @@ void main() {
     testWidgets('shows correct title for server failure type', (tester) async {
       await tester.pumpWidget(
         _buildApp(
-          PRFErrorView(
+          const PRFErrorView(
             failure: PRFFailure(
               message: 'Internal error',
               type: PRFErrorType.server,
@@ -80,7 +80,7 @@ void main() {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
-            failure: PRFFailure(
+            failure: const PRFFailure(
               message: 'Error',
             ),
             onRetry: () => retryCalled = true,
@@ -102,7 +102,7 @@ void main() {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
-            failure: PRFFailure(
+            failure: const PRFFailure(
               message: 'Error',
               isRecoverable: false,
             ),
@@ -118,7 +118,7 @@ void main() {
     testWidgets('compact layout renders inline row', (tester) async {
       await tester.pumpWidget(
         _buildApp(
-          PRFErrorView(
+          const PRFErrorView(
             failure: PRFFailure(message: 'Compact error'),
             compact: true,
           ),
@@ -137,7 +137,7 @@ void main() {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
-            failure: PRFFailure(
+            failure: const PRFFailure(
               message: 'Compact retry',
             ),
             compact: true,
@@ -173,7 +173,7 @@ void main() {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView.fromFailure(
-            failure: PRFFailure(
+            failure: const PRFFailure(
               message: 'Failure message',
               type: PRFErrorType.timeout,
             ),
@@ -192,7 +192,7 @@ void main() {
       final semantics = tester.ensureSemantics();
       await tester.pumpWidget(
         _buildApp(
-          PRFErrorView(
+          const PRFErrorView(
             failure: PRFFailure(
               message: 'Network error occurred',
               type: PRFErrorType.network,
@@ -213,7 +213,7 @@ void main() {
       final semantics = tester.ensureSemantics();
       await tester.pumpWidget(
         _buildApp(
-          PRFErrorView(
+          const PRFErrorView(
             failure: PRFFailure(message: 'Compact error'),
             compact: true,
           ),

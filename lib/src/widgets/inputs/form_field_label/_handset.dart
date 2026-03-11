@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FormFieldLabelHandset extends StatelessWidget {
-  const FormFieldLabelHandset({
+class PRFFormFieldLabelHandset extends StatelessWidget {
+  const PRFFormFieldLabelHandset({
     required this.label,
     super.key,
     this.isRequired,

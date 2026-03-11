@@ -62,10 +62,12 @@ class _PRFPrimaryButtonHandsetState extends State<PRFPrimaryButtonHandset> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (widget.isLoading ?? false) ...[
-                    const SizedBox(
+                    SizedBox(
                       height: PRFButtonTokens.handsetLoaderSize,
                       width: PRFButtonTokens.handsetLoaderSize,
-                      child: PRFCircularProgressIndicator(color: Colors.white),
+                      child: PRFCircularProgressIndicator(
+                        color: theme.colorScheme.onPrimary,
+                      ),
                     ),
                     const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
                   ],

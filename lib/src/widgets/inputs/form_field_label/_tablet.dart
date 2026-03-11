@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class FormFieldLabelTablet extends StatelessWidget {
-  const FormFieldLabelTablet({
+class PRFFormFieldLabelTablet extends StatelessWidget {
+  const PRFFormFieldLabelTablet({
     required this.label,
     super.key,
     this.isRequired,

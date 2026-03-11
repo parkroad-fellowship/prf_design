@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 /// A widget for selecting reply status (read/unread).
 ///
@@ -98,12 +99,12 @@ class _StatusChip extends StatelessWidget {
         child: GestureDetector(
           onTap: onTap,
           child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
+            duration: PRFMotionTokens.standard,
             curve: Curves.easeOut,
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
             decoration: BoxDecoration(
               color: selected ? selectedColor : unselectedColor,
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
               border: Border.all(
                 color: selected
                     ? selectedColor.withValues(alpha: 0.5)

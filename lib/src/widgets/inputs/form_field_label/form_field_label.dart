@@ -3,8 +3,8 @@ import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:prf_design/src/widgets/inputs/form_field_label/_handset.dart';
 import 'package:prf_design/src/widgets/inputs/form_field_label/_tablet.dart';
 
-class FormFieldLabel extends StatelessWidget {
-  const FormFieldLabel({
+class PRFFormFieldLabel extends StatelessWidget {
+  const PRFFormFieldLabel({
     required this.label,
     super.key,
     this.isRequired,
@@ -20,20 +20,20 @@ class FormFieldLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AdaptiveBuilder(
-      defaultBuilder: (_, _) => FormFieldLabelTablet(
+      defaultBuilder: (_, _) => PRFFormFieldLabelTablet(
         label: label,
         isRequired: isRequired,
         color: color,
         isBold: isBold,
       ),
       layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
-        handset: (_, _) => FormFieldLabelHandset(
+        handset: (_, _) => PRFFormFieldLabelHandset(
           label: label,
           isRequired: isRequired,
           color: color,
           isBold: isBold,
         ),
-        tablet: (_, _) => FormFieldLabelTablet(
+        tablet: (_, _) => PRFFormFieldLabelTablet(
           label: label,
           isRequired: isRequired,
           color: color,

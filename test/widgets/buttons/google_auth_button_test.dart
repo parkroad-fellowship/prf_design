@@ -10,14 +10,14 @@ void main() {
     GoogleFonts.config.allowRuntimeFetching = false;
   });
 
-  group('GoogleAuthButton', () {
+  group('PRFGoogleAuthButton', () {
     group('handset', () {
       testWidgets('renders correctly', (tester) async {
         setHandsetSize(tester);
 
         await tester.pumpWidget(
           buildSubject(
-            GoogleAuthButton(
+            PRFGoogleAuthButton(
               title: 'Sign in with Google',
               disabled: false,
               onPressed: () {},
@@ -26,7 +26,7 @@ void main() {
         );
         await tester.pump();
 
-        expect(find.byType(GoogleAuthButton), findsOneWidget);
+        expect(find.byType(PRFGoogleAuthButton), findsOneWidget);
       });
 
       testWidgets('displays title text', (tester) async {
@@ -34,7 +34,7 @@ void main() {
 
         await tester.pumpWidget(
           buildSubject(
-            GoogleAuthButton(
+            PRFGoogleAuthButton(
               title: 'Sign in with Google',
               disabled: false,
               onPressed: () {},
@@ -54,7 +54,7 @@ void main() {
           var callCount = 0;
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 onPressed: () => callCount++,
@@ -78,7 +78,7 @@ void main() {
           var callCount = 0;
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: true,
                 onPressed: () => callCount++,
@@ -104,7 +104,7 @@ void main() {
 
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 isLoading: true,
@@ -129,7 +129,7 @@ void main() {
           var callCount = 0;
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 isLoading: true,
@@ -157,7 +157,7 @@ void main() {
           const logoKey = Key('google-logo');
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 onPressed: () {},
@@ -178,7 +178,7 @@ void main() {
 
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 onPressed: () {},
@@ -187,7 +187,7 @@ void main() {
           );
           await tester.pump();
 
-          expect(find.byType(GoogleAuthButton), findsOneWidget);
+          expect(find.byType(PRFGoogleAuthButton), findsOneWidget);
         },
       );
     });
@@ -198,7 +198,7 @@ void main() {
 
         await tester.pumpWidget(
           buildSubject(
-            GoogleAuthButton(
+            PRFGoogleAuthButton(
               title: 'Sign in with Google',
               disabled: false,
               onPressed: () {},
@@ -207,7 +207,7 @@ void main() {
         );
         await tester.pump();
 
-        expect(find.byType(GoogleAuthButton), findsOneWidget);
+        expect(find.byType(PRFGoogleAuthButton), findsOneWidget);
       });
 
       testWidgets('displays title text', (tester) async {
@@ -215,7 +215,7 @@ void main() {
 
         await tester.pumpWidget(
           buildSubject(
-            GoogleAuthButton(
+            PRFGoogleAuthButton(
               title: 'Sign in with Google',
               disabled: false,
               onPressed: () {},
@@ -235,7 +235,7 @@ void main() {
           var callCount = 0;
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 onPressed: () => callCount++,
@@ -259,7 +259,7 @@ void main() {
           var callCount = 0;
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: true,
                 onPressed: () => callCount++,
@@ -285,7 +285,7 @@ void main() {
 
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 isLoading: true,
@@ -310,7 +310,7 @@ void main() {
           var callCount = 0;
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 isLoading: true,
@@ -338,7 +338,7 @@ void main() {
           const logoKey = Key('google-logo');
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 onPressed: () {},
@@ -359,7 +359,7 @@ void main() {
 
           await tester.pumpWidget(
             buildSubject(
-              GoogleAuthButton(
+              PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 onPressed: () {},
@@ -368,7 +368,7 @@ void main() {
           );
           await tester.pump();
 
-          expect(find.byType(GoogleAuthButton), findsOneWidget);
+          expect(find.byType(PRFGoogleAuthButton), findsOneWidget);
         },
       );
     });

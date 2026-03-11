@@ -80,7 +80,9 @@ class _ImagePreviewPageState extends State<ImagePreviewPage> {
         foregroundColor: PRFColors.white,
         title: Text(
           _getTitle(),
-          style: const TextStyle(color: PRFColors.white),
+          style: theme.textTheme.titleLarge?.copyWith(
+            color: PRFColors.white,
+          ),
         ),
       ),
       body: PageView.builder(

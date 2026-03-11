@@ -42,6 +42,18 @@ class StatusColorSet {
       onColor: onColor ?? this.onColor,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is StatusColorSet &&
+          runtimeType == other.runtimeType &&
+          main == other.main &&
+          background == other.background &&
+          onColor == other.onColor;
+
+  @override
+  int get hashCode => Object.hash(main, background, onColor);
 }
 
 /// ThemeExtension providing semantic status colors.

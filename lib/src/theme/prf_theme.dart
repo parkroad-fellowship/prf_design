@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/colors/_index.dart';
 import 'package:prf_design/src/theme/extensions/_index.dart';
 import 'package:prf_design/src/theme/text_theme.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/utils/device_helper.dart';
 
 class PRFTheme {
@@ -62,11 +63,14 @@ class PRFTheme {
           disabledBackgroundColor: PRFColors.navyBlue.withValues(alpha: 0.4),
           disabledForegroundColor: PRFColors.white.withValues(alpha: 0.7),
           minimumSize: const Size(double.infinity, 56),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+          padding: const EdgeInsets.symmetric(
+            horizontal: PRFSpacingTokens.xxl,
+            vertical: PRFSpacingTokens.lg,
           ),
-          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+          ),
+          elevation: PRFElevationTokens.sm,
           shadowColor: const Color(0x1F000000),
           textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
             color: PRFColors.white,
@@ -80,9 +84,12 @@ class PRFTheme {
           side: const BorderSide(color: PRFColors.navyBlue, width: 1.5),
           disabledForegroundColor: PRFColors.navyBlue.withValues(alpha: 0.4),
           minimumSize: const Size(double.infinity, 56),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: PRFSpacingTokens.xxl,
+            vertical: PRFSpacingTokens.lg,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           ),
           textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
             color: PRFColors.navyBlue,
@@ -104,27 +111,27 @@ class PRFTheme {
         filled: true,
         fillColor: PRFColors.gray50,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.gray300),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.gray300),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.navyBlue, width: 2),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.error),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.error, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: BorderSide(
             color: PRFColors.gray300.withValues(alpha: 0.5),
           ),
@@ -145,7 +152,7 @@ class PRFTheme {
       // Card Theme
       cardTheme: const CardThemeData(
         surfaceTintColor: PRFColors.transparent,
-        elevation: 4,
+        elevation: PRFElevationTokens.md,
         shadowColor: Color(0x1F000000),
       ),
 
@@ -187,7 +194,7 @@ class PRFTheme {
         backgroundColor: PRFColors.navyBlue,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
         ),
       ),
 
@@ -204,7 +211,7 @@ class PRFTheme {
         ),
         contentTextStyle: textTheme.bodyMedium,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
         ),
       ),
 
@@ -226,7 +233,7 @@ class PRFTheme {
         selectedColor: PRFColors.navyBlue,
         disabledColor: PRFColors.gray300,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
         ),
       ),
 
@@ -237,7 +244,7 @@ class PRFTheme {
           filled: true,
           fillColor: PRFColors.gray50,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
             borderSide: const BorderSide(color: PRFColors.gray300),
           ),
         ),
@@ -300,11 +307,14 @@ class PRFTheme {
           disabledBackgroundColor: PRFColors.limeGreen.withValues(alpha: 0.4),
           disabledForegroundColor: PRFColors.black.withValues(alpha: 0.7),
           minimumSize: const Size(double.infinity, 56),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+          padding: const EdgeInsets.symmetric(
+            horizontal: PRFSpacingTokens.xxl,
+            vertical: PRFSpacingTokens.lg,
           ),
-          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+          ),
+          elevation: PRFElevationTokens.sm,
           shadowColor: const Color(0x3F000000),
           textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
             color: PRFColors.black,
@@ -318,9 +328,12 @@ class PRFTheme {
           side: const BorderSide(color: PRFColors.limeGreen, width: 1.5),
           disabledForegroundColor: PRFColors.limeGreen.withValues(alpha: 0.4),
           minimumSize: const Size(double.infinity, 56),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: PRFSpacingTokens.xxl,
+            vertical: PRFSpacingTokens.lg,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           ),
           textStyle: PRFTextTheme.getButtonTextStyle(context).copyWith(
             color: PRFColors.limeGreen,
@@ -342,27 +355,27 @@ class PRFTheme {
         filled: true,
         fillColor: PRFColors.gray800,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.gray600),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.gray600),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.limeGreen, width: 2),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.error),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: const BorderSide(color: PRFColors.error, width: 2),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: BorderSide(
             color: PRFColors.gray600.withValues(alpha: 0.5),
           ),
@@ -384,7 +397,7 @@ class PRFTheme {
       cardTheme: const CardThemeData(
         color: PRFColors.gray800,
         surfaceTintColor: PRFColors.transparent,
-        elevation: 4,
+        elevation: PRFElevationTokens.md,
         shadowColor: Color(0x3F000000),
       ),
 
@@ -426,7 +439,7 @@ class PRFTheme {
         backgroundColor: PRFColors.limeGreen,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
         ),
       ),
 
@@ -444,7 +457,7 @@ class PRFTheme {
         ),
         contentTextStyle: textTheme.bodyMedium,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
         ),
       ),
 
@@ -466,7 +479,7 @@ class PRFTheme {
         selectedColor: PRFColors.limeGreen,
         disabledColor: PRFColors.gray600,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
         ),
       ),
 
@@ -477,7 +490,7 @@ class PRFTheme {
           filled: true,
           fillColor: PRFColors.gray800,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
             borderSide: const BorderSide(color: PRFColors.gray600),
           ),
         ),

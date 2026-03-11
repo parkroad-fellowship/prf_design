@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:prf_design/src/theme/colors/prf_colors.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class StatHighlightCard extends StatelessWidget {
   const StatHighlightCard({
@@ -54,7 +55,7 @@ class StatHighlightCard extends StatelessWidget {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       color: PRFColors.white.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
                     ),
                     child: Icon(
                       icon,

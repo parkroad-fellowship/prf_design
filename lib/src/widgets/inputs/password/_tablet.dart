@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFPasswordInputTablet extends StatelessWidget {
   const PRFPasswordInputTablet({
@@ -54,13 +55,13 @@ class PRFPasswordInputTablet extends StatelessWidget {
             vertical: 20,
           ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
             borderSide: BorderSide(
               color: theme.colorScheme.primary,
               width: 2,

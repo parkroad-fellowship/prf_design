@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/progress/linear_progress_indicator.dart';
 
 /// A generic, reusable category chip selector widget.
@@ -115,7 +116,7 @@ class PRFCategoryChips<T> extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             color: isSelected ? selectedColor : unselectedColor,
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
                             border: Border.all(
                               color: isSelected
                                   ? selectedColor.withValues(alpha: .5)

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:prf_design/src/enums/prf_error_type.dart';
 import 'package:prf_design/src/enums/prf_failure.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
 
 /// A widget that displays an error state with an optional retry action.
@@ -143,7 +144,7 @@ class PRFErrorView extends StatelessWidget {
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
               color: theme.colorScheme.error.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
             ),
             child: Icon(
               _icon,

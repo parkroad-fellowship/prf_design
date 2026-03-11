@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFTextAreaInputHandset extends StatelessWidget {
   const PRFTextAreaInputHandset({
@@ -41,26 +42,26 @@ class PRFTextAreaInputHandset extends StatelessWidget {
         filled: true,
         fillColor: theme.colorScheme.surface,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: .2),
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: .2),
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: BorderSide(
             color: theme.colorScheme.primary,
             width: 2,
           ),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: .1),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/enums/prf_snackbar_type.dart';
 import 'package:prf_design/src/theme/extensions/theme_context_extensions.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 /// Unified snackbar helper with typed variants (error, success, info, warning).
 class PRFSnackbar {
@@ -95,7 +96,7 @@ class PRFSnackbar {
       backgroundColor: colors.main,
       duration: duration,
       behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(PRFRadiusTokens.sm)),
       action: onRetry != null
           ? SnackBarAction(
               label: 'Retry',

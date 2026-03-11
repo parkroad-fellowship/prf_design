@@ -32,25 +32,32 @@ class PRFDestroyButtonTablet extends StatelessWidget {
           backgroundColor: theme.colorScheme.error,
           foregroundColor: theme.colorScheme.onError,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (isLoading ?? false) ...[
-              SizedBox(
-                height: PRFButtonTokens.tabletLoaderSize,
-                width: PRFButtonTokens.tabletLoaderSize,
-                child: PRFCircularProgressIndicator(color: Colors.white),
+        child: Semantics(
+          label: (isLoading ?? false)
+              ? '$title, loading'
+              : (disabled ? '$title, disabled' : title),
+          button: true,
+          enabled: !(disabled || (isLoading ?? false)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (isLoading ?? false) ...[
+                SizedBox(
+                  height: PRFButtonTokens.tabletLoaderSize,
+                  width: PRFButtonTokens.tabletLoaderSize,
+                  child: PRFCircularProgressIndicator(color: Colors.white),
+                ),
+                const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
+              ],
+              Text(
+                title,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: theme.colorScheme.onError,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-              const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
             ],
-            Text(
-              title,
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: theme.colorScheme.onError,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

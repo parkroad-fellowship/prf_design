@@ -27,27 +27,34 @@ class PRFSecondaryButtonTablet extends StatelessWidget {
       child: OutlinedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
         style: PRFButtonStyles.secondary(theme, isTablet: true),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (isLoading ?? false) ...[
-              SizedBox(
-                height: PRFButtonTokens.tabletLoaderSize,
-                width: PRFButtonTokens.tabletLoaderSize,
-                child: PRFCircularProgressIndicator(
+        child: Semantics(
+          label: (isLoading ?? false)
+              ? '$title, loading'
+              : (disabled ? '$title, disabled' : title),
+          button: true,
+          enabled: !(disabled || (isLoading ?? false)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (isLoading ?? false) ...[
+                SizedBox(
+                  height: PRFButtonTokens.tabletLoaderSize,
+                  width: PRFButtonTokens.tabletLoaderSize,
+                  child: PRFCircularProgressIndicator(
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+                const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
+              ],
+              Text(
+                title,
+                style: theme.textTheme.titleLarge?.copyWith(
                   color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
             ],
-            Text(
-              title,
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: theme.colorScheme.primary,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );

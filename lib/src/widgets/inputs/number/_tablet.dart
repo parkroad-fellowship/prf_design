@@ -55,6 +55,7 @@ class PRFNumberInputTablet extends StatelessWidget {
       style: theme.textTheme.titleMedium,
       controller: controller,
       enabled: !isLoading,
+      semanticsLabel: hintText,
     );
   }
 }

@@ -71,6 +71,7 @@ class PRFTextAreaInputHandset extends StatelessWidget {
         ),
         alignLabelWithHint: true,
       ),
+      semanticsLabel: hintText,
     );
   }
 }

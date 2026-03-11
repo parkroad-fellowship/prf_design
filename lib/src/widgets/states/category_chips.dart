@@ -97,59 +97,64 @@ class PRFCategoryChips<T> extends StatelessWidget {
             final selectedTextColor = theme.colorScheme.onPrimary;
             final unselectedTextColor = theme.colorScheme.primary;
 
-            return GestureDetector(
-              onTap: () {
-                onCategorySelected(isAll ? null : categories[categoryIndex]);
-              },
-              child:
-                  AnimatedContainer(
-                        duration: const Duration(milliseconds: 250),
-                        curve: Curves.easeOut,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isSelected ? selectedColor : unselectedColor,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: isSelected
-                                ? selectedColor.withValues(alpha: .5)
-                                : theme.colorScheme.outline.withValues(
-                                    alpha: .3,
-                                  ),
-                            width: 1.2,
+            return Semantics(
+              button: true,
+              label: label,
+              selected: isSelected,
+              child: GestureDetector(
+                onTap: () {
+                  onCategorySelected(isAll ? null : categories[categoryIndex]);
+                },
+                child:
+                    AnimatedContainer(
+                          duration: const Duration(milliseconds: 250),
+                          curve: Curves.easeOut,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 2,
                           ),
-                          boxShadow: isSelected
-                              ? [
-                                  BoxShadow(
-                                    color: selectedColor.withValues(alpha: .13),
-                                    blurRadius: 6,
-                                    offset: const Offset(0, 2),
-                                  ),
-                                ]
-                              : [],
-                        ),
-                        child: Center(
-                          child: Text(
-                            label,
-                            style: theme.textTheme.labelMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
+                          decoration: BoxDecoration(
+                            color: isSelected ? selectedColor : unselectedColor,
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
                               color: isSelected
-                                  ? selectedTextColor
-                                  : unselectedTextColor,
-                              letterSpacing: 0.2,
+                                  ? selectedColor.withValues(alpha: .5)
+                                  : theme.colorScheme.outline.withValues(
+                                      alpha: .3,
+                                    ),
+                              width: 1.2,
+                            ),
+                            boxShadow: isSelected
+                                ? [
+                                    BoxShadow(
+                                      color: selectedColor.withValues(alpha: .13),
+                                      blurRadius: 6,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ]
+                                : [],
+                          ),
+                          child: Center(
+                            child: Text(
+                              label,
+                              style: theme.textTheme.labelMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: isSelected
+                                    ? selectedTextColor
+                                    : unselectedTextColor,
+                                letterSpacing: 0.2,
+                              ),
                             ),
                           ),
+                        )
+                        .animate(target: isSelected ? 1 : 0)
+                        .scaleXY(
+                          begin: 1,
+                          end: 1.06,
+                          duration: const Duration(milliseconds: 220),
+                          curve: Curves.easeOut,
                         ),
-                      )
-                      .animate(target: isSelected ? 1 : 0)
-                      .scaleXY(
-                        begin: 1,
-                        end: 1.06,
-                        duration: const Duration(milliseconds: 220),
-                        curve: Curves.easeOut,
-                      ),
+              ),
             );
           },
         ),

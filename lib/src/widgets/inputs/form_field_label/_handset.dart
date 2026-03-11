@@ -18,30 +18,35 @@ class FormFieldLabelHandset extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return RichText(
-      text: TextSpan(
-        text: label,
-        style: theme.textTheme.titleMedium?.copyWith(
-          fontWeight: isBold ?? false ? FontWeight.w700 : FontWeight.w600,
-          color: color ?? theme.colorScheme.onSurface,
+    return Semantics(
+      label: (isRequired ?? false)
+          ? '$label, required field'
+          : '$label, optional field',
+      child: RichText(
+        text: TextSpan(
+          text: label,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: isBold ?? false ? FontWeight.w700 : FontWeight.w600,
+            color: color ?? theme.colorScheme.onSurface,
+          ),
+          children: [
+            if (isRequired ?? false)
+              TextSpan(
+                text: ' *',
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.error,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            if (isRequired == null || isRequired == false)
+              TextSpan(
+                text: ' (optional)',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.primary,
+                ),
+              ),
+          ],
         ),
-        children: [
-          if (isRequired ?? false)
-            TextSpan(
-              text: ' *',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.error,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          if (isRequired == null || isRequired == false)
-            TextSpan(
-              text: ' (optional)',
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.primary,
-              ),
-            ),
-        ],
       ),
     );
   }

@@ -61,6 +61,7 @@ class PRFNameInputHandset extends StatelessWidget {
           vertical: 16,
         ),
       ),
+      semanticsLabel: hintText,
     );
   }
 }

@@ -25,6 +25,7 @@ class PRFEmailInputHandset extends StatelessWidget {
         hintText: hintText,
         prefixIcon: const Icon(Icons.email_outlined),
       ),
+      semanticsLabel: hintText,
     );
   }
 }

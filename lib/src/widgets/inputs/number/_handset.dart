@@ -30,6 +30,7 @@ class PRFNumberInputHandset extends StatelessWidget {
       style: theme.textTheme.bodyMedium,
       controller: controller,
       enabled: !isLoading,
+      semanticsLabel: hintText,
     );
   }
 }

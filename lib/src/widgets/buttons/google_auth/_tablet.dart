@@ -29,37 +29,44 @@ class GoogleAuthButtonTablet extends StatelessWidget {
       child: OutlinedButton(
         onPressed: (disabled || (isLoading ?? false)) ? null : onPressed,
         style: PRFButtonStyles.google(theme, isTablet: true),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (isLoading ?? false)
-              SizedBox(
-                height: PRFButtonTokens.tabletLoaderSize,
-                width: PRFButtonTokens.tabletLoaderSize,
-                child: PRFCircularProgressIndicator(
-                  color: theme.colorScheme.primary,
+        child: Semantics(
+          label: (isLoading ?? false)
+              ? '$title, loading'
+              : (disabled ? '$title, disabled' : title),
+          button: true,
+          enabled: !(disabled || (isLoading ?? false)),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (isLoading ?? false)
+                SizedBox(
+                  height: PRFButtonTokens.tabletLoaderSize,
+                  width: PRFButtonTokens.tabletLoaderSize,
+                  child: PRFCircularProgressIndicator(
+                    color: theme.colorScheme.primary,
+                  ),
+                )
+              else if (googleLogoAsset != null)
+                SizedBox(
+                  height: PRFButtonTokens.tabletLoaderSize,
+                  width: PRFButtonTokens.tabletLoaderSize,
+                  child: googleLogoAsset,
+                )
+              else
+                SizedBox(
+                  width: PRFButtonTokens.tabletLoaderSize,
+                  height: PRFButtonTokens.tabletLoaderSize,
                 ),
-              )
-            else if (googleLogoAsset != null)
-              SizedBox(
-                height: PRFButtonTokens.tabletLoaderSize,
-                width: PRFButtonTokens.tabletLoaderSize,
-                child: googleLogoAsset,
-              )
-            else
-              SizedBox(
-                width: PRFButtonTokens.tabletLoaderSize,
-                height: PRFButtonTokens.tabletLoaderSize,
+              const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
+              Text(
+                title,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-            const SizedBox(width: PRFButtonTokens.tabletLoaderGap),
-            Text(
-              title,
-              style: theme.textTheme.titleLarge?.copyWith(
-                color: theme.colorScheme.onSurface,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/colors/_index.dart';
+import 'package:prf_design/src/theme/tokens/prf_status_tokens.dart';
 
 /// Represents a complete status color set with main, background & text colors.
 @immutable
@@ -130,22 +131,22 @@ class PRFStatusExtension extends ThemeExtension<PRFStatusExtension> {
     // Mission statuses
     pending: StatusColorSet(
       main: PRFColors.orange,
-      background: Color(0xFFFFF7ED), // orange-50
+      background: PRFStatusTokens.pendingBackgroundLight,
       onColor: PRFColors.white,
     ),
     initiated: StatusColorSet(
       main: PRFColors.blue,
-      background: Color(0xFFEFF6FF), // blue-50
+      background: PRFStatusTokens.initiatedBackgroundLight,
       onColor: PRFColors.white,
     ),
     scheduled: StatusColorSet(
       main: PRFColors.orange,
-      background: Color(0xFFFFF7ED), // orange-50
+      background: PRFStatusTokens.pendingBackgroundLight,
       onColor: PRFColors.white,
     ),
     inProgress: StatusColorSet(
       main: PRFColors.emerald,
-      background: Color(0xFFECFDF5), // emerald-50
+      background: PRFStatusTokens.inProgressBackgroundLight,
       onColor: PRFColors.white,
     ),
     completed: StatusColorSet(
@@ -165,7 +166,7 @@ class PRFStatusExtension extends ThemeExtension<PRFStatusExtension> {
     ),
     // Active indicator
     active: PRFColors.emerald,
-    activeGlow: Color(0x4010B981), // emerald with 25% opacity
+    activeGlow: PRFStatusTokens.activeGlow,
   );
 
   /// Dark theme instance
@@ -173,53 +174,53 @@ class PRFStatusExtension extends ThemeExtension<PRFStatusExtension> {
     // Standard statuses - slightly adjusted for dark mode
     success: StatusColorSet(
       main: PRFColors.success,
-      background: Color(0xFF1A3D2A),
+      background: PRFStatusTokens.successBackgroundDark,
       onColor: PRFColors.white,
     ),
     warning: StatusColorSet(
       main: PRFColors.warning,
-      background: Color(0xFF3D3A1A),
+      background: PRFStatusTokens.warningBackgroundDark,
       onColor: PRFColors.black,
     ),
     error: StatusColorSet(
-      main: Color(0xFFDC3545),
-      background: Color(0xFF3D1A1A),
+      main: PRFStatusTokens.errorMainDark,
+      background: PRFStatusTokens.errorBackgroundDark,
       onColor: PRFColors.white,
     ),
     info: StatusColorSet(
       main: PRFColors.info,
-      background: Color(0xFF1A3D3D),
+      background: PRFStatusTokens.infoBackgroundDark,
       onColor: PRFColors.white,
     ),
     // Mission statuses
     pending: StatusColorSet(
       main: PRFColors.orange,
-      background: Color(0xFF3D2A1A),
+      background: PRFStatusTokens.pendingBackgroundDark,
       onColor: PRFColors.white,
     ),
     initiated: StatusColorSet(
       main: PRFColors.blue,
-      background: Color(0xFF1A2A3D),
+      background: PRFStatusTokens.initiatedBackgroundDark,
       onColor: PRFColors.white,
     ),
     scheduled: StatusColorSet(
       main: PRFColors.orange,
-      background: Color(0xFF3D2A1A),
+      background: PRFStatusTokens.pendingBackgroundDark,
       onColor: PRFColors.white,
     ),
     inProgress: StatusColorSet(
       main: PRFColors.emerald,
-      background: Color(0xFF1A3D2A),
+      background: PRFStatusTokens.inProgressBackgroundDark,
       onColor: PRFColors.white,
     ),
     completed: StatusColorSet(
       main: PRFColors.success,
-      background: Color(0xFF1A3D2A),
+      background: PRFStatusTokens.successBackgroundDark,
       onColor: PRFColors.white,
     ),
     failed: StatusColorSet(
-      main: Color(0xFFDC3545),
-      background: Color(0xFF3D1A1A),
+      main: PRFStatusTokens.errorMainDark,
+      background: PRFStatusTokens.errorBackgroundDark,
       onColor: PRFColors.white,
     ),
     ignored: StatusColorSet(
@@ -229,7 +230,7 @@ class PRFStatusExtension extends ThemeExtension<PRFStatusExtension> {
     ),
     // Active indicator
     active: PRFColors.emerald,
-    activeGlow: Color(0x4010B981),
+    activeGlow: PRFStatusTokens.activeGlow,
   );
 
   @override

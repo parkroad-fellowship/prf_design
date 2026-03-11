@@ -64,7 +64,10 @@ class StatHighlightCard extends StatelessWidget {
                     ),
                   )
                   .animate(delay: delay)
-                  .scale(duration: 600.ms, curve: Curves.elasticOut)
+                  .scale(
+                    duration: PRFMotionTokens.enterShort,
+                    curve: Curves.elasticOut,
+                  )
                   .fadeIn(),
               const SizedBox(width: 16),
             ],
@@ -80,8 +83,8 @@ class StatHighlightCard extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       )
-                      .animate(delay: delay + 200.ms)
-                      .fadeIn(duration: 600.ms)
+                      .animate(delay: delay + PRFMotionTokens.stagger2)
+                      .fadeIn(duration: PRFMotionTokens.enterShort)
                       .slideX(begin: -0.2, end: 0),
                   const SizedBox(height: 4),
                   Text(
@@ -90,8 +93,8 @@ class StatHighlightCard extends StatelessWidget {
                           color: PRFColors.white.withValues(alpha: 0.9),
                         ),
                       )
-                      .animate(delay: delay + 400.ms)
-                      .fadeIn(duration: 600.ms)
+                      .animate(delay: delay + PRFMotionTokens.stagger4)
+                      .fadeIn(duration: PRFMotionTokens.enterShort)
                       .slideX(begin: -0.2, end: 0),
                 ],
               ),

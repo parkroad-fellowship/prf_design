@@ -93,40 +93,52 @@ class PRFErrorView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                padding: const EdgeInsets.all(24),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.error.withValues(alpha: 0.1),
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  _icon,
-                  size: 48,
-                  color: theme.colorScheme.error,
-                ),
-              ).animate().fadeIn(duration: 600.ms).scale(delay: 200.ms),
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.error.withValues(alpha: 0.1),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      _icon,
+                      size: 48,
+                      color: theme.colorScheme.error,
+                    ),
+                  )
+                  .animate()
+                  .fadeIn(duration: PRFMotionTokens.enterShort)
+                  .scale(delay: PRFMotionTokens.stagger2),
               const SizedBox(height: 16),
               Text(
-                _getTitle(),
-                style: theme.textTheme.headlineSmall?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                ),
-                textAlign: TextAlign.center,
-              ).animate().fadeIn(delay: 300.ms).slideY(begin: 0.3, end: 0),
+                    _getTitle(),
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      color: theme.colorScheme.onSurface,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                  .animate()
+                  .fadeIn(delay: PRFMotionTokens.stagger3)
+                  .slideY(begin: 0.3, end: 0),
               const SizedBox(height: 8),
               Text(
-                failure.message,
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ).animate().fadeIn(delay: 400.ms).slideY(begin: 0.3, end: 0),
+                    failure.message,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                  .animate()
+                  .fadeIn(delay: PRFMotionTokens.stagger4)
+                  .slideY(begin: 0.3, end: 0),
               if (failure.isRecoverable && onRetry != null) ...[
                 const SizedBox(height: 24),
                 PRFPrimaryButton(
-                  onPressed: onRetry!,
-                  title: 'Try Again',
-                  disabled: false,
-                ).animate().fadeIn(delay: 500.ms).scale(delay: 100.ms),
+                      onPressed: onRetry!,
+                      title: 'Try Again',
+                      disabled: false,
+                    )
+                    .animate()
+                    .fadeIn(delay: PRFMotionTokens.stagger5)
+                    .scale(delay: PRFMotionTokens.stagger1),
               ],
             ],
           ),

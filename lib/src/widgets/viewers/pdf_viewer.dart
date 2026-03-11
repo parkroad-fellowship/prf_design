@@ -31,14 +31,18 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
   }
 
   Future<void> _loadPdf() async {
+    if (!mounted) return;
+
     try {
       setState(() {
         _isLoading = true;
         _error = null;
       });
 
-      // Download PDF from URL
-      final response = await http.get(Uri.parse(widget.pdfUrl));
+      // Keep network calls bounded to avoid hanging viewer state.
+      final response = await http
+          .get(Uri.parse(widget.pdfUrl))
+          .timeout(const Duration(seconds: 30));
 
       if (response.statusCode != 200) {
         throw Exception('Failed to download PDF: ${response.statusCode}');
@@ -48,10 +52,12 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
         document: PdfDocument.openData(response.bodyBytes),
       );
 
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
       });
     } on Exception catch (e) {
+      if (!mounted) return;
       setState(() {
         _isLoading = false;
         _error = 'Failed to load PDF: $e';

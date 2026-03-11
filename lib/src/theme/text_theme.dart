@@ -6,24 +6,24 @@ import 'package:prf_design/src/utils/device_helper.dart';
 class PRFTextTheme {
   PRFTextTheme._();
 
-  static TextTheme getLightTheme(BuildContext context) => _buildTheme(
+  static TextTheme getLightTheme([BuildContext? context]) => _buildTheme(
     context,
     defaultTextColor: PRFColors.black,
     secondaryTextColor: PRFColors.gray600,
   );
 
-  static TextTheme getDarkTheme(BuildContext context) => _buildTheme(
+  static TextTheme getDarkTheme([BuildContext? context]) => _buildTheme(
     context,
     defaultTextColor: PRFColors.white,
     secondaryTextColor: PRFColors.gray400,
   );
 
   static TextTheme _buildTheme(
-    BuildContext context, {
+    BuildContext? context, {
     required Color defaultTextColor,
     required Color secondaryTextColor,
   }) {
-    final s = DeviceHelper.getScaleFactor(context);
+    final s = DeviceHelper.getScaleFactor(context: context);
 
     return GoogleFonts.latoTextTheme().copyWith(
       displayLarge: GoogleFonts.lato(
@@ -134,8 +134,8 @@ class PRFTextTheme {
     );
   }
 
-  static TextStyle getErrorTextStyle(BuildContext context) {
-    final s = DeviceHelper.getScaleFactor(context);
+  static TextStyle getErrorTextStyle([BuildContext? context]) {
+    final s = DeviceHelper.getScaleFactor(context: context);
     return GoogleFonts.lato(
       fontSize: 12 * s,
       fontWeight: FontWeight.w500,
@@ -144,8 +144,8 @@ class PRFTextTheme {
     );
   }
 
-  static TextStyle getSuccessTextStyle(BuildContext context) {
-    final s = DeviceHelper.getScaleFactor(context);
+  static TextStyle getSuccessTextStyle([BuildContext? context]) {
+    final s = DeviceHelper.getScaleFactor(context: context);
     return GoogleFonts.lato(
       fontSize: 12 * s,
       fontWeight: FontWeight.w500,
@@ -154,8 +154,8 @@ class PRFTextTheme {
     );
   }
 
-  static TextStyle getWarningTextStyle(BuildContext context) {
-    final s = DeviceHelper.getScaleFactor(context);
+  static TextStyle getWarningTextStyle([BuildContext? context]) {
+    final s = DeviceHelper.getScaleFactor(context: context);
     return GoogleFonts.lato(
       fontSize: 12 * s,
       fontWeight: FontWeight.w500,
@@ -164,8 +164,8 @@ class PRFTextTheme {
     );
   }
 
-  static TextStyle getInfoTextStyle(BuildContext context) {
-    final s = DeviceHelper.getScaleFactor(context);
+  static TextStyle getInfoTextStyle([BuildContext? context]) {
+    final s = DeviceHelper.getScaleFactor(context: context);
     return GoogleFonts.lato(
       fontSize: 12 * s,
       fontWeight: FontWeight.w500,
@@ -174,8 +174,8 @@ class PRFTextTheme {
     );
   }
 
-  static TextStyle getButtonTextStyle(BuildContext context) {
-    final s = DeviceHelper.getScaleFactor(context);
+  static TextStyle getButtonTextStyle([BuildContext? context]) {
+    final s = DeviceHelper.getScaleFactor(context: context);
     return GoogleFonts.lato(
       fontSize: 14 * s,
       fontWeight: FontWeight.w600,
@@ -183,8 +183,8 @@ class PRFTextTheme {
     );
   }
 
-  static TextStyle getCaptionTextStyle(BuildContext context) {
-    final s = DeviceHelper.getScaleFactor(context);
+  static TextStyle getCaptionTextStyle([BuildContext? context]) {
+    final s = DeviceHelper.getScaleFactor(context: context);
     return GoogleFonts.lato(
       fontSize: 10 * s,
       fontWeight: FontWeight.w400,

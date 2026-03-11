@@ -67,7 +67,10 @@ class AnimatedStatCard extends StatelessWidget {
                     ),
                   )
                   .animate(delay: delay)
-                  .scale(duration: 600.ms, curve: Curves.elasticOut)
+                  .scale(
+                    duration: PRFMotionTokens.enterShort,
+                    curve: Curves.elasticOut,
+                  )
                   .fadeIn(),
               const SizedBox(height: 16),
             ],
@@ -79,8 +82,8 @@ class AnimatedStatCard extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 )
-                .animate(delay: delay + 200.ms)
-                .fadeIn(duration: 800.ms)
+                .animate(delay: delay + PRFMotionTokens.stagger2)
+                .fadeIn(duration: PRFMotionTokens.enterMedium)
                 .slideY(begin: 0.3, end: 0, curve: Curves.easeOut),
             const SizedBox(height: 8),
             Text(
@@ -91,8 +94,8 @@ class AnimatedStatCard extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 )
-                .animate(delay: delay + 400.ms)
-                .fadeIn(duration: 600.ms)
+                .animate(delay: delay + PRFMotionTokens.stagger4)
+                .fadeIn(duration: PRFMotionTokens.enterShort)
                 .slideY(begin: 0.3, end: 0),
           ],
         ),

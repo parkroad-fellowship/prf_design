@@ -8,9 +8,14 @@ import 'package:prf_design/src/utils/device_helper.dart';
 class PRFTheme {
   PRFTheme._();
 
-  static ThemeData light(BuildContext context) {
+  /// Builds the light theme.
+  ///
+  /// Pass [context] when available to enable responsive text/icon scaling.
+  /// If [context] is omitted (for example in top-level app setup), safe
+  /// baseline values are used.
+  static ThemeData light([BuildContext? context]) {
     final textTheme = PRFTextTheme.getLightTheme(context);
-    final scaleFactor = DeviceHelper.getScaleFactor(context);
+    final scaleFactor = DeviceHelper.getScaleFactor(context: context);
 
     return ThemeData(
       useMaterial3: true,
@@ -252,9 +257,14 @@ class PRFTheme {
     );
   }
 
-  static ThemeData dark(BuildContext context) {
+  /// Builds the dark theme.
+  ///
+  /// Pass [context] when available to enable responsive text/icon scaling.
+  /// If [context] is omitted (for example in top-level app setup), safe
+  /// baseline values are used.
+  static ThemeData dark([BuildContext? context]) {
     final textTheme = PRFTextTheme.getDarkTheme(context);
-    final scaleFactor = DeviceHelper.getScaleFactor(context);
+    final scaleFactor = DeviceHelper.getScaleFactor(context: context);
 
     return ThemeData(
       useMaterial3: true,

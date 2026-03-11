@@ -35,8 +35,8 @@ dependencies:
 import 'package:prf_design/prf_design.dart';
 
 MaterialApp(
-  theme: PRFTheme.light(context),
-  darkTheme: PRFTheme.dark(context),
+  theme: PRFTheme.light(),
+  darkTheme: PRFTheme.dark(),
   home: const MyHomePage(),
 )
 ```
@@ -73,8 +73,8 @@ Provides complete Material 3 theme configurations for light and dark modes.
 
 ```dart
 // Static factory methods
-static ThemeData light(BuildContext context)
-static ThemeData dark(BuildContext context)
+static ThemeData light([BuildContext? context])
+static ThemeData dark([BuildContext? context])
 ```
 
 Both methods configure: color scheme, text theme, app bar, buttons, inputs, cards, dividers, tab bar, data table, snackbar, icon, dialog, list tile, chip, and dropdown menu themes.
@@ -201,10 +201,10 @@ Outlined style variant. Same signature as `PRFPrimaryButton`.
 
 Destructive/error style variant. Same signature as `PRFPrimaryButton`.
 
-#### GoogleAuthButton
+#### PRFGoogleAuthButton
 
 ```dart
-GoogleAuthButton({
+PRFGoogleAuthButton({
   required VoidCallback onPressed,
   required String title,
   required bool disabled,
@@ -461,18 +461,18 @@ Device type detection and responsive scaling.
 ```dart
 // Get scale factor for responsive sizing
 double scale = DeviceHelper.getScaleFactor(
-  context,
+  context: context,
   customBaseWidth: 375,
   minScale: 0.8,
   maxScale: 1.4,
 );
 
 // Detect device type
-DeviceType type = DeviceHelper.getDeviceType(context);
+DeviceType type = DeviceHelper.getDeviceType(context: context);
 // DeviceType.phone | DeviceType.tablet | DeviceType.desktop
 
 // Check orientation
-bool landscape = DeviceHelper.isLandscape(context);
+bool landscape = DeviceHelper.isLandscape(context: context);
 ```
 
 ### Debouncer
@@ -640,7 +640,6 @@ prf_design/
 
 | Package | Description |
 |---------|-------------|
-| `device_info_plus` | Device information for platform detection |
 | `flutter_adaptive_ui` | Responsive handset/tablet layouts |
 | `flutter_animate` | Declarative animations |
 | `google_fonts` | Lato font and other Google Fonts |

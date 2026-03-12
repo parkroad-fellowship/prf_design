@@ -50,58 +50,64 @@ class PRFBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final keyboardInset = MediaQuery.viewInsetsOf(context).bottom;
 
-    return Container(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-      ),
-      child: Column(
-        children: [
-          if (showHandle) ...[
-            const SizedBox(height: PRFSpacingTokens.sm),
-            Container(
-              width: 56,
-              height: 6,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.outline.withValues(alpha: 0.35),
-                borderRadius: BorderRadius.circular(PRFRadiusTokens.full),
+    return AnimatedPadding(
+      duration: PRFMotionTokens.fast,
+      curve: PRFMotionTokens.standardCurve,
+      padding: EdgeInsets.only(bottom: keyboardInset),
+      child: Container(
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+        child: Column(
+          children: [
+            if (showHandle) ...[
+              const SizedBox(height: PRFSpacingTokens.sm),
+              Container(
+                width: 56,
+                height: 6,
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.outline.withValues(alpha: 0.35),
+                  borderRadius: BorderRadius.circular(PRFRadiusTokens.full),
+                ),
               ),
-            ),
-          ],
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              PRFSpacingTokens.lg,
-              PRFSpacingTokens.md,
-              PRFSpacingTokens.sm,
-              PRFSpacingTokens.md,
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    title,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w700,
+            ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(
+                PRFSpacingTokens.lg,
+                PRFSpacingTokens.md,
+                PRFSpacingTokens.sm,
+                PRFSpacingTokens.md,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    color: theme.colorScheme.primary,
+                  IconButton(
+                    icon: Icon(
+                      Icons.close,
+                      color: theme.colorScheme.primary,
+                    ),
+                    onPressed: onClose ?? () => Navigator.pop(context),
                   ),
-                  onPressed: onClose ?? () => Navigator.pop(context),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Divider(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
-            height: 1,
-          ),
-          Expanded(child: child),
-        ],
+            Divider(
+              color: theme.colorScheme.outline.withValues(alpha: 0.2),
+              height: 1,
+            ),
+            Expanded(child: child),
+          ],
+        ),
       ),
     );
   }

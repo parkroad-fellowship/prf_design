@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prf_design/src/theme/_index.dart';
 import 'package:prf_design/src/widgets/buttons/_button_styles.dart';
 import 'package:prf_design/src/widgets/buttons/_interactive_button_shell.dart';
@@ -11,14 +12,12 @@ class PRFGoogleAuthButtonHandset extends StatelessWidget {
     required this.disabled,
     super.key,
     this.isLoading,
-    this.googleLogoAsset,
   });
 
   final VoidCallback onPressed;
   final String title;
   final bool disabled;
   final bool? isLoading;
-  final Widget? googleLogoAsset;
 
   @override
   Widget build(BuildContext context) {
@@ -50,16 +49,14 @@ class PRFGoogleAuthButtonHandset extends StatelessWidget {
                     color: theme.colorScheme.primary,
                   ),
                 )
-              else if (googleLogoAsset != null)
+              else
                 SizedBox(
                   height: PRFButtonTokens.handsetLoaderSize,
                   width: PRFButtonTokens.handsetLoaderSize,
-                  child: googleLogoAsset,
-                )
-              else
-                const SizedBox(
-                  width: PRFButtonTokens.handsetLoaderSize,
-                  height: PRFButtonTokens.handsetLoaderSize,
+                  child: SvgPicture.asset(
+                    'assets/authentication/google_logo.svg',
+                    package: 'prf_design',
+                  ),
                 ),
               const SizedBox(width: PRFButtonTokens.handsetLoaderGap),
               Flexible(

@@ -1,7 +1,9 @@
 export 'buttons/_index.dart';
 export 'cards/_index.dart';
+export 'dialogs/_index.dart';
 export 'indicators/_index.dart';
 export 'inputs/_index.dart';
+export 'navigation/_index.dart';
 export 'progress/_index.dart';
 export 'states/_index.dart';
 export 'viewers/_index.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prf_design/prf_design.dart';
@@ -150,29 +151,27 @@ void main() {
       );
 
       testWidgets(
-        'displays googleLogoAsset when provided',
+        'displays Google logo SVG when not loading',
         (tester) async {
           setHandsetSize(tester);
 
-          const logoKey = Key('google-logo');
           await tester.pumpWidget(
             buildSubject(
               PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 onPressed: () {},
-                googleLogoAsset: const SizedBox(key: logoKey),
               ),
             ),
           );
           await tester.pump();
 
-          expect(find.byKey(logoKey), findsOneWidget);
+          expect(find.byType(SvgPicture), findsOneWidget);
         },
       );
 
       testWidgets(
-        'renders without googleLogoAsset when not provided',
+        'hides Google logo SVG when loading',
         (tester) async {
           setHandsetSize(tester);
 
@@ -181,13 +180,14 @@ void main() {
               PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
+                isLoading: true,
                 onPressed: () {},
               ),
             ),
           );
           await tester.pump();
 
-          expect(find.byType(PRFGoogleAuthButton), findsOneWidget);
+          expect(find.byType(SvgPicture), findsNothing);
         },
       );
     });
@@ -331,29 +331,27 @@ void main() {
       );
 
       testWidgets(
-        'displays googleLogoAsset when provided',
+        'displays Google logo SVG when not loading',
         (tester) async {
           setTabletSize(tester);
 
-          const logoKey = Key('google-logo');
           await tester.pumpWidget(
             buildSubject(
               PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
                 onPressed: () {},
-                googleLogoAsset: const SizedBox(key: logoKey),
               ),
             ),
           );
           await tester.pump();
 
-          expect(find.byKey(logoKey), findsOneWidget);
+          expect(find.byType(SvgPicture), findsOneWidget);
         },
       );
 
       testWidgets(
-        'renders without googleLogoAsset when not provided',
+        'hides Google logo SVG when loading',
         (tester) async {
           setTabletSize(tester);
 
@@ -362,13 +360,14 @@ void main() {
               PRFGoogleAuthButton(
                 title: 'Sign in with Google',
                 disabled: false,
+                isLoading: true,
                 onPressed: () {},
               ),
             ),
           );
           await tester.pump();
 
-          expect(find.byType(PRFGoogleAuthButton), findsOneWidget);
+          expect(find.byType(SvgPicture), findsNothing);
         },
       );
     });

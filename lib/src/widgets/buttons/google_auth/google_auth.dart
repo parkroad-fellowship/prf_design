@@ -10,14 +10,12 @@ class PRFGoogleAuthButton extends StatelessWidget {
     required this.disabled,
     super.key,
     this.isLoading,
-    this.googleLogoAsset,
   });
 
   final VoidCallback onPressed;
   final String title;
   final bool disabled;
   final bool? isLoading;
-  final Widget? googleLogoAsset;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +25,6 @@ class PRFGoogleAuthButton extends StatelessWidget {
         title: title,
         disabled: disabled,
         isLoading: isLoading,
-        googleLogoAsset: googleLogoAsset,
       ),
       layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
         handset: (_, _) => PRFGoogleAuthButtonHandset(
@@ -35,14 +32,12 @@ class PRFGoogleAuthButton extends StatelessWidget {
           title: title,
           disabled: disabled,
           isLoading: isLoading,
-          googleLogoAsset: googleLogoAsset,
         ),
         tablet: (_, _) => PRFGoogleAuthButtonTablet(
           onPressed: onPressed,
           title: title,
           disabled: disabled,
           isLoading: isLoading,
-          googleLogoAsset: googleLogoAsset,
         ),
       ),
     );

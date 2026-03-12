@@ -1,5 +1,6 @@
 export 'email_address/email_address.dart';
 export 'form_field_label/form_field_label.dart';
+export 'form_section.dart';
 export 'name/name.dart';
 export 'number/number.dart';
 export 'password/password.dart';

@@ -77,7 +77,7 @@ class PRFTextTheme {
         height: 1.4,
       ),
       titleSmall: GoogleFonts.manrope(
-        fontSize: 13 * s,
+        fontSize: 14 * s,
         fontWeight: FontWeight.w600,
         color: defaultTextColor,
         height: 1.4,
@@ -89,13 +89,13 @@ class PRFTextTheme {
         height: 1.5,
       ),
       bodyMedium: GoogleFonts.manrope(
-        fontSize: 14 * s,
+        fontSize: 15 * s,
         fontWeight: FontWeight.w500,
         color: defaultTextColor,
         height: 1.5,
       ),
       bodySmall: GoogleFonts.manrope(
-        fontSize: 12 * s,
+        fontSize: 13 * s,
         fontWeight: FontWeight.w500,
         color: secondaryTextColor,
         height: 1.45,
@@ -107,13 +107,13 @@ class PRFTextTheme {
         height: 1.35,
       ),
       labelMedium: GoogleFonts.manrope(
-        fontSize: 12 * s,
+        fontSize: 13 * s,
         fontWeight: FontWeight.w700,
         color: defaultTextColor,
         height: 1.35,
       ),
       labelSmall: GoogleFonts.manrope(
-        fontSize: 11 * s,
+        fontSize: 12 * s,
         fontWeight: FontWeight.w600,
         color: secondaryTextColor,
         height: 1.3,
@@ -164,7 +164,7 @@ class PRFTextTheme {
   static TextStyle getButtonTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
     return GoogleFonts.manrope(
-      fontSize: 14 * s,
+      fontSize: 15 * s,
       fontWeight: FontWeight.w700,
       height: 1.2,
       letterSpacing: 0.1,
@@ -174,7 +174,7 @@ class PRFTextTheme {
   static TextStyle getCaptionTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
     return GoogleFonts.manrope(
-      fontSize: 10 * s,
+      fontSize: 11 * s,
       fontWeight: FontWeight.w500,
       color: PRFColors.gray600,
       height: 1.4,

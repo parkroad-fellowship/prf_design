@@ -7,14 +7,24 @@ class PRFNumberInputHandset extends StatelessWidget {
     required this.controller,
     super.key,
     this.isLoading = false,
+    this.enabled = true,
     this.prefixText,
+    this.labelText,
+    this.errorText,
+    this.helperText,
+    this.onChanged,
     this.textInputAction = TextInputAction.next,
   });
 
   final String hintText;
   final TextEditingController controller;
   final bool isLoading;
+  final bool enabled;
   final String? prefixText;
+  final String? labelText;
+  final String? errorText;
+  final String? helperText;
+  final ValueChanged<String>? onChanged;
   final TextInputAction textInputAction;
 
   @override
@@ -24,16 +34,22 @@ class PRFNumberInputHandset extends StatelessWidget {
     return Semantics(
       label: hintText,
       textField: true,
-      enabled: !isLoading,
+      enabled: enabled && !isLoading,
       child: TextFormField(
         textInputAction: textInputAction,
         inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         keyboardType: TextInputType.number,
-        textCapitalization: TextCapitalization.words,
-        decoration: InputDecoration(hintText: hintText, prefixText: prefixText),
+        decoration: InputDecoration(
+          labelText: labelText,
+          hintText: hintText,
+          prefixText: prefixText,
+          helperText: helperText,
+          errorText: errorText,
+        ),
         style: theme.textTheme.bodyMedium,
         controller: controller,
-        enabled: !isLoading,
+        enabled: enabled && !isLoading,
+        onChanged: onChanged,
       ),
     );
   }

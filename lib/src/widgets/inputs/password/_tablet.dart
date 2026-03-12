@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/colors/prf_color_palette.dart';
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFPasswordInputTablet extends StatelessWidget {
@@ -36,6 +38,8 @@ class PRFPasswordInputTablet extends StatelessWidget {
             hintStyle: theme.textTheme.titleMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
+            filled: true,
+            fillColor: PRFColors.gray50,
             prefixIcon: const Icon(
               Icons.lock_outline,
               size: 28,
@@ -59,13 +63,27 @@ class PRFPasswordInputTablet extends StatelessWidget {
               vertical: PRFSpacingTokens.xxl,
             ),
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+              borderRadius: BorderRadius.circular(
+                PRFRadiusTokens.lg,
+              ),
+              borderSide: const BorderSide(
+                color: PRFColorPalette.navy50,
+                width: 1.5,
+              ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+              borderRadius: BorderRadius.circular(
+                PRFRadiusTokens.lg,
+              ),
+              borderSide: const BorderSide(
+                color: PRFColorPalette.navy50,
+                width: 1.5,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+              borderRadius: BorderRadius.circular(
+                PRFRadiusTokens.lg,
+              ),
               borderSide: BorderSide(
                 color: theme.colorScheme.primary,
                 width: 2,

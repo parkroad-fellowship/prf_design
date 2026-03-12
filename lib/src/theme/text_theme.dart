@@ -24,120 +24,108 @@ class PRFTextTheme {
   }) {
     final s = scaleFactor;
 
-    return GoogleFonts.latoTextTheme().copyWith(
-      displayLarge: GoogleFonts.lato(
+    return GoogleFonts.manropeTextTheme().copyWith(
+      displayLarge: GoogleFonts.manrope(
+        fontSize: 38 * s,
+        fontWeight: FontWeight.w800,
+        color: defaultTextColor,
+        height: 1.1,
+        letterSpacing: -0.9,
+      ),
+      displayMedium: GoogleFonts.manrope(
         fontSize: 32 * s,
         fontWeight: FontWeight.w700,
-        fontStyle: FontStyle.normal,
         color: defaultTextColor,
-        height: 1.2,
+        height: 1.15,
         letterSpacing: -0.5,
       ),
-      displayMedium: GoogleFonts.lato(
+      displaySmall: GoogleFonts.manrope(
         fontSize: 28 * s,
-        fontWeight: FontWeight.w600,
-        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.w700,
         color: defaultTextColor,
         height: 1.2,
-        letterSpacing: -0.25,
+        letterSpacing: -0.3,
       ),
-      displaySmall: GoogleFonts.lato(
+      headlineLarge: GoogleFonts.manrope(
         fontSize: 24 * s,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w700,
         color: defaultTextColor,
-        height: 1.3,
+        height: 1.25,
       ),
-      headlineLarge: GoogleFonts.lato(
-        fontSize: 22 * s,
-        fontStyle: FontStyle.normal,
+      headlineMedium: GoogleFonts.manrope(
+        fontSize: 20 * s,
         fontWeight: FontWeight.w700,
         color: defaultTextColor,
         height: 1.3,
       ),
-      headlineMedium: GoogleFonts.lato(
+      headlineSmall: GoogleFonts.manrope(
         fontSize: 18 * s,
-        fontStyle: FontStyle.normal,
         fontWeight: FontWeight.w600,
         color: defaultTextColor,
-        height: 1.3,
+        height: 1.35,
       ),
-      headlineSmall: GoogleFonts.lato(
-        fontSize: 16 * s,
-        fontStyle: FontStyle.normal,
+      titleLarge: GoogleFonts.manrope(
+        fontSize: 17 * s,
+        fontWeight: FontWeight.w700,
         color: defaultTextColor,
+        height: 1.35,
+      ),
+      titleMedium: GoogleFonts.manrope(
+        fontSize: 15 * s,
         fontWeight: FontWeight.w600,
+        color: defaultTextColor,
         height: 1.4,
       ),
-      titleLarge: GoogleFonts.lato(
-        fontSize: 20 * s,
-        fontStyle: FontStyle.normal,
+      titleSmall: GoogleFonts.manrope(
+        fontSize: 13 * s,
         fontWeight: FontWeight.w600,
         color: defaultTextColor,
-        height: 1.3,
+        height: 1.4,
       ),
-      titleMedium: GoogleFonts.lato(
+      bodyLarge: GoogleFonts.manrope(
         fontSize: 16 * s,
         fontWeight: FontWeight.w500,
         color: defaultTextColor,
-        height: 1.4,
+        height: 1.5,
       ),
-      titleSmall: GoogleFonts.lato(
+      bodyMedium: GoogleFonts.manrope(
         fontSize: 14 * s,
         fontWeight: FontWeight.w500,
         color: defaultTextColor,
-        height: 1.4,
-      ),
-      bodyLarge: GoogleFonts.lato(
-        fontSize: 16 * s,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w400,
-        color: defaultTextColor,
         height: 1.5,
       ),
-      bodyMedium: GoogleFonts.lato(
-        fontSize: 14 * s,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w400,
-        color: defaultTextColor,
-        height: 1.5,
-      ),
-      bodySmall: GoogleFonts.lato(
+      bodySmall: GoogleFonts.manrope(
         fontSize: 12 * s,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
         color: secondaryTextColor,
-        height: 1.5,
+        height: 1.45,
       ),
-      labelLarge: GoogleFonts.lato(
+      labelLarge: GoogleFonts.manrope(
         fontSize: 14 * s,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w700,
         color: defaultTextColor,
-        height: 1.4,
+        height: 1.35,
       ),
-      labelMedium: GoogleFonts.lato(
+      labelMedium: GoogleFonts.manrope(
         fontSize: 12 * s,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w700,
         color: defaultTextColor,
-        height: 1.4,
+        height: 1.35,
       ),
-      labelSmall: GoogleFonts.lato(
+      labelSmall: GoogleFonts.manrope(
         fontSize: 11 * s,
-        fontStyle: FontStyle.normal,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         color: secondaryTextColor,
-        height: 1.4,
+        height: 1.3,
       ),
     );
   }
 
   static TextStyle getErrorTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
-    return GoogleFonts.lato(
+    return GoogleFonts.manrope(
       fontSize: 12 * s,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: PRFColors.error,
       height: 1.4,
     );
@@ -145,9 +133,9 @@ class PRFTextTheme {
 
   static TextStyle getSuccessTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
-    return GoogleFonts.lato(
+    return GoogleFonts.manrope(
       fontSize: 12 * s,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: PRFColors.success,
       height: 1.4,
     );
@@ -155,9 +143,9 @@ class PRFTextTheme {
 
   static TextStyle getWarningTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
-    return GoogleFonts.lato(
+    return GoogleFonts.manrope(
       fontSize: 12 * s,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: PRFColors.warning,
       height: 1.4,
     );
@@ -165,9 +153,9 @@ class PRFTextTheme {
 
   static TextStyle getInfoTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
-    return GoogleFonts.lato(
+    return GoogleFonts.manrope(
       fontSize: 12 * s,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       color: PRFColors.info,
       height: 1.4,
     );
@@ -175,18 +163,19 @@ class PRFTextTheme {
 
   static TextStyle getButtonTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
-    return GoogleFonts.lato(
+    return GoogleFonts.manrope(
       fontSize: 14 * s,
-      fontWeight: FontWeight.w600,
-      height: 1.4,
+      fontWeight: FontWeight.w700,
+      height: 1.2,
+      letterSpacing: 0.1,
     );
   }
 
   static TextStyle getCaptionTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
-    return GoogleFonts.lato(
+    return GoogleFonts.manrope(
       fontSize: 10 * s,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w500,
       color: PRFColors.gray600,
       height: 1.4,
     );

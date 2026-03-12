@@ -9,6 +9,9 @@ class PRFTextAreaInput extends StatelessWidget {
     required this.controller,
     super.key,
     this.enabled = true,
+    this.labelText,
+    this.errorText,
+    this.helperText,
     this.maxLines = 5,
     this.minLines = 3,
     this.textInputAction = TextInputAction.newline,
@@ -17,6 +20,9 @@ class PRFTextAreaInput extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final bool enabled;
+  final String? labelText;
+  final String? errorText;
+  final String? helperText;
   final int minLines;
   final int maxLines;
   final TextInputAction textInputAction;
@@ -30,6 +36,9 @@ class PRFTextAreaInput extends StatelessWidget {
         maxLines: maxLines,
         minLines: minLines,
         enabled: enabled,
+        labelText: labelText,
+        errorText: errorText,
+        helperText: helperText,
         textInputAction: textInputAction,
       ),
       layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
@@ -39,6 +48,9 @@ class PRFTextAreaInput extends StatelessWidget {
           maxLines: maxLines,
           minLines: minLines,
           enabled: enabled,
+          labelText: labelText,
+          errorText: errorText,
+          helperText: helperText,
           textInputAction: textInputAction,
         ),
         tablet: (_, _) => PRFTextAreaInputTablet(
@@ -47,6 +59,9 @@ class PRFTextAreaInput extends StatelessWidget {
           maxLines: maxLines,
           minLines: minLines,
           enabled: enabled,
+          labelText: labelText,
+          errorText: errorText,
+          helperText: helperText,
           textInputAction: textInputAction,
         ),
       ),

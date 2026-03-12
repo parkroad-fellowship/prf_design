@@ -10,52 +10,50 @@ abstract final class PRFColors {
   // BRAND COLORS
   // ============================================
 
-  /// Navy Blue - Primary brand color
-  /// Represents: Trust, Faith, Loyalty
-  static const Color navyBlue = Color(0xFF17154C);
+  /// Navy Blue - Primary brand anchor
+  static const Color navyBlue = Color(0xFF1A2253);
 
-  /// Lime Green - Secondary brand color
-  /// Represents: Growth, Development
-  static const Color limeGreen = Color(0xFF93D500);
+  /// Lime Green - Secondary brand anchor
+  static const Color limeGreen = Color(0xFF9DE35D);
 
   // ============================================
   // NEUTRAL COLORS (Gray Scale)
   // ============================================
 
-  static const Color gray50 = Color(0xFFF8F9FA);
-  static const Color gray100 = Color(0xFFF1F3F5);
-  static const Color gray200 = Color(0xFFE9ECEF);
-  static const Color gray300 = Color(0xFFDEE2E6);
-  static const Color gray400 = Color(0xFFCED4DA);
-  static const Color gray500 = Color(0xFFADB5BD);
-  static const Color gray600 = Color(0xFF6C757D);
-  static const Color gray700 = Color(0xFF495057);
-  static const Color gray800 = Color(0xFF343A40);
-  static const Color gray900 = Color(0xFF212529);
+  static const Color gray50 = Color(0xFFF7F9FC);
+  static const Color gray100 = Color(0xFFF0F3F8);
+  static const Color gray200 = Color(0xFFE6EAF2);
+  static const Color gray300 = Color(0xFFD6DDE9);
+  static const Color gray400 = Color(0xFFB5C0D3);
+  static const Color gray500 = Color(0xFF8F9BB3);
+  static const Color gray600 = Color(0xFF6B758D);
+  static const Color gray700 = Color(0xFF4B5368);
+  static const Color gray800 = Color(0xFF2F3547);
+  static const Color gray900 = Color(0xFF171C29);
 
   // ============================================
   // STATUS COLORS
   // ============================================
 
   // Success
-  static const Color success = Color(0xFF28A745);
-  static const Color successLight = Color(0xFFD4EDDA);
-  static const Color successDark = Color(0xFF1E7E34);
+  static const Color success = Color(0xFF0FA678);
+  static const Color successLight = Color(0xFFE8FBF4);
+  static const Color successDark = Color(0xFF0C7F5B);
 
   // Warning
-  static const Color warning = Color(0xFFFFC107);
-  static const Color warningLight = Color(0xFFFFF3CD);
-  static const Color warningDark = Color(0xFFD39E00);
+  static const Color warning = Color(0xFFF59E0B);
+  static const Color warningLight = Color(0xFFFFF4E4);
+  static const Color warningDark = Color(0xFFD97706);
 
   // Error
-  static const Color error = Color(0xFF78251B);
-  static const Color errorLight = Color(0xFFF8D7DA);
-  static const Color errorDark = Color(0xFF5C1D15);
+  static const Color error = Color(0xFFD14343);
+  static const Color errorLight = Color(0xFFFFE9EA);
+  static const Color errorDark = Color(0xFFA93434);
 
   // Info
-  static const Color info = Color(0xFF17A2B8);
-  static const Color infoLight = Color(0xFFD1ECF1);
-  static const Color infoDark = Color(0xFF117A8B);
+  static const Color info = Color(0xFF2E7AF8);
+  static const Color infoLight = Color(0xFFEAF1FF);
+  static const Color infoDark = Color(0xFF245FD1);
 
   // ============================================
   // ACCENT COLORS
@@ -63,16 +61,16 @@ abstract final class PRFColors {
   // ============================================
 
   /// Purple - For mission states, events
-  static const Color purple = Color(0xFF6B21A8);
+  static const Color purple = Color(0xFF6E4CEB);
 
   /// Blue - For contact/initiated states
-  static const Color blue = Color(0xFF2563EB);
+  static const Color blue = Color(0xFF296DFF);
 
   /// Orange - For scheduled/pending states
-  static const Color orange = Color(0xFFEA580C);
+  static const Color orange = Color(0xFFEB8B2D);
 
   /// Emerald - For active/ongoing indicators
-  static const Color emerald = Color(0xFF10B981);
+  static const Color emerald = Color(0xFF12B886);
 
   // ============================================
   // COMMON COLORS

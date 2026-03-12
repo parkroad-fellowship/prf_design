@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
 
 class PRFFormFieldLabelHandset extends StatelessWidget {
   const PRFFormFieldLabelHandset({
@@ -24,25 +25,26 @@ class PRFFormFieldLabelHandset extends StatelessWidget {
           : '$label, optional field',
       child: RichText(
         text: TextSpan(
-          text: label,
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: isBold ?? false ? FontWeight.w700 : FontWeight.w600,
-            color: color ?? theme.colorScheme.onSurface,
+          text: label.toUpperCase(),
+          style: theme.textTheme.labelSmall?.copyWith(
+            fontWeight: FontWeight.w700,
+            color: color ?? PRFColors.gray500,
+            letterSpacing: 0.5,
           ),
           children: [
             if (isRequired ?? false)
               TextSpan(
                 text: ' *',
-                style: theme.textTheme.titleMedium?.copyWith(
+                style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.error,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             if (isRequired == null || isRequired == false)
               TextSpan(
                 text: ' (optional)',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.primary,
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: PRFColors.gray400,
                 ),
               ),
           ],

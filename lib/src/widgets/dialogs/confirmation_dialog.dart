@@ -60,6 +60,13 @@ class PRFConfirmationDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(PRFRadiusTokens.xl),
       ),
+      actionsOverflowButtonSpacing: PRFSpacingTokens.md,
+      actionsPadding: const EdgeInsets.fromLTRB(
+        PRFSpacingTokens.lg,
+        PRFSpacingTokens.sm,
+        PRFSpacingTokens.lg,
+        PRFSpacingTokens.lg,
+      ),
       title: Row(
         children: [
           Container(
@@ -110,7 +117,6 @@ class PRFConfirmationDialog extends StatelessWidget {
         title: cancelLabel,
         disabled: false,
       ),
-      const SizedBox(width: PRFSpacingTokens.sm),
       if (isDestructive)
         PRFDestroyButton(
           onPressed: () {

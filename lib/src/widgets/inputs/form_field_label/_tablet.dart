@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
 
 class PRFFormFieldLabelTablet extends StatelessWidget {
   const PRFFormFieldLabelTablet({
@@ -24,25 +25,26 @@ class PRFFormFieldLabelTablet extends StatelessWidget {
           : '$label, optional field',
       child: RichText(
         text: TextSpan(
-          text: label,
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: isBold ?? false ? FontWeight.w700 : FontWeight.w600,
-            color: color ?? theme.colorScheme.onSurface,
+          text: label.toUpperCase(),
+          style: theme.textTheme.labelMedium?.copyWith(
+            fontWeight: FontWeight.w700,
+            color: color ?? PRFColors.gray500,
+            letterSpacing: 0.5,
           ),
           children: [
             if (isRequired ?? false)
               TextSpan(
                 text: ' *',
-                style: theme.textTheme.titleLarge?.copyWith(
+                style: theme.textTheme.labelMedium?.copyWith(
                   color: theme.colorScheme.error,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             if (isRequired == null || isRequired == false)
               TextSpan(
                 text: ' (optional)',
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: theme.colorScheme.primary,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: PRFColors.gray400,
                 ),
               ),
           ],

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/colors/prf_color_palette.dart';
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFNameInputHandset extends StatelessWidget {
@@ -35,35 +37,47 @@ class PRFNameInputHandset extends StatelessWidget {
             color: theme.colorScheme.onSurfaceVariant,
           ),
           filled: true,
-          fillColor: theme.colorScheme.surface,
+          fillColor: PRFColors.gray50,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-            borderSide: BorderSide(
-              color: theme.colorScheme.outline.withValues(alpha: .2),
+            borderRadius: BorderRadius.circular(
+              PRFRadiusTokens.smd,
+            ),
+            borderSide: const BorderSide(
+              color: PRFColorPalette.navy50,
+              width: 1.5,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-            borderSide: BorderSide(
-              color: theme.colorScheme.outline.withValues(alpha: .2),
+            borderRadius: BorderRadius.circular(
+              PRFRadiusTokens.smd,
+            ),
+            borderSide: const BorderSide(
+              color: PRFColorPalette.navy50,
+              width: 1.5,
             ),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+            borderRadius: BorderRadius.circular(
+              PRFRadiusTokens.smd,
+            ),
             borderSide: BorderSide(
               color: theme.colorScheme.primary,
               width: 2,
             ),
           ),
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+            borderRadius: BorderRadius.circular(
+              PRFRadiusTokens.smd,
+            ),
             borderSide: BorderSide(
-              color: theme.colorScheme.outline.withValues(alpha: .1),
+              color: PRFColorPalette.navy50.withValues(
+                alpha: .5,
+              ),
             ),
           ),
           contentPadding: const EdgeInsets.symmetric(
-            horizontal: PRFSpacingTokens.lg,
-            vertical: PRFSpacingTokens.lg,
+            horizontal: 14,
+            vertical: 12,
           ),
         ),
       ),

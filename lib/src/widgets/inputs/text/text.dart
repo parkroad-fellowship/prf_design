@@ -9,13 +9,25 @@ class PRFTextInput extends StatelessWidget {
     required this.controller,
     super.key,
     this.enabled = true,
+    this.readOnly = false,
     this.onChanged,
+    this.labelText,
+    this.errorText,
+    this.helperText,
+    this.keyboardType,
+    this.textInputAction = TextInputAction.next,
   });
 
   final String hintText;
   final TextEditingController controller;
   final bool enabled;
+  final bool readOnly;
   final ValueChanged<String>? onChanged;
+  final String? labelText;
+  final String? errorText;
+  final String? helperText;
+  final TextInputType? keyboardType;
+  final TextInputAction textInputAction;
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +36,38 @@ class PRFTextInput extends StatelessWidget {
         hintText: hintText,
         controller: controller,
         enabled: enabled,
+        readOnly: readOnly,
         onChanged: onChanged,
+        labelText: labelText,
+        errorText: errorText,
+        helperText: helperText,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
       ),
       layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
         handset: (_, _) => PRFTextInputHandset(
           hintText: hintText,
           controller: controller,
           enabled: enabled,
+          readOnly: readOnly,
           onChanged: onChanged,
+          labelText: labelText,
+          errorText: errorText,
+          helperText: helperText,
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
         ),
         tablet: (_, _) => PRFTextInputTablet(
           hintText: hintText,
           controller: controller,
           enabled: enabled,
+          readOnly: readOnly,
           onChanged: onChanged,
+          labelText: labelText,
+          errorText: errorText,
+          helperText: helperText,
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
         ),
       ),
     );

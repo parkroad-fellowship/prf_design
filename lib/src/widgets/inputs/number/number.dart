@@ -9,14 +9,24 @@ class PRFNumberInput extends StatelessWidget {
     required this.controller,
     super.key,
     this.isLoading = false,
+    this.enabled = true,
     this.prefixText,
+    this.labelText,
+    this.errorText,
+    this.helperText,
+    this.onChanged,
     this.textInputAction = TextInputAction.next,
   });
 
   final String hintText;
   final TextEditingController controller;
   final bool isLoading;
+  final bool enabled;
   final String? prefixText;
+  final String? labelText;
+  final String? errorText;
+  final String? helperText;
+  final ValueChanged<String>? onChanged;
   final TextInputAction textInputAction;
 
   @override
@@ -26,7 +36,12 @@ class PRFNumberInput extends StatelessWidget {
         hintText: hintText,
         controller: controller,
         isLoading: isLoading,
+        enabled: enabled,
         prefixText: prefixText,
+        labelText: labelText,
+        errorText: errorText,
+        helperText: helperText,
+        onChanged: onChanged,
         textInputAction: textInputAction,
       ),
       layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
@@ -34,14 +49,24 @@ class PRFNumberInput extends StatelessWidget {
           hintText: hintText,
           controller: controller,
           isLoading: isLoading,
+          enabled: enabled,
           prefixText: prefixText,
+          labelText: labelText,
+          errorText: errorText,
+          helperText: helperText,
+          onChanged: onChanged,
           textInputAction: textInputAction,
         ),
         tablet: (_, _) => PRFNumberInputTablet(
           hintText: hintText,
           controller: controller,
           isLoading: isLoading,
+          enabled: enabled,
           prefixText: prefixText,
+          labelText: labelText,
+          errorText: errorText,
+          helperText: helperText,
+          onChanged: onChanged,
           textInputAction: textInputAction,
         ),
       ),

@@ -32,3 +32,4 @@ flutter:
   assets:
     - assets/authentication/
     - assets/google_fonts/lato/
+    - assets/google_fonts/manrope/

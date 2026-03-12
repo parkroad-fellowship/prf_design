@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/progress/linear_progress_indicator.dart';
 
@@ -32,13 +32,15 @@ class PRFCategoryChips<T> extends StatelessWidget {
   /// The list of categories to display
   final List<T> categories;
 
-  /// Callback when a category is selected. Null means "All" was selected.
+  /// Callback when a category is selected.
+  /// Null means "All" was selected.
   final void Function(T?) onCategorySelected;
 
   /// Function to get the display label from a category
   final String Function(T) labelBuilder;
 
-  /// The currently selected category. Null means "All" is selected.
+  /// The currently selected category.
+  /// Null means "All" is selected.
   final T? selectedCategory;
 
   /// Whether to show a loading indicator
@@ -91,12 +93,12 @@ class PRFCategoryChips<T> extends StatelessWidget {
 
             final label = isAll
                 ? allLabel
-                : labelBuilder(categories[categoryIndex]).toUpperCase();
+                : labelBuilder(
+                    categories[categoryIndex],
+                  ).toUpperCase();
 
             final selectedColor = theme.colorScheme.primary;
-            final unselectedColor = theme.colorScheme.surface;
             final selectedTextColor = theme.colorScheme.onPrimary;
-            final unselectedTextColor = theme.colorScheme.primary;
 
             return Semantics(
               button: true,
@@ -104,61 +106,58 @@ class PRFCategoryChips<T> extends StatelessWidget {
               selected: isSelected,
               child: GestureDetector(
                 onTap: () {
-                  onCategorySelected(isAll ? null : categories[categoryIndex]);
+                  onCategorySelected(
+                    isAll ? null : categories[categoryIndex],
+                  );
                 },
-                child:
-                    AnimatedContainer(
-                          duration: PRFMotionTokens.standard,
-                          curve: Curves.easeOut,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 2,
-                          ),
-                          decoration: BoxDecoration(
-                            color: isSelected ? selectedColor : unselectedColor,
-                            borderRadius: BorderRadius.circular(
-                              PRFRadiusTokens.lg,
-                            ),
-                            border: Border.all(
-                              color: isSelected
-                                  ? selectedColor.withValues(alpha: .5)
-                                  : theme.colorScheme.outline.withValues(
-                                      alpha: .3,
-                                    ),
-                              width: 1.2,
-                            ),
-                            boxShadow: isSelected
-                                ? [
-                                    BoxShadow(
-                                      color: selectedColor.withValues(
-                                        alpha: .13,
-                                      ),
-                                      blurRadius: 6,
-                                      offset: const Offset(0, 2),
-                                    ),
-                                  ]
-                                : [],
-                          ),
-                          child: Center(
-                            child: Text(
-                              label,
-                              style: theme.textTheme.labelMedium?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: isSelected
-                                    ? selectedTextColor
-                                    : unselectedTextColor,
-                                letterSpacing: 0.2,
+                child: AnimatedContainer(
+                  duration: PRFMotionTokens.standard,
+                  curve: Curves.easeOut,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 7,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isSelected ? selectedColor : Colors.transparent,
+                    borderRadius: BorderRadius.circular(
+                      PRFRadiusTokens.xl,
+                    ),
+                    border: Border.all(
+                      color: isSelected
+                          ? selectedColor.withValues(
+                              alpha: .5,
+                            )
+                          : PRFColors.gray300,
+                      width: 1.5,
+                    ),
+                    boxShadow: isSelected
+                        ? [
+                            BoxShadow(
+                              color: selectedColor.withValues(
+                                alpha: .13,
+                              ),
+                              blurRadius: 6,
+                              offset: const Offset(
+                                0,
+                                2,
                               ),
                             ),
-                          ),
-                        )
-                        .animate(target: isSelected ? 1 : 0)
-                        .scaleXY(
-                          begin: 1,
-                          end: 1.06,
-                          duration: PRFMotionTokens.standard,
-                          curve: Curves.easeOut,
-                        ),
+                          ]
+                        : [],
+                  ),
+                  child: Center(
+                    child: Text(
+                      label,
+                      style: theme.textTheme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: isSelected
+                            ? selectedTextColor
+                            : PRFColors.gray600,
+                        letterSpacing: 0.2,
+                      ),
+                    ),
+                  ),
+                ),
               ),
             );
           },

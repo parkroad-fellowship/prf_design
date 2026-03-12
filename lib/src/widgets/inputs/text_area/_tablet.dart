@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFTextAreaInputTablet extends StatelessWidget {
   const PRFTextAreaInputTablet({
@@ -7,6 +6,9 @@ class PRFTextAreaInputTablet extends StatelessWidget {
     required this.controller,
     super.key,
     this.enabled = true,
+    this.labelText,
+    this.errorText,
+    this.helperText,
     this.maxLines = 6,
     this.minLines = 4,
     this.textInputAction = TextInputAction.newline,
@@ -15,6 +17,9 @@ class PRFTextAreaInputTablet extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final bool enabled;
+  final String? labelText;
+  final String? errorText;
+  final String? helperText;
   final int minLines;
   final int maxLines;
   final TextInputAction textInputAction;
@@ -39,40 +44,12 @@ class PRFTextAreaInputTablet extends StatelessWidget {
           height: 1.5,
         ),
         decoration: InputDecoration(
+          labelText: labelText,
           hintText: hintText,
+          helperText: helperText,
+          errorText: errorText,
           hintStyle: theme.textTheme.titleMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
-          ),
-          filled: true,
-          fillColor: theme.colorScheme.surface,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-            borderSide: BorderSide(
-              color: theme.colorScheme.outline.withValues(alpha: .2),
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-            borderSide: BorderSide(
-              color: theme.colorScheme.outline.withValues(alpha: .2),
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-            borderSide: BorderSide(
-              color: theme.colorScheme.primary,
-              width: 2,
-            ),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-            borderSide: BorderSide(
-              color: theme.colorScheme.outline.withValues(alpha: .1),
-            ),
-          ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: PRFSpacingTokens.xl,
-            vertical: PRFSpacingTokens.xxl,
           ),
           alignLabelWithHint: true,
         ),

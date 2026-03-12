@@ -89,7 +89,8 @@ class PRFConfirmationDialog extends StatelessWidget {
           ),
         ],
       ),
-      content: content ??
+      content:
+          content ??
           (message != null
               ? Text(
                   message!,

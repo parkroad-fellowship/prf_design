@@ -4,6 +4,6 @@ export 'form_section.dart';
 export 'name/name.dart';
 export 'number/number.dart';
 export 'password/password.dart';
-export 'searchable_dropdown/searchable_dropdown.dart';
+export 'searchable_list/searchable_list.dart';
 export 'text/text.dart';
 export 'text_area/text_area.dart';

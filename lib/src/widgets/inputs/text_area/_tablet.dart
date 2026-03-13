@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:prf_design/src/widgets/inputs/_capitalization.dart';
 
 class PRFTextAreaInputTablet extends StatelessWidget {
   const PRFTextAreaInputTablet({
@@ -12,6 +14,7 @@ class PRFTextAreaInputTablet extends StatelessWidget {
     this.maxLines = 6,
     this.minLines = 4,
     this.textInputAction = TextInputAction.newline,
+    this.normalizeLeadingCapitalization = true,
   });
 
   final String hintText;
@@ -23,6 +26,7 @@ class PRFTextAreaInputTablet extends StatelessWidget {
   final int minLines;
   final int maxLines;
   final TextInputAction textInputAction;
+  final bool normalizeLeadingCapitalization;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +43,10 @@ class PRFTextAreaInputTablet extends StatelessWidget {
         enabled: enabled,
         minLines: minLines,
         maxLines: maxLines,
+        inputFormatters: [
+          if (normalizeLeadingCapitalization)
+            const PRFLeadingCapitalizationFormatter(),
+        ],
         style: theme.textTheme.titleMedium?.copyWith(
           color: theme.colorScheme.onSurface,
           height: 1.5,

@@ -16,6 +16,7 @@ class PRFTextInput extends StatelessWidget {
     this.helperText,
     this.keyboardType,
     this.textInputAction = TextInputAction.next,
+    this.normalizeLeadingCapitalization = true,
   });
 
   final String hintText;
@@ -28,6 +29,7 @@ class PRFTextInput extends StatelessWidget {
   final String? helperText;
   final TextInputType? keyboardType;
   final TextInputAction textInputAction;
+  final bool normalizeLeadingCapitalization;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,7 @@ class PRFTextInput extends StatelessWidget {
         helperText: helperText,
         keyboardType: keyboardType,
         textInputAction: textInputAction,
+        normalizeLeadingCapitalization: normalizeLeadingCapitalization,
       ),
       layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
         handset: (_, _) => PRFTextInputHandset(
@@ -56,6 +59,7 @@ class PRFTextInput extends StatelessWidget {
           helperText: helperText,
           keyboardType: keyboardType,
           textInputAction: textInputAction,
+          normalizeLeadingCapitalization: normalizeLeadingCapitalization,
         ),
         tablet: (_, _) => PRFTextInputTablet(
           hintText: hintText,
@@ -68,6 +72,7 @@ class PRFTextInput extends StatelessWidget {
           helperText: helperText,
           keyboardType: keyboardType,
           textInputAction: textInputAction,
+          normalizeLeadingCapitalization: normalizeLeadingCapitalization,
         ),
       ),
     );

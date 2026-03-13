@@ -15,6 +15,7 @@ class PRFTextAreaInput extends StatelessWidget {
     this.maxLines = 5,
     this.minLines = 3,
     this.textInputAction = TextInputAction.newline,
+    this.normalizeLeadingCapitalization = true,
   });
 
   final String hintText;
@@ -26,6 +27,7 @@ class PRFTextAreaInput extends StatelessWidget {
   final int minLines;
   final int maxLines;
   final TextInputAction textInputAction;
+  final bool normalizeLeadingCapitalization;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +42,7 @@ class PRFTextAreaInput extends StatelessWidget {
         errorText: errorText,
         helperText: helperText,
         textInputAction: textInputAction,
+        normalizeLeadingCapitalization: normalizeLeadingCapitalization,
       ),
       layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
         handset: (_, _) => PRFTextAreaInputHandset(
@@ -52,6 +55,7 @@ class PRFTextAreaInput extends StatelessWidget {
           errorText: errorText,
           helperText: helperText,
           textInputAction: textInputAction,
+          normalizeLeadingCapitalization: normalizeLeadingCapitalization,
         ),
         tablet: (_, _) => PRFTextAreaInputTablet(
           hintText: hintText,
@@ -63,6 +67,7 @@ class PRFTextAreaInput extends StatelessWidget {
           errorText: errorText,
           helperText: helperText,
           textInputAction: textInputAction,
+          normalizeLeadingCapitalization: normalizeLeadingCapitalization,
         ),
       ),
     );

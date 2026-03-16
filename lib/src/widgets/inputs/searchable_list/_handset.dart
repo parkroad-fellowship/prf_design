@@ -72,10 +72,10 @@ class _PRFSearchableListHandsetState<T>
   }
 
   void _scrollResultsIntoView() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final ctx = _resultsKey.currentContext;
       if (ctx != null) {
-        Scrollable.ensureVisible(
+        await Scrollable.ensureVisible(
           ctx,
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,

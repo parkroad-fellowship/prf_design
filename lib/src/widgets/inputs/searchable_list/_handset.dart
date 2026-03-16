@@ -17,6 +17,7 @@ class PRFSearchableListHandset<T> extends StatefulWidget {
     required this.onSelected,
     super.key,
     this.selection,
+    this.selections,
     this.hintText = 'Search',
     this.emptyText = 'No results found',
     this.resultHeight = 200,
@@ -25,6 +26,7 @@ class PRFSearchableListHandset<T> extends StatefulWidget {
   final List<PRFSearchableListEntry<T>> entries;
   final ValueChanged<T?> onSelected;
   final T? selection;
+  final List<T>? selections;
   final String hintText;
   final String emptyText;
   final double resultHeight;
@@ -41,6 +43,8 @@ class _PRFSearchableListHandsetState<T>
   final GlobalKey _resultsKey = GlobalKey();
   String _query = '';
   bool _hasFocus = false;
+
+  bool get _isMultiSelect => widget.selections != null;
 
   @override
   void initState() {
@@ -98,19 +102,37 @@ class _PRFSearchableListHandsetState<T>
     return null;
   }
 
+  bool _isItemSelected(T value) {
+    if (_isMultiSelect) {
+      return widget.selections!.contains(value);
+    }
+    return value == widget.selection;
+  }
+
+  String? _labelForValue(T value) {
+    for (final entry in widget.entries) {
+      if (entry.value == value) {
+        return entry.label;
+      }
+    }
+    return null;
+  }
+
   bool get _showResults => _hasFocus || _query.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final selectedLabel = _selectedLabel;
     final results = _filtered;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (selectedLabel != null) _buildChip(theme, selectedLabel),
+        if (_isMultiSelect)
+          _buildMultiSelectChips(theme)
+        else if (_selectedLabel != null)
+          _buildChip(theme, _selectedLabel!),
         _buildSearchField(theme),
         if (_showResults) ...[
           const SizedBox(height: PRFSpacingTokens.sm),
@@ -124,6 +146,8 @@ class _PRFSearchableListHandsetState<T>
       ],
     );
   }
+
+  // --- Single-select chip ---
 
   Widget _buildChip(ThemeData theme, String label) {
     return Container(
@@ -171,6 +195,43 @@ class _PRFSearchableListHandsetState<T>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  // --- Multi-select chips ---
+
+  Widget _buildMultiSelectChips(ThemeData theme) {
+    final selected = widget.selections!;
+    if (selected.isEmpty) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: PRFSpacingTokens.md),
+      child: Wrap(
+        spacing: PRFSpacingTokens.xs,
+        runSpacing: PRFSpacingTokens.xs,
+        children: selected.map((value) {
+          final label = _labelForValue(value) ?? value.toString();
+          return Chip(
+            label: Text(
+              label,
+              style: theme.textTheme.bodySmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+            backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.08),
+            side: BorderSide(
+              color: theme.colorScheme.primary.withValues(alpha: 0.3),
+            ),
+            deleteIcon: Icon(
+              Icons.close,
+              size: 16,
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+            onDeleted: () => widget.onSelected(value),
+          );
+        }).toList(),
       ),
     );
   }
@@ -239,7 +300,7 @@ class _PRFSearchableListHandsetState<T>
         itemCount: results.length,
         itemBuilder: (context, index) {
           final entry = results[index];
-          final isSelected = entry.value == widget.selection;
+          final isSelected = _isItemSelected(entry.value);
           return _buildTile(theme, entry, isSelected);
         },
       ),
@@ -299,9 +360,8 @@ class _PRFSearchableListHandsetState<T>
                   child: Text(
                     entry.label,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: isSelected
-                          ? FontWeight.w600
-                          : FontWeight.normal,
+                      fontWeight:
+                          isSelected ? FontWeight.w600 : FontWeight.normal,
                       color: isSelected ? theme.colorScheme.primary : null,
                     ),
                   ),

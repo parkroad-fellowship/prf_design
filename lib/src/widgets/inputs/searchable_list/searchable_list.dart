@@ -10,6 +10,7 @@ class PRFSearchableList<T> extends StatelessWidget {
     required this.onSelected,
     super.key,
     this.selection,
+    this.selections,
     this.hintText = 'Search',
     this.emptyText = 'No results found',
     this.resultHeight = 200,
@@ -17,7 +18,16 @@ class PRFSearchableList<T> extends StatelessWidget {
 
   final List<PRFSearchableListEntry<T>> entries;
   final ValueChanged<T?> onSelected;
+
+  /// Single-select: currently selected value. Mutually exclusive with
+  /// [selections].
   final T? selection;
+
+  /// Multi-select: currently selected values. When non-null the widget renders
+  /// in multi-select mode — showing chips for every selected value and allowing
+  /// multiple items to be picked. Mutually exclusive with [selection].
+  final List<T>? selections;
+
   final String hintText;
   final String emptyText;
   final double resultHeight;
@@ -29,6 +39,7 @@ class PRFSearchableList<T> extends StatelessWidget {
         entries: entries,
         onSelected: onSelected,
         selection: selection,
+        selections: selections,
         hintText: hintText,
         emptyText: emptyText,
         resultHeight: resultHeight,

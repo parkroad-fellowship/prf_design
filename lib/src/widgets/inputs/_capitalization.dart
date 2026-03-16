@@ -35,7 +35,7 @@ class PRFLeadingCapitalizationFormatter extends TextInputFormatter {
   int _findFirstAlphabeticIndex(String value) {
     for (var i = 0; i < value.length; i++) {
       final char = value[i];
-      if (RegExp(r'[A-Za-z]').hasMatch(char)) {
+      if (RegExp('[A-Za-z]').hasMatch(char)) {
         return i;
       }
     }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:prf_design/src/widgets/inputs/_capitalization.dart';
 
 class PRFTextAreaInputTablet extends StatelessWidget {

@@ -42,8 +42,8 @@ class PRFMessageBubble extends StatelessWidget {
           );
 
     final bubbleColor = isIncoming
-      ? theme.colorScheme.secondaryContainer
-      : theme.colorScheme.primary;
+        ? theme.colorScheme.secondaryContainer
+        : theme.colorScheme.primary;
 
     return Container(
       margin:
@@ -53,8 +53,9 @@ class PRFMessageBubble extends StatelessWidget {
             vertical: PRFSpacingTokens.xs,
           ),
       child: Column(
-        crossAxisAlignment:
-            isIncoming ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+        crossAxisAlignment: isIncoming
+            ? CrossAxisAlignment.start
+            : CrossAxisAlignment.end,
         children: [
           Container(
             padding: const EdgeInsets.symmetric(

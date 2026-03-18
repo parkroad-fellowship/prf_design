@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/_index.dart';
-import 'package:prf_design/src/widgets/navigation/_index.dart';
-import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
 class PRFChatView<T> extends StatelessWidget {
   const PRFChatView({

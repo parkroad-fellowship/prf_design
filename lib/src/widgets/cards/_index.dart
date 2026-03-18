@@ -6,3 +6,4 @@ export 'message_bubble.dart';
 export 'navigation_tile.dart';
 export 'stat_highlight_card.dart';
 export 'status_badge.dart';
+export 'timeline_date_badge.dart';

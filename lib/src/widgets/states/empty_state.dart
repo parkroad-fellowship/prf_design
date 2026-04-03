@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
+import 'package:prf_design/src/widgets/navigation/branded_navbar.dart';
 
 class PRFEmptyView extends StatelessWidget {
   const PRFEmptyView({
@@ -11,6 +12,12 @@ class PRFEmptyView extends StatelessWidget {
     this.action,
     this.actionLabel,
     this.onActionPressed,
+    this.navBarTitle,
+    this.onBackPressed,
+    this.showBackButton = true,
+    this.navBarActions,
+    this.navBarBackgroundColor,
+    this.navBarForegroundColor,
     super.key,
   });
 
@@ -20,12 +27,18 @@ class PRFEmptyView extends StatelessWidget {
   final Widget? action;
   final String? actionLabel;
   final VoidCallback? onActionPressed;
+  final String? navBarTitle;
+  final VoidCallback? onBackPressed;
+  final bool showBackButton;
+  final List<Widget>? navBarActions;
+  final Color? navBarBackgroundColor;
+  final Color? navBarForegroundColor;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Semantics(
+    final body = Semantics(
       label: '$label. $description',
       child: Center(
         child: Column(
@@ -87,6 +100,24 @@ class PRFEmptyView extends StatelessWidget {
           ],
         ),
       ),
+    );
+
+    if (navBarTitle == null) {
+      return body;
+    }
+
+    return Column(
+      children: [
+        PRFBrandedNavBar(
+          title: navBarTitle!,
+          onBack: onBackPressed,
+          showBackButton: showBackButton,
+          actions: navBarActions,
+          backgroundColor: navBarBackgroundColor,
+          foregroundColor: navBarForegroundColor,
+        ),
+        Expanded(child: body),
+      ],
     );
   }
 }

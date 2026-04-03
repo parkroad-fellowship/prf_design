@@ -26,7 +26,7 @@ class PRFFormFieldLabelTablet extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           text: label.toUpperCase(),
-          style: theme.textTheme.labelMedium?.copyWith(
+          style: theme.textTheme.labelSmall?.copyWith(
             fontWeight: FontWeight.w700,
             color: color ?? PRFColors.gray500,
             letterSpacing: 0.5,
@@ -35,7 +35,7 @@ class PRFFormFieldLabelTablet extends StatelessWidget {
             if (isRequired ?? false)
               TextSpan(
                 text: ' *',
-                style: theme.textTheme.labelMedium?.copyWith(
+                style: theme.textTheme.labelSmall?.copyWith(
                   color: theme.colorScheme.error,
                   fontWeight: FontWeight.w700,
                 ),
@@ -43,7 +43,7 @@ class PRFFormFieldLabelTablet extends StatelessWidget {
             if (isRequired == null || isRequired == false)
               TextSpan(
                 text: ' (optional)',
-                style: theme.textTheme.bodyMedium?.copyWith(
+                style: theme.textTheme.bodySmall?.copyWith(
                   color: PRFColors.gray400,
                 ),
               ),

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design/src/theme/colors/prf_color_palette.dart';
-import 'package:prf_design/src/theme/colors/prf_colors.dart';
-import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFEmailInputTablet extends StatelessWidget {
   const PRFEmailInputTablet({
@@ -27,49 +24,10 @@ class PRFEmailInputTablet extends StatelessWidget {
         controller: emailController,
         enabled: enabled,
         keyboardType: TextInputType.emailAddress,
-        style: theme.textTheme.titleMedium,
+        style: theme.textTheme.bodyMedium,
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: theme.textTheme.titleMedium?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          ),
-          filled: true,
-          fillColor: PRFColors.gray50,
-          prefixIcon: const Icon(
-            Icons.email_outlined,
-            size: 28,
-          ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: PRFSpacingTokens.xl,
-            vertical: PRFSpacingTokens.xxl,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-              PRFRadiusTokens.lg,
-            ),
-            borderSide: const BorderSide(
-              color: PRFColorPalette.navy50,
-              width: 1.5,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-              PRFRadiusTokens.lg,
-            ),
-            borderSide: const BorderSide(
-              color: PRFColorPalette.navy50,
-              width: 1.5,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(
-              PRFRadiusTokens.lg,
-            ),
-            borderSide: BorderSide(
-              color: theme.colorScheme.primary,
-              width: 2,
-            ),
-          ),
+          prefixIcon: const Icon(Icons.email_outlined),
         ),
       ),
     );

@@ -46,7 +46,7 @@ class PRFTextAreaInputTablet extends StatelessWidget {
           if (normalizeLeadingCapitalization)
             const PRFLeadingCapitalizationFormatter(),
         ],
-        style: theme.textTheme.titleMedium?.copyWith(
+        style: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onSurface,
           height: 1.5,
         ),
@@ -55,7 +55,7 @@ class PRFTextAreaInputTablet extends StatelessWidget {
           hintText: hintText,
           helperText: helperText,
           errorText: errorText,
-          hintStyle: theme.textTheme.titleMedium?.copyWith(
+          hintStyle: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
           alignLabelWithHint: true,

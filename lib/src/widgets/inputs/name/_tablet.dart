@@ -28,19 +28,19 @@ class PRFNameInputTablet extends StatelessWidget {
         textCapitalization: TextCapitalization.words,
         controller: controller,
         enabled: enabled,
-        style: theme.textTheme.titleMedium?.copyWith(
+        style: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onSurface,
         ),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: theme.textTheme.titleMedium?.copyWith(
+          hintStyle: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
           filled: true,
           fillColor: PRFColors.gray50,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
-              PRFRadiusTokens.lg,
+              PRFRadiusTokens.smd,
             ),
             borderSide: const BorderSide(
               color: PRFColorPalette.navy50,
@@ -49,7 +49,7 @@ class PRFNameInputTablet extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
-              PRFRadiusTokens.lg,
+              PRFRadiusTokens.smd,
             ),
             borderSide: const BorderSide(
               color: PRFColorPalette.navy50,
@@ -58,7 +58,7 @@ class PRFNameInputTablet extends StatelessWidget {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
-              PRFRadiusTokens.lg,
+              PRFRadiusTokens.smd,
             ),
             borderSide: BorderSide(
               color: theme.colorScheme.primary,
@@ -67,7 +67,7 @@ class PRFNameInputTablet extends StatelessWidget {
           ),
           disabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(
-              PRFRadiusTokens.lg,
+              PRFRadiusTokens.smd,
             ),
             borderSide: BorderSide(
               color: PRFColorPalette.navy50.withValues(
@@ -77,7 +77,7 @@ class PRFNameInputTablet extends StatelessWidget {
           ),
           contentPadding: const EdgeInsets.symmetric(
             horizontal: PRFSpacingTokens.xl,
-            vertical: PRFSpacingTokens.xxl,
+            vertical: PRFSpacingTokens.md,
           ),
         ),
       ),

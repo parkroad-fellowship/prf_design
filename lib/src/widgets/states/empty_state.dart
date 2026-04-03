@@ -88,14 +88,20 @@ class PRFEmptyView extends StatelessWidget {
               action!,
             ] else if (actionLabel != null && onActionPressed != null) ...[
               const SizedBox(height: 24),
-              PRFPrimaryButton(
-                    onPressed: onActionPressed!,
-                    title: actionLabel!,
-                    disabled: false,
-                  )
-                  .animate()
-                  .fadeIn(delay: PRFMotionTokens.stagger5)
-                  .scale(delay: PRFMotionTokens.stagger1),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: PRFSpacingTokens.lg,
+                ),
+                child:
+                    PRFPrimaryButton(
+                          onPressed: onActionPressed!,
+                          title: actionLabel!,
+                          disabled: false,
+                        )
+                        .animate()
+                        .fadeIn(delay: PRFMotionTokens.stagger5)
+                        .scale(delay: PRFMotionTokens.stagger1),
+              ),
             ],
           ],
         ),

@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/prf_design.svg)](https://pub.dev/packages/prf_design)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta/actions/workflows/ci.yml/badge.svg)](https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta/actions)
+[![CI](https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta/actions/workflows/ci.yaml/badge.svg)](https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta/actions)
 
 A reusable Flutter package containing shared widgets, theme system, and essential utilities for PRF applications.
 
@@ -12,7 +12,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  prf_design: ^0.3.0
+  prf_design: ^latest
 ```
 
 Or run:
@@ -87,14 +87,14 @@ Core brand colors and semantic color constants.
 
 | Color | Hex | Usage |
 |-------|-----|-------|
-| Navy Blue | `#17154C` | Primary brand color |
-| Lime Green | `#93D500` | Secondary brand color |
+| Navy Blue | `#1A2253` | Primary brand color |
+| Lime Green | `#9DE35D` | Secondary brand color |
 
 **Neutral Colors:** `gray50` through `gray900` (10 shades from light to dark)
 
 **Status Colors:** `success`, `successLight`, `successDark`, `warning`, `warningLight`, `warningDark`, `error`, `errorLight`, `errorDark`, `info`, `infoLight`, `infoDark`
 
-**Accent Colors:** `purple` (`#6B21A8`), `blue` (`#2563EB`), `orange` (`#EA580C`), `emerald` (`#10B981`)
+**Accent Colors:** `purple` (`#6E4CEB`), `blue` (`#296DFF`), `orange` (`#EB8B2D`), `emerald` (`#12B886`)
 
 **Common Colors:** `white`, `black`, `transparent`
 
@@ -158,7 +158,7 @@ context.theme        // ThemeData
 
 ### PRFTextTheme
 
-Typography system using Google Fonts (Lato) with responsive scaling and light/dark variants.
+Typography system using Google Fonts (Manrope) with responsive scaling and light/dark variants.
 
 ```dart
 static TextTheme getLightTheme({required double scaleFactor})
@@ -209,7 +209,6 @@ PRFGoogleAuthButton({
   required String title,
   required bool disabled,
   bool? isLoading,
-  Widget? googleLogoAsset,
 })
 ```
 
@@ -224,7 +223,14 @@ PRFTextInput({
   required String hintText,
   required TextEditingController controller,
   bool enabled = true,
+  bool readOnly = false,
   ValueChanged<String>? onChanged,
+  String? labelText,
+  String? errorText,
+  String? helperText,
+  TextInputType? keyboardType,
+  TextInputAction textInputAction = TextInputAction.next,
+  bool normalizeLeadingCapitalization = true,
 })
 ```
 
@@ -266,7 +272,12 @@ PRFNumberInput({
   required String hintText,
   required TextEditingController controller,
   bool isLoading = false,
+  bool enabled = true,
   String? prefixText,
+  String? labelText,
+  String? errorText,
+  String? helperText,
+  ValueChanged<String>? onChanged,
   TextInputAction textInputAction = TextInputAction.next,
 })
 ```
@@ -278,16 +289,20 @@ PRFTextAreaInput({
   required String hintText,
   required TextEditingController controller,
   bool enabled = true,
+  String? labelText,
+  String? errorText,
+  String? helperText,
   int minLines = 3,
   int maxLines = 5,
   TextInputAction textInputAction = TextInputAction.newline,
+  bool normalizeLeadingCapitalization = true,
 })
 ```
 
-#### FormFieldLabel
+#### PRFFormFieldLabel
 
 ```dart
-FormFieldLabel({
+PRFFormFieldLabel({
   required String label,
   bool? isRequired,
   Color? color,
@@ -332,6 +347,12 @@ PRFEmptyView({
   Widget? action,
   String? actionLabel,
   VoidCallback? onActionPressed,
+  String? navBarTitle,
+  VoidCallback? onBackPressed,
+  bool showBackButton = true,
+  List<Widget>? navBarActions,
+  Color? navBarBackgroundColor,
+  Color? navBarForegroundColor,
 })
 ```
 
@@ -429,6 +450,28 @@ StatHighlightCard({
   Duration delay = Duration.zero,
 })
 ```
+
+Additional exported cards: `PRFActionCard`, `PRFDetailActionCard`, `PRFInfoCard`, `PRFMessageBubble`, `PRFNavigationTile`, `PRFStatusBadge`, `PRFTimelineDateBadge`, `PRFTimelineMissionCard`.
+
+### Dialogs
+
+Exported: `PRFBottomSheet`, `PRFConfirmationDialog`.
+
+### Media
+
+Exported: `PRFMediaCarousel`, `PRFMediaGrid`, `PRFMediaTile`.
+
+### Navigation
+
+Exported: `PRFBrandedNavBar`, `PRFDomainTabSection`, `PRFNavBar`, `PRFSectionHeader`.
+
+### Additional Inputs
+
+Exported: `PRFPhoneInput`, `PRFSearchableList<T>`, `PRFReplyComposer`, `PRFFormSection`.
+
+### Additional State Widgets
+
+Exported: `PRFChatView<T>`.
 
 ### Viewers
 
@@ -642,10 +685,13 @@ prf_design/
 |---------|-------------|
 | `flutter_adaptive_ui` | Responsive handset/tablet layouts |
 | `flutter_animate` | Declarative animations |
-| `google_fonts` | Lato font and other Google Fonts |
+| `flutter_staggered_grid_view` | Staggered and masonry grid layouts |
+| `flutter_svg` | SVG rendering support |
+| `google_fonts` | Manrope font and other Google Fonts |
 | `http` | HTTP client for network requests |
 | `intl` | Internationalization and formatting |
 | `pdfx` | PDF rendering |
+| `phone_form_field` | International phone number input |
 | `timezone` | Timezone-aware date/time handling |
 
 ## Contributing

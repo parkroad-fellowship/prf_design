@@ -40,7 +40,7 @@ class _PRFSearchableListHandsetState<T>
     extends State<PRFSearchableListHandset<T>> {
   late final TextEditingController _controller;
   final FocusNode _focusNode = FocusNode();
-  final GlobalKey _resultsKey = GlobalKey();
+
   String _query = '';
   bool _hasFocus = false;
 
@@ -65,22 +65,6 @@ class _PRFSearchableListHandsetState<T>
   void _onFocusChanged() {
     setState(() {
       _hasFocus = _focusNode.hasFocus;
-    });
-    if (_focusNode.hasFocus) {
-      _scrollResultsIntoView();
-    }
-  }
-
-  void _scrollResultsIntoView() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final ctx = _resultsKey.currentContext;
-      if (ctx != null) {
-        await Scrollable.ensureVisible(
-          ctx,
-          duration: const Duration(milliseconds: 250),
-          curve: Curves.easeInOut,
-        );
-      }
     });
   }
 
@@ -138,10 +122,7 @@ class _PRFSearchableListHandsetState<T>
           const SizedBox(height: PRFSpacingTokens.sm),
           _buildResultCount(theme, results.length),
           const SizedBox(height: PRFSpacingTokens.xs),
-          KeyedSubtree(
-            key: _resultsKey,
-            child: _buildResultsList(theme, results),
-          ),
+          _buildResultsList(theme, results),
         ],
       ],
     );
@@ -242,7 +223,6 @@ class _PRFSearchableListHandsetState<T>
       focusNode: _focusNode,
       onChanged: (value) {
         setState(() => _query = value);
-        _scrollResultsIntoView();
       },
       style: theme.textTheme.bodyMedium?.copyWith(
         color: theme.colorScheme.onSurface,

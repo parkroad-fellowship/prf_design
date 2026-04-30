@@ -1,21 +1,41 @@
-MIT License
+Parkroad Fellowship Public Ministry License
+Version 1.0
 
-Copyright (c) 2026 Parkroad Fellowship
+The Spirit of This License
+Parkroad Fellowship provides this software and its associated documentation as an intentional act of Christian stewardship. Our conviction is that the tools we develop for the Gospel should be shared freely to empower the global Church and mission organisations. Consequently this resource is offered without charge to fellow ministry organizations so that they may adapt, deploy and utilize it for their specific callings. Because we view this work as our humble contribution to society and the Body of Christ we strictly prohibit its commercialization by any party.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+1. Acceptance of Terms
+By accessing, using, modifying or distributing this software you agree to be bound by these terms as both strict obligations and essential conditions of your license. If you do not agree to these terms in their entirety you are not authorized to use this work in any capacity.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+2. Detailed Grant of Licenses
+* Copyright License: Parkroad Fellowship (the "Licensor") grants you a worldwide, royalty-free and non-exclusive license to exercise the copyright in the software for any Permitted Purpose. This includes the right to reproduce, prepare derivative works and display the software publicly.
+* Distribution License: You are granted an additional license to distribute copies of the software or your adaptations of it provided that you include all required notices and maintain the non-commercial integrity of the project.
+* Patent License: The Licensor grants you a patent license covering any patent claims the Licensor owns or controls that are necessarily infringed by the software in the form provided by the Licensor.
+
+3. Definitions of Permitted Purpose
+Use of this software is limited to "Permitted Purposes" which include:
+* Ministry and Religious Use: Any activity conducted by a church, parachurch organization, mission agency or religious non-profit for the purposes of worship, evangelism, discipleship and community service.
+* Non-commercial Organizational Use: Use by charitable entities, public educational institutions, research organizations and public safety groups.
+* Personal Study: Use by individuals for private research, experimentation, hobbyist pursuits and religious observance where no commercial application is intended.
+
+4. Strict Prohibition of Commercialization
+This project is born from a desire to serve rather than to profit. Therefore:
+* You may not sell, lease, rent or license the software for a fee.
+* You may not package this software as a component of a commercial product or a paid service offering.
+* You may not use the software for the primary purpose of financial gain or professional advantage for a for-profit corporation.
+* Clarification: Recovery of direct costs for ministry activities (such as charging for materials, food or facility use at a conference where this software is used) does not constitute commercialization.
+
+5. Attribution and Required Notices
+To ensure the lineage of this work is preserved you must ensure that any person or entity who receives a copy of the software from you also receives a copy of this license. You must retain all copyright, patent or trademark notices and include the following plain-text statement:
+
+Required Notice: This work was originally developed and shared by Parkroad Fellowship (https://parkroadfellowship.org). This adaptation is provided under the Parkroad Fellowship Public Ministry License and must remain free for ministry use.
+
+6. Reservation of Identity (No Endorsement)
+This license grants rights to the software but does not grant any rights to the "Parkroad Fellowship" name, logos or trademarks. You may not use the identity of the Licensor to imply that Parkroad Fellowship endorses, supports or is affiliated with your specific use case or any modifications you have made to the original work.
+
+7. Termination for Non-Compliance
+Your licenses under these terms will terminate automatically if you fail to comply with any of the conditions. If your license is terminated you must immediately cease all use and distribution of the software. If this is your first violation the Licensor will reinstate your rights if you correct the violation and come into full compliance within 30 days of receiving a written notice of the breach.
+
+8. Disclaimer of Warranty and Limitation of Liability
+AS FAR AS THE LAW ALLOWS THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND EITHER EXPRESS OR IMPLIED INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL PARKROAD FELLOWSHIP OR ITS CONTRIBUTORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

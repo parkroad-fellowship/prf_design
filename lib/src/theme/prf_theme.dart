@@ -1,57 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/colors/_index.dart';
 import 'package:prf_design/src/theme/extensions/_index.dart';
+import 'package:prf_design/src/theme/prf_theme_config.dart';
 import 'package:prf_design/src/theme/text_theme.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFTheme {
   PRFTheme._();
 
-  static ThemeData light({required double scaleFactor}) {
+  static ThemeData light({
+    required double scaleFactor,
+    PRFThemeConfig config = PRFThemeConfig.prf,
+  }) {
     final textTheme = PRFTextTheme.getLightTheme(scaleFactor: scaleFactor);
 
     return ThemeData(
       useMaterial3: true,
-      primaryColor: PRFColors.navyBlue,
-      scaffoldBackgroundColor: PRFColors.gray50,
+      primaryColor: config.primaryColor,
+      scaffoldBackgroundColor: config.neutralPalette[0],
       textTheme: textTheme,
-      extensions: const <ThemeExtension<dynamic>>[
-        PRFColorsExtension.light,
+      extensions: <ThemeExtension<dynamic>>[
+        PRFColorsExtension.fromConfig(config, Brightness.light),
         PRFStatusExtension.light,
       ],
-      colorScheme: const ColorScheme(
+      colorScheme: ColorScheme(
         brightness: Brightness.light,
-        primary: PRFColors.navyBlue,
+        primary: config.primaryColor,
         onPrimary: PRFColors.white,
-        secondary: PRFColors.limeGreen,
-        onSecondary: PRFColorPalette.navy900,
+        secondary: config.secondaryColor,
+        onSecondary: config.primaryPalette[9],
         error: PRFColors.error,
         onError: PRFColors.white,
         surface: PRFColors.white,
-        onSurface: PRFColorPalette.navy800,
-        onSurfaceVariant: PRFColors.gray600,
-        outline: PRFColors.gray300,
-        shadow: Color(0x12090B1F),
-        surfaceContainerHighest: PRFColors.gray100,
+        onSurface: config.primaryPalette[8],
+        onSurfaceVariant: config.neutralPalette[6],
+        outline: config.neutralPalette[3],
+        shadow: const Color(0x12090B1F),
+        surfaceContainerHighest: config.neutralPalette[1],
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: PRFColors.gray50,
-        foregroundColor: PRFColors.navyBlue,
+        backgroundColor: config.neutralPalette[0],
+        foregroundColor: config.primaryColor,
         elevation: PRFElevationTokens.none,
         scrolledUnderElevation: PRFElevationTokens.none,
         centerTitle: false,
         surfaceTintColor: PRFColors.transparent,
         titleTextStyle: textTheme.headlineSmall?.copyWith(
-          color: PRFColors.navyBlue,
+          color: config.primaryColor,
           fontWeight: FontWeight.w700,
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: PRFColors.navyBlue,
+          backgroundColor: config.primaryColor,
           foregroundColor: PRFColors.white,
-          disabledBackgroundColor: PRFColors.gray300,
-          disabledForegroundColor: PRFColors.gray600,
+          disabledBackgroundColor: config.neutralPalette[3],
+          disabledForegroundColor: config.neutralPalette[6],
           minimumSize: const Size(
             double.infinity,
             PRFButtonTokens.handsetHeight,
@@ -69,8 +73,8 @@ class PRFTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
-          foregroundColor: PRFColors.navyBlue,
-          side: const BorderSide(color: PRFColors.gray300, width: 1.2),
+          foregroundColor: config.primaryColor,
+          side: BorderSide(color: config.neutralPalette[3], width: 1.2),
           minimumSize: const Size(
             double.infinity,
             PRFButtonTokens.handsetHeight,
@@ -87,15 +91,15 @@ class PRFTheme {
       ),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-          foregroundColor: PRFColors.navyBlue,
+          foregroundColor: config.primaryColor,
           textStyle: PRFTextTheme.getButtonTextStyle(scaleFactor: scaleFactor),
         ),
       ),
       inputDecorationTheme: _inputDecorationTheme(
         textTheme: textTheme,
         fillColor: PRFColors.white,
-        outlineColor: PRFColors.gray300,
-        focusColor: PRFColors.navyBlue,
+        outlineColor: config.neutralPalette[3],
+        focusColor: config.primaryColor,
       ),
       cardTheme: CardThemeData(
         color: PRFColors.white,
@@ -104,18 +108,18 @@ class PRFTheme {
         elevation: PRFElevationTokens.sm,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-          side: const BorderSide(color: PRFColors.gray200),
+          side: BorderSide(color: config.neutralPalette[2]),
         ),
       ),
-      dividerTheme: const DividerThemeData(
-        color: PRFColors.gray200,
+      dividerTheme: DividerThemeData(
+        color: config.neutralPalette[2],
         thickness: 1,
       ),
       snackBarTheme: SnackBarThemeData(
         contentTextStyle: textTheme.bodyMedium?.copyWith(
           color: PRFColors.white,
         ),
-        backgroundColor: PRFColors.navyBlue,
+        backgroundColor: config.primaryColor,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
@@ -126,9 +130,9 @@ class PRFTheme {
         secondaryLabelStyle: textTheme.labelMedium?.copyWith(
           color: PRFColors.white,
         ),
-        backgroundColor: PRFColors.gray100,
-        selectedColor: PRFColors.navyBlue,
-        disabledColor: PRFColors.gray300,
+        backgroundColor: config.neutralPalette[1],
+        selectedColor: config.primaryColor,
+        disabledColor: config.neutralPalette[3],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
         ),
@@ -142,7 +146,7 @@ class PRFTheme {
         ),
       ),
       iconTheme: IconThemeData(
-        color: PRFColors.navyBlue,
+        color: config.primaryColor,
         size: 22 * scaleFactor,
       ),
       dropdownMenuTheme: DropdownMenuThemeData(
@@ -150,42 +154,45 @@ class PRFTheme {
         inputDecorationTheme: _inputDecorationTheme(
           textTheme: textTheme,
           fillColor: PRFColors.white,
-          outlineColor: PRFColors.gray300,
-          focusColor: PRFColors.navyBlue,
+          outlineColor: config.neutralPalette[3],
+          focusColor: config.primaryColor,
         ),
       ),
     );
   }
 
-  static ThemeData dark({required double scaleFactor}) {
+  static ThemeData dark({
+    required double scaleFactor,
+    PRFThemeConfig config = PRFThemeConfig.prf,
+  }) {
     final textTheme = PRFTextTheme.getDarkTheme(scaleFactor: scaleFactor);
 
     return ThemeData(
       useMaterial3: true,
-      primaryColor: PRFColors.limeGreen,
-      scaffoldBackgroundColor: PRFColorPalette.navy900,
+      primaryColor: config.secondaryColor,
+      scaffoldBackgroundColor: config.primaryPalette[9],
       textTheme: textTheme,
-      extensions: const <ThemeExtension<dynamic>>[
-        PRFColorsExtension.dark,
+      extensions: <ThemeExtension<dynamic>>[
+        PRFColorsExtension.fromConfig(config, Brightness.dark),
         PRFStatusExtension.dark,
       ],
-      colorScheme: const ColorScheme(
+      colorScheme: ColorScheme(
         brightness: Brightness.dark,
-        primary: PRFColors.limeGreen,
-        onPrimary: PRFColorPalette.navy900,
-        secondary: PRFColorPalette.navy300,
+        primary: config.secondaryColor,
+        onPrimary: config.primaryPalette[9],
+        secondary: config.primaryPalette[3],
         onSecondary: PRFColors.white,
         error: PRFStatusTokens.errorMainDark,
         onError: PRFColors.white,
-        surface: PRFColorPalette.navy800,
+        surface: config.primaryPalette[8],
         onSurface: PRFColors.white,
-        onSurfaceVariant: PRFColors.gray400,
-        outline: PRFColors.gray700,
-        shadow: Color(0x33000000),
-        surfaceContainerHighest: PRFColorPalette.navy700,
+        onSurfaceVariant: config.neutralPalette[4],
+        outline: config.neutralPalette[7],
+        shadow: const Color(0x33000000),
+        surfaceContainerHighest: config.primaryPalette[7],
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: PRFColorPalette.navy900,
+        backgroundColor: config.primaryPalette[9],
         foregroundColor: PRFColors.white,
         elevation: PRFElevationTokens.none,
         scrolledUnderElevation: PRFElevationTokens.none,
@@ -197,10 +204,10 @@ class PRFTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: PRFColors.limeGreen,
-          foregroundColor: PRFColorPalette.navy900,
-          disabledBackgroundColor: PRFColors.gray700,
-          disabledForegroundColor: PRFColors.gray500,
+          backgroundColor: config.secondaryColor,
+          foregroundColor: config.primaryPalette[9],
+          disabledBackgroundColor: config.neutralPalette[7],
+          disabledForegroundColor: config.neutralPalette[5],
           minimumSize: const Size(
             double.infinity,
             PRFButtonTokens.handsetHeight,
@@ -219,7 +226,7 @@ class PRFTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: PRFColors.white,
-          side: const BorderSide(color: PRFColors.gray700),
+          side: BorderSide(color: config.neutralPalette[7]),
           minimumSize: const Size(
             double.infinity,
             PRFButtonTokens.handsetHeight,
@@ -236,29 +243,29 @@ class PRFTheme {
       ),
       inputDecorationTheme: _inputDecorationTheme(
         textTheme: textTheme,
-        fillColor: PRFColorPalette.navy800,
-        outlineColor: PRFColors.gray700,
-        focusColor: PRFColors.limeGreen,
+        fillColor: config.primaryPalette[8],
+        outlineColor: config.neutralPalette[7],
+        focusColor: config.secondaryColor,
       ),
       cardTheme: CardThemeData(
-        color: PRFColorPalette.navy800,
+        color: config.primaryPalette[8],
         surfaceTintColor: PRFColors.transparent,
         shadowColor: const Color(0x33000000),
         elevation: PRFElevationTokens.none,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-          side: const BorderSide(color: PRFColors.gray700),
+          side: BorderSide(color: config.neutralPalette[7]),
         ),
       ),
-      dividerTheme: const DividerThemeData(
-        color: PRFColors.gray700,
+      dividerTheme: DividerThemeData(
+        color: config.neutralPalette[7],
         thickness: 1,
       ),
       snackBarTheme: SnackBarThemeData(
         contentTextStyle: textTheme.bodyMedium?.copyWith(
-          color: PRFColorPalette.navy900,
+          color: config.primaryPalette[9],
         ),
-        backgroundColor: PRFColors.limeGreen,
+        backgroundColor: config.secondaryColor,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.md),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/colors/_index.dart';
+import 'package:prf_design/src/theme/prf_theme_config.dart';
 
 /// ThemeExtension providing access to PRF brand colors.
 ///
@@ -54,6 +55,96 @@ class PRFColorsExtension extends ThemeExtension<PRFColorsExtension> {
     required this.orange,
     required this.emerald,
   });
+
+  /// Creates a light or dark [PRFColorsExtension] from a [PRFThemeConfig].
+  ///
+  /// In light mode brand colors are used as-is.  In dark mode the palette is
+  /// inverted so lighter shades are used on dark backgrounds.
+  factory PRFColorsExtension.fromConfig(
+    PRFThemeConfig config,
+    Brightness brightness,
+  ) {
+    if (brightness == Brightness.light) {
+      return PRFColorsExtension(
+        navyBlue: config.primaryColor,
+        limeGreen: config.secondaryColor,
+        navy50: config.primaryPalette[0],
+        navy100: config.primaryPalette[1],
+        navy200: config.primaryPalette[2],
+        navy300: config.primaryPalette[3],
+        navy400: config.primaryPalette[4],
+        navy500: config.primaryPalette[5],
+        navy600: config.primaryPalette[6],
+        navy700: config.primaryPalette[7],
+        navy800: config.primaryPalette[8],
+        navy900: config.primaryPalette[9],
+        lime50: config.secondaryPalette[0],
+        lime100: config.secondaryPalette[1],
+        lime200: config.secondaryPalette[2],
+        lime300: config.secondaryPalette[3],
+        lime400: config.secondaryPalette[4],
+        lime500: config.secondaryPalette[5],
+        lime600: config.secondaryPalette[6],
+        lime700: config.secondaryPalette[7],
+        lime800: config.secondaryPalette[8],
+        lime900: config.secondaryPalette[9],
+        gray50: config.neutralPalette[0],
+        gray100: config.neutralPalette[1],
+        gray200: config.neutralPalette[2],
+        gray300: config.neutralPalette[3],
+        gray400: config.neutralPalette[4],
+        gray500: config.neutralPalette[5],
+        gray600: config.neutralPalette[6],
+        gray700: config.neutralPalette[7],
+        gray800: config.neutralPalette[8],
+        gray900: config.neutralPalette[9],
+        purple: config.purple,
+        blue: config.blue,
+        orange: config.orange,
+        emerald: config.emerald,
+      );
+    }
+
+    // Dark mode – invert palettes so lighter variants are used on dark bg.
+    return PRFColorsExtension(
+      navyBlue: config.primaryPalette[3],
+      limeGreen: config.secondaryPalette[4],
+      navy50: config.primaryPalette[9],
+      navy100: config.primaryPalette[8],
+      navy200: config.primaryPalette[7],
+      navy300: config.primaryPalette[6],
+      navy400: config.primaryPalette[5],
+      navy500: config.primaryPalette[4],
+      navy600: config.primaryPalette[3],
+      navy700: config.primaryPalette[2],
+      navy800: config.primaryPalette[1],
+      navy900: config.primaryPalette[0],
+      lime50: config.secondaryPalette[9],
+      lime100: config.secondaryPalette[8],
+      lime200: config.secondaryPalette[7],
+      lime300: config.secondaryPalette[6],
+      lime400: config.secondaryPalette[5],
+      lime500: config.secondaryPalette[4],
+      lime600: config.secondaryPalette[3],
+      lime700: config.secondaryPalette[2],
+      lime800: config.secondaryPalette[1],
+      lime900: config.secondaryPalette[0],
+      gray50: config.neutralPalette[9],
+      gray100: config.neutralPalette[8],
+      gray200: config.neutralPalette[7],
+      gray300: config.neutralPalette[6],
+      gray400: config.neutralPalette[5],
+      gray500: config.neutralPalette[4],
+      gray600: config.neutralPalette[3],
+      gray700: config.neutralPalette[2],
+      gray800: config.neutralPalette[1],
+      gray900: config.neutralPalette[0],
+      purple: config.purple,
+      blue: config.blue,
+      orange: config.orange,
+      emerald: config.emerald,
+    );
+  }
 
   // Brand colors
   final Color navyBlue;

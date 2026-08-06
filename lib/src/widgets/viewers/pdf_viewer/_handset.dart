@@ -1,12 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:pdfx/pdfx.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
+import 'package:prf_design/src/widgets/viewers/pdf_viewer/_shared.dart';
 
-class PDFViewerPage extends StatefulWidget {
-  const PDFViewerPage({
+class PDFViewerHandset extends StatefulWidget {
+  const PDFViewerHandset({
     required this.pdfUrl,
     required this.title,
     super.key,
@@ -16,58 +15,23 @@ class PDFViewerPage extends StatefulWidget {
   final String title;
 
   @override
-  State<PDFViewerPage> createState() => _PDFViewerPageState();
+  State<PDFViewerHandset> createState() => _PDFViewerHandsetState();
 }
 
-class _PDFViewerPageState extends State<PDFViewerPage> {
-  PdfControllerPinch? _pdfController;
-  bool _isLoading = true;
-  String? _error;
+class _PDFViewerHandsetState extends State<PDFViewerHandset> {
+  final _state = PDFViewerState();
 
   @override
   void initState() {
     super.initState();
-    unawaited(_loadPdf());
-  }
-
-  Future<void> _loadPdf() async {
-    if (!mounted) return;
-
-    try {
-      setState(() {
-        _isLoading = true;
-        _error = null;
-      });
-
-      // Keep network calls bounded to avoid hanging viewer state.
-      final response = await http
-          .get(Uri.parse(widget.pdfUrl))
-          .timeout(const Duration(seconds: 30));
-
-      if (response.statusCode != 200) {
-        throw Exception('Failed to download PDF: ${response.statusCode}');
-      }
-
-      _pdfController = PdfControllerPinch(
-        document: PdfDocument.openData(response.bodyBytes),
-      );
-
-      if (!mounted) return;
-      setState(() {
-        _isLoading = false;
-      });
-    } on Exception catch (e) {
-      if (!mounted) return;
-      setState(() {
-        _isLoading = false;
-        _error = 'Failed to load PDF: $e';
-      });
-    }
+    _state.loadPdf(widget.pdfUrl, () {
+      if (mounted) setState(() {});
+    });
   }
 
   @override
   void dispose() {
-    _pdfController?.dispose();
+    _state.dispose();
     super.dispose();
   }
 
@@ -82,29 +46,31 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
         foregroundColor: theme.colorScheme.onSurface,
         title: Text(widget.title),
       ),
-      body: _isLoading
+      body: _state.isLoading
           ? const Center(child: PRFCircularProgressIndicator())
-          : _error != null
+          : _state.error != null
           ? Center(
               child: Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(PRFSpacingTokens.xl),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.error_outline,
-                      size: 64,
+                      size: PRFSizeTokens.iconHero,
                       color: theme.colorScheme.error,
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: PRFSpacingTokens.lg),
                     Text(
-                      _error!,
+                      _state.error!,
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodyLarge,
                     ),
-                    const SizedBox(height: 24),
+                    const SizedBox(height: PRFSpacingTokens.xl),
                     ElevatedButton.icon(
-                      onPressed: _loadPdf,
+                      onPressed: () => _state.loadPdf(widget.pdfUrl, () {
+                        if (mounted) setState(() {});
+                      }),
                       icon: const Icon(Icons.refresh),
                       label: const Text('Retry'),
                     ),
@@ -112,9 +78,9 @@ class _PDFViewerPageState extends State<PDFViewerPage> {
                 ),
               ),
             )
-          : _pdfController != null
+          : _state.controller != null
           ? PdfViewPinch(
-              controller: _pdfController!,
+              controller: _state.controller!,
               backgroundDecoration: BoxDecoration(
                 color: theme.colorScheme.surface,
               ),

@@ -22,7 +22,7 @@ class WrappedPageIndicator extends StatelessWidget {
         children: List.generate(
           pageCount,
           (index) => AnimatedContainer(
-            duration: PRFMotionTokens.slow,
+            duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
             margin: const EdgeInsets.symmetric(horizontal: 4),
             width: currentPage == index ? 32 : 8,
             height: 8,

@@ -64,6 +64,7 @@ class PRFMediaCarousel extends StatefulWidget {
               videoBuilder: videoBuilder,
             ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          if (MediaQuery.of(context).disableAnimations) return child;
           return FadeTransition(opacity: animation, child: child);
         },
       ),
@@ -186,6 +187,8 @@ class _TopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
@@ -227,9 +230,8 @@ class _TopBar extends StatelessWidget {
                 ),
                 child: Text(
                   '${currentIndex + 1} of $totalCount',
-                  style: const TextStyle(
+                  style: theme.textTheme.labelMedium?.copyWith(
                     color: PRFColors.white,
-                    fontSize: 13,
                     fontWeight: FontWeight.w600,
                   ),
                 ),

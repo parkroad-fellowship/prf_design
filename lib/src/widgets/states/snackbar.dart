@@ -81,8 +81,8 @@ class PRFSnackbar {
     final snackBar = SnackBar(
       content: Row(
         children: [
-          Icon(icon, color: colors.onColor, size: 20),
-          const SizedBox(width: 12),
+          Icon(icon, color: colors.onColor, size: PRFSizeTokens.iconMd),
+          const SizedBox(width: PRFSpacingTokens.md),
           Expanded(
             child: Text(
               message,

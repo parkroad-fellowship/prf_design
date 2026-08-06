@@ -13,7 +13,9 @@ abstract final class PRFColors {
   /// Navy Blue - Primary brand anchor
   static const Color navyBlue = Color(0xFF1A2253);
 
-  /// Lime Green - Secondary brand anchor
+  /// Lime Green - Secondary brand anchor.
+  /// ⚠️ Contrast ~1.5:1 on white/gray50 — never use as foreground text on light backgrounds.
+  /// Safe as foreground text on navy (#1A2253) at ~9.7:1 (AAA).
   static const Color limeGreen = Color(0xFF9DE35D);
 
   // ============================================

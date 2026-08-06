@@ -89,13 +89,13 @@ class PRFTextTheme {
         height: 1.5,
       ),
       bodyMedium: GoogleFonts.manrope(
-        fontSize: 15 * s,
+        fontSize: 17 * s,
         fontWeight: FontWeight.w500,
         color: defaultTextColor,
         height: 1.5,
       ),
       bodySmall: GoogleFonts.manrope(
-        fontSize: 13 * s,
+        fontSize: 14 * s,
         fontWeight: FontWeight.w500,
         color: secondaryTextColor,
         height: 1.45,
@@ -121,46 +121,6 @@ class PRFTextTheme {
     );
   }
 
-  static TextStyle getErrorTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 12 * s,
-      fontWeight: FontWeight.w600,
-      color: PRFColors.error,
-      height: 1.4,
-    );
-  }
-
-  static TextStyle getSuccessTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 12 * s,
-      fontWeight: FontWeight.w600,
-      color: PRFColors.success,
-      height: 1.4,
-    );
-  }
-
-  static TextStyle getWarningTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 12 * s,
-      fontWeight: FontWeight.w600,
-      color: PRFColors.warning,
-      height: 1.4,
-    );
-  }
-
-  static TextStyle getInfoTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 12 * s,
-      fontWeight: FontWeight.w600,
-      color: PRFColors.info,
-      height: 1.4,
-    );
-  }
-
   static TextStyle getButtonTextStyle({required double scaleFactor}) {
     final s = scaleFactor;
     return GoogleFonts.manrope(
@@ -168,16 +128,6 @@ class PRFTextTheme {
       fontWeight: FontWeight.w700,
       height: 1.2,
       letterSpacing: 0.1,
-    );
-  }
-
-  static TextStyle getCaptionTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 11 * s,
-      fontWeight: FontWeight.w500,
-      color: PRFColors.gray600,
-      height: 1.4,
     );
   }
 }

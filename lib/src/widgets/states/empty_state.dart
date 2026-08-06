@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:prf_design/src/theme/tokens/_index.dart';
-import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
-import 'package:prf_design/src/widgets/navigation/branded_navbar.dart';
+import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
+import 'package:prf_design/src/widgets/states/empty_state/_handset.dart';
+import 'package:prf_design/src/widgets/states/empty_state/_tablet.dart';
 
 class PRFEmptyView extends StatelessWidget {
   const PRFEmptyView({
@@ -36,94 +35,51 @@ class PRFEmptyView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final body = Semantics(
-      label: '$label. $description',
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    icon ?? Icons.inbox_outlined,
-                    size: 48,
-                    color: theme.colorScheme.primary,
-                  ),
-                )
-                .animate()
-                .fadeIn(duration: PRFMotionTokens.enterShort)
-                .scale(delay: PRFMotionTokens.stagger2),
-            const SizedBox(height: 16),
-            Text(
-                  label,
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  textAlign: TextAlign.center,
-                )
-                .animate()
-                .fadeIn(delay: PRFMotionTokens.stagger3)
-                .slideY(begin: 0.3, end: 0),
-            const SizedBox(height: 8),
-            Text(
-                  description,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant.withValues(
-                      alpha: 0.7,
-                    ),
-                  ),
-                  textAlign: TextAlign.center,
-                )
-                .animate()
-                .fadeIn(delay: PRFMotionTokens.stagger4)
-                .slideY(begin: 0.3, end: 0),
-            if (action != null) ...[
-              const SizedBox(height: 24),
-              action!,
-            ] else if (actionLabel != null && onActionPressed != null) ...[
-              const SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: PRFSpacingTokens.lg,
-                ),
-                child:
-                    PRFPrimaryButton(
-                          onPressed: onActionPressed!,
-                          title: actionLabel!,
-                          disabled: false,
-                        )
-                        .animate()
-                        .fadeIn(delay: PRFMotionTokens.stagger5)
-                        .scale(delay: PRFMotionTokens.stagger1),
-              ),
-            ],
-          ],
+    return AdaptiveBuilder(
+      defaultBuilder: (_, _) => PRFEmptyViewTablet(
+        label: label,
+        description: description,
+        icon: icon,
+        action: action,
+        actionLabel: actionLabel,
+        onActionPressed: onActionPressed,
+        navBarTitle: navBarTitle,
+        onBackPressed: onBackPressed,
+        showBackButton: showBackButton,
+        navBarActions: navBarActions,
+        navBarBackgroundColor: navBarBackgroundColor,
+        navBarForegroundColor: navBarForegroundColor,
+      ),
+      layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
+        handset: (_, _) => PRFEmptyViewHandset(
+          label: label,
+          description: description,
+          icon: icon,
+          action: action,
+          actionLabel: actionLabel,
+          onActionPressed: onActionPressed,
+          navBarTitle: navBarTitle,
+          onBackPressed: onBackPressed,
+          showBackButton: showBackButton,
+          navBarActions: navBarActions,
+          navBarBackgroundColor: navBarBackgroundColor,
+          navBarForegroundColor: navBarForegroundColor,
+        ),
+        tablet: (_, _) => PRFEmptyViewTablet(
+          label: label,
+          description: description,
+          icon: icon,
+          action: action,
+          actionLabel: actionLabel,
+          onActionPressed: onActionPressed,
+          navBarTitle: navBarTitle,
+          onBackPressed: onBackPressed,
+          showBackButton: showBackButton,
+          navBarActions: navBarActions,
+          navBarBackgroundColor: navBarBackgroundColor,
+          navBarForegroundColor: navBarForegroundColor,
         ),
       ),
-    );
-
-    if (navBarTitle == null) {
-      return body;
-    }
-
-    return Column(
-      children: [
-        PRFBrandedNavBar(
-          title: navBarTitle!,
-          onBack: onBackPressed,
-          showBackButton: showBackButton,
-          actions: navBarActions,
-          backgroundColor: navBarBackgroundColor,
-          foregroundColor: navBarForegroundColor,
-        ),
-        Expanded(child: body),
-      ],
     );
   }
 }

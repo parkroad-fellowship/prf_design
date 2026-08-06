@@ -39,25 +39,28 @@ class PRFBrandedNavBar extends StatelessWidget implements PreferredSizeWidget {
       child: Row(
         children: [
           if (showBackButton)
-            GestureDetector(
-              onTap: onBack ?? () => Navigator.of(context).maybePop(),
-              child: Container(
-                width: 44,
-                height: 44,
-                decoration: BoxDecoration(
-                  color: fg.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-                ),
-                alignment: Alignment.center,
-                child: Icon(
-                  Icons.arrow_back_ios_new,
-                  size: 20,
-                  color: fg,
+            Tooltip(
+              message: 'Back',
+              child: GestureDetector(
+                onTap: onBack ?? () => Navigator.of(context).maybePop(),
+                child: Container(
+                  width: PRFSizeTokens.minTouchTarget,
+                  height: PRFSizeTokens.minTouchTarget,
+                  decoration: BoxDecoration(
+                    color: fg.withValues(alpha: 0.14),
+                    borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+                  ),
+                  alignment: Alignment.center,
+                  child: Icon(
+                    Icons.arrow_back_ios_new,
+                    size: PRFSizeTokens.iconMd,
+                    color: fg,
+                  ),
                 ),
               ),
             )
           else
-            const SizedBox(width: 44),
+            const SizedBox(width: PRFSizeTokens.minTouchTarget),
           const SizedBox(width: PRFSpacingTokens.md),
           Expanded(
             child: Text(

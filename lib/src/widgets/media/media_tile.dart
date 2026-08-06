@@ -41,106 +41,110 @@ class PRFMediaTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: height ?? 180,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-          boxShadow: [
-            BoxShadow(
-              color: PRFColors.black.withValues(alpha: 0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              // Media content
-              if (isVideo)
-                _buildVideoContent(context, theme)
-              else
-                _buildImageContent(context, theme),
-
-              // Gradient overlay
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      PRFColors.transparent,
-                      PRFColors.black.withValues(alpha: 0.15),
-                    ],
-                  ),
-                ),
+    return Semantics(
+      label: isVideo ? 'Video media' : 'Image',
+      button: onTap != null,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: height ?? 180,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+            boxShadow: [
+              BoxShadow(
+                color: PRFColors.black.withValues(alpha: 0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
               ),
-
-              // Video indicator
-              if (isVideo) ...[
-                // Play button
-                Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: PRFColors.white.withValues(alpha: 0.9),
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          color: PRFColors.black.withValues(alpha: 0.3),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    padding: const EdgeInsets.all(PRFSpacingTokens.sm),
-                    child: Icon(
-                      Icons.play_arrow_rounded,
-                      color: theme.colorScheme.primary,
-                      size: 28,
-                    ),
-                  ),
-                ),
-
-                // Video badge
-                Positioned(
-                  bottom: 8,
-                  right: 8,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: PRFSpacingTokens.sm,
-                      vertical: PRFSpacingTokens.xs,
-                    ),
-                    decoration: BoxDecoration(
-                      color: PRFColors.black.withValues(alpha: 0.7),
-                      borderRadius: BorderRadius.circular(PRFRadiusTokens.xs),
-                    ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.videocam_rounded,
-                          color: PRFColors.white,
-                          size: 12,
-                        ),
-                        SizedBox(width: 3),
-                        Text(
-                          'Video',
-                          style: TextStyle(
-                            color: PRFColors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
             ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+            child: Stack(
+              fit: StackFit.expand,
+              children: [
+                // Media content
+                if (isVideo)
+                  _buildVideoContent(context, theme)
+                else
+                  _buildImageContent(context, theme),
+
+                // Gradient overlay
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        PRFColors.transparent,
+                        PRFColors.black.withValues(alpha: 0.15),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Video indicator
+                if (isVideo) ...[
+                  // Play button
+                  Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: PRFColors.white.withValues(alpha: 0.9),
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: PRFColors.black.withValues(alpha: 0.3),
+                            blurRadius: 8,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(PRFSpacingTokens.sm),
+                      child: Icon(
+                        Icons.play_arrow_rounded,
+                        color: theme.colorScheme.primary,
+                        size: PRFSizeTokens.iconXl,
+                      ),
+                    ),
+                  ),
+
+                  // Video badge
+                  Positioned(
+                    bottom: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: PRFSpacingTokens.sm,
+                        vertical: PRFSpacingTokens.xs,
+                      ),
+                      decoration: BoxDecoration(
+                        color: PRFColors.black.withValues(alpha: 0.7),
+                        borderRadius: BorderRadius.circular(PRFRadiusTokens.xs),
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.videocam_rounded,
+                            color: PRFColors.white,
+                            size: 12,
+                          ),
+                          SizedBox(width: 3),
+                          Text(
+                            'Video',
+                            style: TextStyle(
+                              color: PRFColors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
           ),
         ),
       ),

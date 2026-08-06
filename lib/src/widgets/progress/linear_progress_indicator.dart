@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 class PRFLinearProgressIndicator extends StatelessWidget {
   const PRFLinearProgressIndicator({
     super.key,
     this.color,
     this.value,
-    this.height = 4,
+    this.height = PRFSizeTokens.progressBarHeight,
     this.borderRadius,
     this.backgroundColor,
   });

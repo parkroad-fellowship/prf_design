@@ -52,109 +52,114 @@ class PRFTimelineDateBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return SizedBox(
-      width: badgeWidth + 10,
-      child: Column(
-        children: [
-          // Date badge
-          Container(
-            width: badgeWidth,
-            height: _isMultiDay ? 100 : 60,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  statusColor,
-                  statusColor.withValues(alpha: 0.8),
-                ],
-              ),
-              borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
-              boxShadow: PRFShadowTokens.badge(statusColor),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (_isMultiDay) ...[
-                  // Start date
-                  Text(
-                    startDate.day.toString(),
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: PRFColors.white,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Text(
-                    _monthAbbreviation(startDate.month),
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: PRFColors.white.withValues(alpha: 0.9),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  // Divider
-                  Container(
-                    width: 12,
-                    height: 1,
-                    color: PRFColors.white.withValues(alpha: 0.7),
-                    margin: const EdgeInsets.symmetric(vertical: 2),
-                  ),
-                  // End date
-                  Text(
-                    endDate!.day.toString(),
-                    style: theme.textTheme.labelLarge?.copyWith(
-                      color: PRFColors.white,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Text(
-                    _monthAbbreviation(endDate!.month),
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: PRFColors.white.withValues(alpha: 0.9),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ] else ...[
-                  // Single day
-                  Text(
-                    startDate.day.toString(),
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: PRFColors.white,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Text(
-                    _monthAbbreviation(startDate.month),
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: PRFColors.white.withValues(alpha: 0.9),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
-          // Connector line
-          if (!isLast)
+    return Semantics(
+      label: _isMultiDay
+          ? '${_monthAbbreviation(startDate.month)} ${startDate.day} to ${_monthAbbreviation(endDate!.month)} ${endDate!.day}'
+          : '${_monthAbbreviation(startDate.month)} ${startDate.day}',
+      child: SizedBox(
+        width: badgeWidth + 10,
+        child: Column(
+          children: [
+            // Date badge
             Container(
-              width: 2,
-              height: connectorHeight,
-              margin: const EdgeInsets.symmetric(
-                vertical: PRFSpacingTokens.sm,
-              ),
+              width: badgeWidth,
+              height: _isMultiDay ? 100 : 60,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
                   colors: [
-                    statusColor.withValues(alpha: 0.6),
-                    theme.colorScheme.outline.withValues(alpha: 0.2),
+                    statusColor,
+                    statusColor.withValues(alpha: 0.8),
                   ],
                 ),
-                borderRadius: BorderRadius.circular(1),
+                borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
+                boxShadow: PRFShadowTokens.badge(statusColor),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (_isMultiDay) ...[
+                    // Start date
+                    Text(
+                      startDate.day.toString(),
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: PRFColors.white,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      _monthAbbreviation(startDate.month),
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: PRFColors.white.withValues(alpha: 0.9),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    // Divider
+                    Container(
+                      width: 12,
+                      height: 1,
+                      color: PRFColors.white.withValues(alpha: 0.7),
+                      margin: const EdgeInsets.symmetric(vertical: 2),
+                    ),
+                    // End date
+                    Text(
+                      endDate!.day.toString(),
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: PRFColors.white,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      _monthAbbreviation(endDate!.month),
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: PRFColors.white.withValues(alpha: 0.9),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ] else ...[
+                    // Single day
+                    Text(
+                      startDate.day.toString(),
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: PRFColors.white,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    Text(
+                      _monthAbbreviation(startDate.month),
+                      style: theme.textTheme.labelSmall?.copyWith(
+                        color: PRFColors.white.withValues(alpha: 0.9),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ),
-        ],
+            // Connector line
+            if (!isLast)
+              Container(
+                width: 2,
+                height: connectorHeight,
+                margin: const EdgeInsets.symmetric(
+                  vertical: PRFSpacingTokens.sm,
+                ),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      statusColor.withValues(alpha: 0.6),
+                      theme.colorScheme.outline.withValues(alpha: 0.2),
+                    ],
+                  ),
+                  borderRadius: BorderRadius.circular(1),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

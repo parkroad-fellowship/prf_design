@@ -66,8 +66,8 @@ class PRFBottomSheet extends StatelessWidget {
             if (showHandle) ...[
               const SizedBox(height: PRFSpacingTokens.sm),
               Container(
-                width: 56,
-                height: 6,
+                width: PRFSizeTokens.bottomSheetHandleWidth,
+                height: PRFSizeTokens.bottomSheetHandleHeight,
                 decoration: BoxDecoration(
                   color: theme.colorScheme.outline.withValues(alpha: 0.35),
                   borderRadius: BorderRadius.circular(PRFRadiusTokens.full),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:prf_design/src/widgets/cards/animated_stat_card.dart';
+import 'package:prf_design/src/widgets/cards/animated_stat_card/animated_stat_card.dart';
 
 Widget _buildApp(Widget child) => MaterialApp(home: Scaffold(body: child));
 

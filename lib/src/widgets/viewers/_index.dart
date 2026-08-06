@@ -1,1 +1,1 @@
-export 'pdf_viewer.dart';
+export 'pdf_viewer/pdf_viewer.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
-import 'package:prf_design/src/widgets/cards/_action_card_handset.dart';
-import 'package:prf_design/src/widgets/cards/_action_card_tablet.dart';
+import 'package:prf_design/src/widgets/cards/action_card/_handset.dart';
+import 'package:prf_design/src/widgets/cards/action_card/_tablet.dart';
 
 class PRFActionCard extends StatelessWidget {
   const PRFActionCard({

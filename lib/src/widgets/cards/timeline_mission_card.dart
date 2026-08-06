@@ -74,7 +74,7 @@ class PRFTimelineMissionCard extends StatelessWidget {
           child: GestureDetector(
             onTap: onTap,
             child: Container(
-              margin: EdgeInsets.only(bottom: isLast ? 0 : 16),
+              margin: EdgeInsets.only(bottom: isLast ? 0 : PRFSpacingTokens.lg),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(PRFRadiusTokens.md),

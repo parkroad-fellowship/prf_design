@@ -52,8 +52,8 @@ class PRFReplyComposer extends StatelessWidget {
         padding: EdgeInsets.only(
           left: PRFSpacingTokens.lg,
           right: PRFSpacingTokens.lg,
-          bottom: bottomInset + 16,
-          top: 12,
+          bottom: bottomInset + PRFSpacingTokens.lg,
+          top: PRFSpacingTokens.md,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,

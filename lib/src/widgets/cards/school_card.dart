@@ -19,102 +19,108 @@ class PRFSchoolCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Material(
-      color: theme.colorScheme.surface,
-      borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-      child: InkWell(
+    return Semantics(
+      label: '$schoolName. $address',
+      button: true,
+      child: Material(
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-        onTap: onTap,
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-            border: Border.all(
-              color: theme.colorScheme.outline.withValues(alpha: 0.2),
-            ),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.surface,
-                theme.colorScheme.surfaceContainerLowest,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+          onTap: onTap,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+              border: Border.all(
+                color: theme.colorScheme.outline.withValues(alpha: 0.2),
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  theme.colorScheme.surface,
+                  theme.colorScheme.surfaceContainerLowest,
+                ],
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: theme.colorScheme.shadow.withValues(alpha: 0.08),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
               ],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: theme.colorScheme.shadow.withValues(alpha: 0.08),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(PRFSpacingTokens.md),
-            child: Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(PRFSpacingTokens.sm),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
-                  ),
-                  child: Icon(
-                    Icons.school_rounded,
-                    size: 24,
-                    color: theme.colorScheme.primary,
-                  ),
-                ),
-                const SizedBox(width: PRFSpacingTokens.md),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        schoolName,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.titleSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: PRFSpacingTokens.xs),
-                      Text(
-                        address,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                if (missionCount != null) ...[
-                  const SizedBox(width: PRFSpacingTokens.sm),
+            child: Padding(
+              padding: const EdgeInsets.all(PRFSpacingTokens.md),
+              child: Row(
+                children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: PRFSpacingTokens.sm,
-                      vertical: PRFSpacingTokens.xs,
-                    ),
+                    padding: const EdgeInsets.all(PRFSpacingTokens.sm),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.secondaryContainer,
-                      borderRadius: BorderRadius.circular(PRFRadiusTokens.full),
+                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
                     ),
-                    child: Text(
-                      '$missionCount',
-                      style: theme.textTheme.labelSmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: theme.colorScheme.onSecondaryContainer,
+                    child: Icon(
+                      Icons.school_rounded,
+                      size: PRFSizeTokens.iconLg,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                  const SizedBox(width: PRFSpacingTokens.md),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          schoolName,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: PRFSpacingTokens.xs),
+                        Text(
+                          address,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textTheme.bodySmall?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  if (missionCount != null) ...[
+                    const SizedBox(width: PRFSpacingTokens.sm),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: PRFSpacingTokens.sm,
+                        vertical: PRFSpacingTokens.xs,
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.secondaryContainer,
+                        borderRadius: BorderRadius.circular(
+                          PRFRadiusTokens.full,
+                        ),
+                      ),
+                      child: Text(
+                        '$missionCount',
+                        style: theme.textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: theme.colorScheme.onSecondaryContainer,
+                        ),
                       ),
                     ),
+                  ],
+                  const SizedBox(width: PRFSpacingTokens.sm),
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    size: PRFSizeTokens.iconMd,
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ],
-                const SizedBox(width: PRFSpacingTokens.sm),
-                Icon(
-                  Icons.chevron_right_rounded,
-                  size: 20,
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ],
+              ),
             ),
           ),
         ),

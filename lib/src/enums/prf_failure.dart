@@ -157,6 +157,7 @@ class PRFFailure implements Exception {
   final StackTrace? stackTrace;
 
   /// Additional context data for debugging.
+  /// Optional key-value context for logging and debugging (e.g. {'endpoint': '/missions', 'statusCode': 500}).
   final Map<String, dynamic> context;
 
   static PRFErrorType _typeFromStatusCode(int statusCode) {

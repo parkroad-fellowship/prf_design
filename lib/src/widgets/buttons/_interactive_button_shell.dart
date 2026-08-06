@@ -32,7 +32,7 @@ class _PRFInteractiveButtonShellState extends State<PRFInteractiveButtonShell> {
           : null,
       child: AnimatedScale(
         scale: _pressed ? PRFMotionTokens.pressedScale : 1,
-        duration: PRFMotionTokens.fast,
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.fast),
         curve: PRFMotionTokens.emphasized,
         child: SizedBox(
           width: double.infinity,

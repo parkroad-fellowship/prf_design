@@ -79,10 +79,11 @@ class PRFConfirmationDialog extends StatelessWidget {
             ),
             child: Icon(
               isDestructive ? Icons.delete_outline : Icons.info_outline,
+              // error on errorContainer (not errorContainer on errorContainer)
               color: isDestructive
                   ? theme.colorScheme.error
                   : theme.colorScheme.primary,
-              size: 24,
+              size: PRFSizeTokens.iconLg,
             ),
           ),
           const SizedBox(width: PRFSpacingTokens.lg),

@@ -36,16 +36,143 @@ dart format --set-exit-if-changed lib
 
 ### Adaptive Widget Pattern
 
-Every UI widget uses `AdaptiveBuilder` from `flutter_adaptive_ui` to provide device-specific implementations:
+Every UI widget uses `AdaptiveBuilder` from `flutter_adaptive_ui` to provide device-specific implementations.
+
+Each widget lives in its own folder under `lib/src/widgets/<category>/<widget_name>/`:
 
 ```
-lib/src/widgets/buttons/primary/
-  primary.dart      ← Public API: delegates via AdaptiveBuilder
-  _handset.dart     ← Phone layout (360x800)
-  _tablet.dart      ← Tablet layout (800x600)
+lib/src/widgets/<category>/<widget_name>/
+  <widget_name>.dart   ← Public API shell (AdaptiveBuilder only, no layout)
+  _shared.dart         ← Pure builder functions + optional shared state class
+  _handset.dart        ← Handset layout (StatelessWidget or StatefulWidget)
+  _tablet.dart         ← Tablet layout (StatelessWidget or StatefulWidget)
 ```
 
-The public widget (e.g., `PRFPrimaryButton`) accepts all parameters and routes to the correct private variant (`_handset` or `_tablet`) at runtime. Follow this pattern when adding new widgets.
+---
+
+## Adding a New Widget
+
+### 1. Shell (`<widget_name>.dart`)
+
+A thin `StatelessWidget`. Declares the public constructor and fields, then routes to the correct variant via `AdaptiveBuilder`. Contains no layout code.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
+import '_handset.dart';
+import '_tablet.dart';
+
+class PRFMyWidget extends StatelessWidget {
+  const PRFMyWidget({required this.label, super.key});
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveBuilder(
+      defaultBuilder: (_, __) => PRFMyWidgetTablet(label: label),
+      layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
+        handset: (_, __) => PRFMyWidgetHandset(label: label),
+        tablet: (_, __) => PRFMyWidgetTablet(label: label),
+      ),
+    );
+  }
+}
+```
+
+### 2. Shared (`_shared.dart`)
+
+Contains:
+- **Pure builder functions** — accept `BuildContext` + explicit params, return a `Widget`. Called by both variants to keep shared sub-components identical.
+- **Shared state class** — only when both variants need the same business logic (controllers, navigation methods). Each variant creates and disposes its own instance. Do not use mixins.
+
+```dart
+// Pure builder function
+Widget buildHeader(BuildContext context, {required ThemeData theme, required String label}) { ... }
+
+// Shared state class (only when needed)
+class MyWidgetState {
+  MyWidgetState();
+  final controller = TextEditingController();
+  VoidCallback? _rebuild;
+  void attach(VoidCallback rebuild) => _rebuild = rebuild;
+  void dispose() { controller.dispose(); _rebuild = null; }
+}
+```
+
+### 3. Variants (`_handset.dart` / `_tablet.dart`)
+
+Full `StatelessWidget` or `StatefulWidget`. Differ in layout, spacing, and size — not in logic.
+
+| Aspect | Handset | Tablet |
+|--------|---------|--------|
+| Layout | Single-column vertical stack | Multi-column or side-by-side |
+| Max content width | Full-width | `ConstrainedBox(maxWidth: 560–680)` |
+| Button width | Full-width with horizontal padding | `ConstrainedBox(maxWidth: 320)`, centred |
+| Padding | `PRFSpacingTokens.xl` | `PRFSpacingTokens.xxxl` |
+| Icon sizes | `PRFSizeTokens.iconXxxl` | `PRFSizeTokens.iconHero` |
+
+When sharing state, each variant owns its own instance:
+
+```dart
+class _HandsetState extends State<PRFMyWidgetHandset> {
+  final _state = MyWidgetState();
+
+  @override
+  void initState() {
+    super.initState();
+    _state.attach(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _state.dispose();
+    super.dispose();
+  }
+}
+```
+
+### 4. Quality checklist before opening a PR
+
+- [ ] **Reduced motion** — every `.animate()` chain and implicit animation duration uses `PRFMotionTokens.resolve(context, duration)`, never a bare constant
+- [ ] **Touch targets** — every interactive element is ≥ `PRFSizeTokens.minTouchTarget` (48 dp)
+- [ ] **Semantics** — tappable or content-bearing widgets have `Semantics(label:, button:)` or `Tooltip` on icon-only buttons
+- [ ] **Spacing tokens** — no raw `EdgeInsets.all(n)`, `SizedBox(height: n)` with magic numbers; use `PRFSpacingTokens`, `PRFSizeTokens`, or `PRFRadiusTokens`
+- [ ] **Icon sizes** — use `PRFSizeTokens.icon*` constants, not raw numbers
+- [ ] **Colours** — widget layout code uses `theme.colorScheme` or `context.prfColors`; never `PRFColors.*` literals
+
+### 5. Export the widget
+
+Add to `lib/src/widgets/<category>/_index.dart`:
+
+```dart
+export '<widget_name>/<widget_name>.dart';
+```
+
+### 6. Write tests
+
+Create `test/widgets/<category>/<widget_name>_test.dart`. Cover both viewport sizes and at minimum the primary render and any key interaction:
+
+```dart
+void main() {
+  setUp(() => GoogleFonts.config.allowRuntimeFetching = false);
+
+  testWidgets('renders on handset', (tester) async {
+    setHandsetSize(tester);
+    await tester.pumpWidget(buildSubject(const PRFMyWidget(label: 'Test')));
+    await tester.pumpAndSettle();
+    expect(find.text('Test'), findsOneWidget);
+  });
+
+  testWidgets('renders on tablet', (tester) async {
+    setTabletSize(tester);
+    await tester.pumpWidget(buildSubject(const PRFMyWidget(label: 'Test')));
+    await tester.pumpAndSettle();
+    expect(find.text('Test'), findsOneWidget);
+  });
+}
+```
+
+---
 
 ### Export System
 

@@ -39,7 +39,7 @@ class PRFNavBarTablet extends StatelessWidget {
       surfaceTintColor: Colors.transparent,
       pinned: true,
       elevation: PRFElevationTokens.none,
-      toolbarHeight: 100,
+      toolbarHeight: PRFNavigationTokens.appBarHeightTablet,
       flexibleSpace: _buildAppBarContent(theme, context),
     );
   }
@@ -50,7 +50,7 @@ class PRFNavBarTablet extends StatelessWidget {
       backgroundColor: backgroundColor ?? theme.colorScheme.surface,
       surfaceTintColor: Colors.transparent,
       elevation: PRFElevationTokens.none,
-      toolbarHeight: 100,
+      toolbarHeight: PRFNavigationTokens.appBarHeightTablet,
       flexibleSpace: _buildAppBarContent(theme, context),
     );
   }

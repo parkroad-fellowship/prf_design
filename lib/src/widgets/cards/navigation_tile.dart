@@ -67,8 +67,9 @@ class PRFNavigationTile extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
-                    width: 28,
-                    height: 28,
+                    // minimum 48dp touch target for the arrow affordance
+                    width: PRFSizeTokens.minTouchTarget,
+                    height: PRFSizeTokens.minTouchTarget,
                     decoration: BoxDecoration(
                       color: arrowBackgroundColor,
                       borderRadius: BorderRadius.circular(PRFRadiusTokens.full),
@@ -76,7 +77,7 @@ class PRFNavigationTile extends StatelessWidget {
                     ),
                     child: Icon(
                       Icons.arrow_forward_rounded,
-                      size: 16,
+                      size: PRFSizeTokens.iconSm,
                       color: arrowIconColor,
                     ),
                   ),

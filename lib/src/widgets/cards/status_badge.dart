@@ -23,35 +23,38 @@ class PRFStatusBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      padding:
-          padding ??
-          const EdgeInsets.symmetric(
-            horizontal: PRFSpacingTokens.sm,
-            vertical: PRFSpacingTokens.xs,
-          ),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius:
-            borderRadius ?? BorderRadius.circular(PRFRadiusTokens.smd),
-        boxShadow:
-            boxShadow ??
-            [
-              BoxShadow(
-                color: color.withValues(alpha: 0.3),
-                blurRadius: 4,
-                offset: const Offset(0, 2),
-              ),
-            ],
-      ),
-      child: Text(
-        label,
-        style:
-            textStyle ??
-            theme.textTheme.labelSmall?.copyWith(
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
+    return Semantics(
+      label: label,
+      child: Container(
+        padding:
+            padding ??
+            const EdgeInsets.symmetric(
+              horizontal: PRFSpacingTokens.sm,
+              vertical: PRFSpacingTokens.xs,
             ),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius:
+              borderRadius ?? BorderRadius.circular(PRFRadiusTokens.smd),
+          boxShadow:
+              boxShadow ??
+              [
+                BoxShadow(
+                  color: color.withValues(alpha: 0.3),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+        ),
+        child: Text(
+          label,
+          style:
+              textStyle ??
+              theme.textTheme.labelSmall?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+        ),
       ),
     );
   }

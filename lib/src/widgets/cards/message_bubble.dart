@@ -68,10 +68,14 @@ class PRFMessageBubble extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: bubbleGradient,
               borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(20),
-                topRight: const Radius.circular(20),
-                bottomLeft: Radius.circular(isIncoming ? 4 : 20),
-                bottomRight: Radius.circular(isIncoming ? 20 : 4),
+                topLeft: const Radius.circular(PRFRadiusTokens.lg),
+                topRight: const Radius.circular(PRFRadiusTokens.lg),
+                bottomLeft: Radius.circular(
+                  isIncoming ? PRFRadiusTokens.xs : PRFRadiusTokens.lg,
+                ),
+                bottomRight: Radius.circular(
+                  isIncoming ? PRFRadiusTokens.lg : PRFRadiusTokens.xs,
+                ),
               ),
               boxShadow: [
                 BoxShadow(
@@ -101,9 +105,8 @@ class PRFMessageBubble extends StatelessWidget {
               children: [
                 Text(
                   timestamp,
-                  style: theme.textTheme.bodySmall?.copyWith(
+                  style: theme.textTheme.labelSmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
-                    fontSize: 11,
                   ),
                 ),
                 if (showStatusIndicator) ...[

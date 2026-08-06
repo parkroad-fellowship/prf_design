@@ -169,7 +169,7 @@ class PRFTheme {
 
     return ThemeData(
       useMaterial3: true,
-      primaryColor: config.secondaryColor,
+      primaryColor: config.primaryPalette[2],
       scaffoldBackgroundColor: config.primaryPalette[9],
       textTheme: textTheme,
       extensions: <ThemeExtension<dynamic>>[
@@ -178,10 +178,12 @@ class PRFTheme {
       ],
       colorScheme: ColorScheme(
         brightness: Brightness.dark,
-        primary: config.secondaryColor,
-        onPrimary: config.primaryPalette[9],
-        secondary: config.primaryPalette[3],
-        onSecondary: PRFColors.white,
+        // navy200 as primary keeps brand grounding
+        // without lime's brightness on dark
+        primary: config.primaryPalette[2],
+        onPrimary: PRFColors.white,
+        secondary: config.secondaryColor,
+        onSecondary: config.primaryPalette[9],
         error: PRFStatusTokens.errorMainDark,
         onError: PRFColors.white,
         surface: config.primaryPalette[8],
@@ -204,8 +206,8 @@ class PRFTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: config.secondaryColor,
-          foregroundColor: config.primaryPalette[9],
+          backgroundColor: config.primaryPalette[2],
+          foregroundColor: PRFColors.white,
           disabledBackgroundColor: config.neutralPalette[7],
           disabledForegroundColor: config.neutralPalette[5],
           minimumSize: const Size(

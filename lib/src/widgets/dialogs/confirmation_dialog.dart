@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
-import 'package:prf_design/src/widgets/buttons/destroy/destroy.dart';
-import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
-import 'package:prf_design/src/widgets/buttons/secondary/secondary.dart';
+import 'package:prf_design/src/widgets/buttons/prf_button.dart';
 
+/// Confirmation dialog with icon header and confirm/cancel actions.
+///
+/// Pushes itself with [PRFConfirmationDialog.show]. The confirm button uses
+/// the destructive style when [isDestructive] is true. Resolves `true` when
+/// confirmed, `false` when cancelled. Pass [customActions] to replace the
+/// default buttons entirely.
+///
+/// Example:
+/// ```dart
+/// final confirmed = await PRFConfirmationDialog.show<bool>(
+///   context,
+///   title: 'Delete mission?',
+///   message: 'This action cannot be undone.',
+///   confirmLabel: 'Delete',
+///   isDestructive: true,
+///   onConfirm: _deleteMission,
+/// );
+/// ```
 class PRFConfirmationDialog extends StatelessWidget {
   const PRFConfirmationDialog({
     required this.title,
@@ -17,13 +33,28 @@ class PRFConfirmationDialog extends StatelessWidget {
     this.customActions,
   });
 
+  /// Dialog title shown beside the icon.
   final String title;
+
+  /// Optional body text (ignored when [content] is provided).
   final String? message;
+
+  /// Optional custom body widget (takes precedence over [message]).
   final Widget? content;
+
+  /// Label of the confirm button. Defaults to `Confirm`.
   final String confirmLabel;
+
+  /// Label of the cancel button. Defaults to `Cancel`.
   final String cancelLabel;
+
+  /// When true the header icon and confirm button use the destructive style.
   final bool isDestructive;
+
+  /// Invoked before the dialog closes with `true`.
   final VoidCallback? onConfirm;
+
+  /// Replaces the default confirm/cancel buttons.
   final List<Widget>? customActions;
 
   static Future<bool?> show(
@@ -113,28 +144,27 @@ class PRFConfirmationDialog extends StatelessWidget {
 
   List<Widget> _buildDefaultActions(BuildContext context) {
     return [
-      PRFSecondaryButton(
+      PRFButton(
         onPressed: () => Navigator.of(context).pop(false),
         title: cancelLabel,
-        disabled: false,
+        variant: PRFButtonVariant.secondary,
       ),
       if (isDestructive)
-        PRFDestroyButton(
+        PRFButton(
           onPressed: () {
             onConfirm?.call();
             Navigator.of(context).pop(true);
           },
           title: confirmLabel,
-          disabled: false,
+          variant: PRFButtonVariant.destructive,
         )
       else
-        PRFPrimaryButton(
+        PRFButton(
           onPressed: () {
             onConfirm?.call();
             Navigator.of(context).pop(true);
           },
           title: confirmLabel,
-          disabled: false,
         ),
     ];
   }

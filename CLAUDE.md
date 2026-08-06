@@ -6,9 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `prf_design` is a Flutter design system package providing shared widgets, theming, utilities, and error models. It is published to pub.dev and consumed by the PRF SuperApp.
 
-- **Dart SDK**: >=3.10.3 <4.0.0
+- **Dart SDK**: >=3.12.2 <4.0.0
 - **Flutter**: >=3.38.5
-- **Linting**: very_good_analysis 10.2.0 (public_member_api_docs disabled)
+- **Linting**: very_good_analysis 10.3.0 (public_member_api_docs disabled)
 
 ## Commands
 
@@ -36,17 +36,22 @@ dart format --set-exit-if-changed lib
 
 ### Adaptive Widget Pattern
 
-Every UI widget uses `AdaptiveBuilder` from `flutter_adaptive_ui` to provide device-specific implementations.
+Every UI widget routes to a device-specific implementation via `PRFAdaptive`
+from `lib/src/theme/adaptive/prf_adaptive.dart`. Breakpoints come from
+`PRFBreakpoints` (`handset` <600, `tablet` <1024, `desktop` ≥1024).
 
 Each widget lives in its own folder under `lib/src/widgets/<category>/<widget_name>/`:
 
 ```
 lib/src/widgets/<category>/<widget_name>/
-  <widget_name>.dart   ← Public API shell (AdaptiveBuilder only, no layout)
+  <widget_name>.dart   ← Public API shell (PRFAdaptive only, no layout)
   _shared.dart         ← Pure builder functions + optional shared state class
   _handset.dart        ← Handset layout (StatelessWidget or StatefulWidget)
   _tablet.dart         ← Tablet layout (StatelessWidget or StatefulWidget)
 ```
+
+Consolidated widgets (buttons, inputs, PDF viewer) drop the folder split and
+live in a single file, sharing one `_base` implementation.
 
 ---
 
@@ -54,11 +59,11 @@ lib/src/widgets/<category>/<widget_name>/
 
 ### 1. Shell (`<widget_name>.dart`)
 
-A thin `StatelessWidget`. Declares the public constructor and fields, then routes to the correct variant via `AdaptiveBuilder`. Contains no layout code.
+A thin `StatelessWidget`. Declares the public constructor and fields, then routes to the correct variant via `PRFAdaptive`. Contains no layout code.
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
+import 'package:prf_design/src/theme/adaptive/prf_adaptive.dart';
 import '_handset.dart';
 import '_tablet.dart';
 
@@ -68,12 +73,10 @@ class PRFMyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveBuilder(
-      defaultBuilder: (_, __) => PRFMyWidgetTablet(label: label),
-      layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
-        handset: (_, __) => PRFMyWidgetHandset(label: label),
-        tablet: (_, __) => PRFMyWidgetTablet(label: label),
-      ),
+    return PRFAdaptive(
+      handset: (_) => PRFMyWidgetHandset(label: label),
+      tablet: (_) => PRFMyWidgetTablet(label: label),
+      builder: (_, _) => PRFMyWidgetTablet(label: label),
     );
   }
 }
@@ -154,8 +157,6 @@ Create `test/widgets/<category>/<widget_name>_test.dart`. Cover both viewport si
 
 ```dart
 void main() {
-  setUp(() => GoogleFonts.config.allowRuntimeFetching = false);
-
   testWidgets('renders on handset', (tester) async {
     setHandsetSize(tester);
     await tester.pumpWidget(buildSubject(const PRFMyWidget(label: 'Test')));
@@ -183,8 +184,9 @@ void main() {
 
 ### Theme System
 
-- `PRFTheme.light(scaleFactor:)` / `PRFTheme.dark(scaleFactor:)` — Material 3 ThemeData factories
-- `PRFColors` — semantic color palettes with light/dark variants
+- `PRFTheme.light(scaleFactor:)` / `PRFTheme.dark(scaleFactor:)` — Material 3 ThemeData factories with a hand-authored `ColorScheme` per brightness; optional `colorScheme:` (full override) and `colors:` (`PRFBaseColors` primary/secondary/tertiary/error, scheme derived via Material 3 tonal palettes) parameters let consumers bring their own palette
+- `PRFColors` — single source of truth for every raw hex value (brand anchors, navy/lime palettes, grays, status, accents)
+- Typography uses the bundled offline Manrope family (declared in `pubspec.yaml` `flutter.fonts`); no `google_fonts`
 - Theme extensions accessed via `context.prfColors`, `context.statusColors`
 - `DeviceHelper.getScaleFactor(context:)` drives responsive typography
 
@@ -197,10 +199,14 @@ void main() {
 - Widget tests use helpers from `test/helpers/button_test_helpers.dart`:
   - `buildSubject(widget)` — wraps in MaterialApp with PRFTheme
   - `setHandsetSize(tester)` / `setTabletSize(tester)` — configure viewport for adaptive testing
-- Disable Google Fonts network fetching in tests: `GoogleFonts.config.allowRuntimeFetching = false`
 - Timer-based tests use `fake_async`
 - Mocking via `mocktail`
 
 ## CI Pipeline
 
 On push/PR to `main`: format check → analyze → test (see `.github/workflows/ci.yaml`).
+
+Publishing to pub.dev is manual: `release.yaml` runs only on
+`workflow_dispatch` (Actions → Release → Run workflow). It extracts the version
+from `pubspec.yaml`, dry-runs `dart pub publish`, then tags and publishes,
+skipping if the tag already exists.

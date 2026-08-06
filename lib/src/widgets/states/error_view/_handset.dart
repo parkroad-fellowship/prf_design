@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/enums/prf_failure.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
-import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
+import 'package:prf_design/src/widgets/buttons/prf_button.dart';
 import 'package:prf_design/src/widgets/states/error_view/_shared.dart';
 
+/// Handset layout for PRFErrorView. Internal — prefer the parent widget.
 class PRFErrorViewHandset extends StatelessWidget {
   const PRFErrorViewHandset({
     required this.failure,
@@ -106,10 +107,9 @@ class PRFErrorViewHandset extends StatelessWidget {
                 const SizedBox(height: PRFSpacingTokens.xl),
                 buildRetryButton(
                   context,
-                  button: PRFPrimaryButton(
+                  button: PRFButton(
                     onPressed: onRetry!,
                     title: 'Try Again',
-                    disabled: false,
                   ),
                 ),
               ],

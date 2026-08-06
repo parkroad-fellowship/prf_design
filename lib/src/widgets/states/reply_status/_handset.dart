@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/states/reply_status/_shared.dart';
 
+/// Handset layout for ReplyStatusView. Internal — prefer the parent widget.
 class PRFReplyStatusHandset extends StatefulWidget {
   const PRFReplyStatusHandset({
     required this.onStatusSelected,

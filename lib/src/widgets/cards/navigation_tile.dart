@@ -2,6 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Tappable card with an SVG illustration and a chevron affordance.
+///
+/// Renders a rounded, shadowed card with an SVG asset, a title, and a circular
+/// arrow indicator. Use for menu-style navigation entries; [isNeutralCard]
+/// switches the arrow to a neutral outline style.
+///
+/// Example:
+/// ```dart
+/// PRFNavigationTile(
+///   title: 'Missions',
+///   assetPath: 'assets/missions.svg',
+///   onTap: () => _openMissions(),
+/// )
+/// ```
 class PRFNavigationTile extends StatelessWidget {
   const PRFNavigationTile({
     required this.title,
@@ -12,10 +26,19 @@ class PRFNavigationTile extends StatelessWidget {
     this.isNeutralCard = false,
   });
 
+  /// Card title, shown under the asset.
   final String title;
+
+  /// Asset path of the SVG illustration.
   final String assetPath;
+
+  /// Invoked when the card is tapped.
   final VoidCallback onTap;
+
+  /// Height of the SVG asset. Defaults to 56.
   final double assetHeight;
+
+  /// When true the arrow affordance uses the neutral outline style.
   final bool isNeutralCard;
 
   @override

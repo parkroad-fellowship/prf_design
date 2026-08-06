@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/media/media_grid/_shared.dart';
 
+/// Handset layout for PRFMediaGrid. Internal — prefer the parent widget.
 class PRFMediaGridHandset extends StatelessWidget {
   const PRFMediaGridHandset({
     required this.itemCount,

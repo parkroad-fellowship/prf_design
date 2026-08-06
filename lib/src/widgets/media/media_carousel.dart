@@ -4,6 +4,15 @@ import 'package:prf_design/src/theme/colors/prf_colors.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
 /// A media item for the carousel.
+///
+/// Points at an image or video [url]. Videos are only rendered when the
+/// carousel is given a [PRFMediaCarousel.videoBuilder].
+///
+/// Example:
+/// ```dart
+/// PRFCarouselItem(url: photo.url, isVideo: false)
+/// PRFCarouselItem(url: video.url, isVideo: true)
+/// ```
 class PRFCarouselItem {
   const PRFCarouselItem({
     required this.url,
@@ -11,8 +20,13 @@ class PRFCarouselItem {
     this.id,
   });
 
+  /// Media URL.
   final String url;
+
+  /// When true the item is treated as a video.
   final bool isVideo;
+
+  /// Optional stable identifier for the item.
   final String? id;
 }
 
@@ -20,6 +34,21 @@ class PRFCarouselItem {
 ///
 /// Replaces `ImagePreviewPage` with support for actions (delete, save)
 /// and video items via a builder callback.
+///
+/// Example:
+/// ```dart
+/// await PRFMediaCarousel.show(
+///   context,
+///   items: [
+///     PRFCarouselItem(url: photo.url, isVideo: false),
+///     PRFCarouselItem(url: video.url, isVideo: true),
+///   ],
+///   initialIndex: 0,
+///   onSave: (item) => _download(item.url),
+///   onDelete: (index) async => await _confirmDelete(),
+///   videoBuilder: (context, item) => VideoPlayerPage(url: item.url),
+/// );
+/// ```
 class PRFMediaCarousel extends StatefulWidget {
   const PRFMediaCarousel({
     required this.items,
@@ -27,6 +56,10 @@ class PRFMediaCarousel extends StatefulWidget {
     this.onDelete,
     this.onSave,
     this.videoBuilder,
+    this.closeTooltip = 'Close',
+    this.saveTooltip = 'Save to device',
+    this.deleteTooltip = 'Delete',
+    this.imageErrorText = 'Failed to load image',
     super.key,
   });
 
@@ -43,6 +76,18 @@ class PRFMediaCarousel extends StatefulWidget {
   final Widget Function(BuildContext context, PRFCarouselItem item)?
   videoBuilder;
 
+  /// Tooltip for the close button.
+  final String closeTooltip;
+
+  /// Tooltip for the save button.
+  final String saveTooltip;
+
+  /// Tooltip for the delete button.
+  final String deleteTooltip;
+
+  /// Text shown when an image fails to load.
+  final String imageErrorText;
+
   /// Opens the carousel as a full-screen route.
   static Future<void> show(
     BuildContext context, {
@@ -51,6 +96,10 @@ class PRFMediaCarousel extends StatefulWidget {
     Future<bool> Function(int index)? onDelete,
     Future<void> Function(PRFCarouselItem item)? onSave,
     Widget Function(BuildContext context, PRFCarouselItem item)? videoBuilder,
+    String closeTooltip = 'Close',
+    String saveTooltip = 'Save to device',
+    String deleteTooltip = 'Delete',
+    String imageErrorText = 'Failed to load image',
   }) {
     return Navigator.of(context).push(
       PageRouteBuilder<void>(
@@ -62,6 +111,10 @@ class PRFMediaCarousel extends StatefulWidget {
               onDelete: onDelete,
               onSave: onSave,
               videoBuilder: videoBuilder,
+              closeTooltip: closeTooltip,
+              saveTooltip: saveTooltip,
+              deleteTooltip: deleteTooltip,
+              imageErrorText: imageErrorText,
             ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           if (MediaQuery.of(context).disableAnimations) return child;
@@ -144,7 +197,10 @@ class _PRFMediaCarouselState extends State<PRFMediaCarousel> {
                   if (item.isVideo && widget.videoBuilder != null) {
                     return widget.videoBuilder!(context, item);
                   }
-                  return _ImagePage(imageUrl: item.url);
+                  return _ImagePage(
+                    imageUrl: item.url,
+                    errorText: widget.imageErrorText,
+                  );
                 },
               ),
             ),
@@ -161,6 +217,9 @@ class _PRFMediaCarouselState extends State<PRFMediaCarousel> {
                   onClose: () => Navigator.of(context).pop(),
                   onDelete: widget.onDelete != null ? _handleDelete : null,
                   onSave: widget.onSave != null ? _handleSave : null,
+                  closeTooltip: widget.closeTooltip,
+                  saveTooltip: widget.saveTooltip,
+                  deleteTooltip: widget.deleteTooltip,
                 ),
               ),
           ],
@@ -177,6 +236,9 @@ class _TopBar extends StatelessWidget {
     required this.onClose,
     this.onDelete,
     this.onSave,
+    this.closeTooltip = 'Close',
+    this.saveTooltip = 'Save to device',
+    this.deleteTooltip = 'Delete',
   });
 
   final int currentIndex;
@@ -184,6 +246,9 @@ class _TopBar extends StatelessWidget {
   final VoidCallback onClose;
   final VoidCallback? onDelete;
   final VoidCallback? onSave;
+  final String closeTooltip;
+  final String saveTooltip;
+  final String deleteTooltip;
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +278,7 @@ class _TopBar extends StatelessWidget {
               IconButton(
                 onPressed: onClose,
                 icon: const Icon(Icons.close, color: PRFColors.white),
-                tooltip: 'Close',
+                tooltip: closeTooltip,
               ),
 
               const Spacer(),
@@ -247,7 +312,7 @@ class _TopBar extends StatelessWidget {
                     Icons.download_rounded,
                     color: PRFColors.white,
                   ),
-                  tooltip: 'Save to device',
+                  tooltip: saveTooltip,
                 ),
               if (onDelete != null)
                 IconButton(
@@ -256,7 +321,7 @@ class _TopBar extends StatelessWidget {
                     Icons.delete_outline_rounded,
                     color: PRFColors.white,
                   ),
-                  tooltip: 'Delete',
+                  tooltip: deleteTooltip,
                 ),
             ],
           ),
@@ -267,9 +332,10 @@ class _TopBar extends StatelessWidget {
 }
 
 class _ImagePage extends StatelessWidget {
-  const _ImagePage({required this.imageUrl});
+  const _ImagePage({required this.imageUrl, required this.errorText});
 
   final String imageUrl;
+  final String errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -295,7 +361,7 @@ class _ImagePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Failed to load image',
+                    errorText,
                     style: theme.textTheme.bodyLarge?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
                     ),

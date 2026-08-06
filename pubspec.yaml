@@ -1,6 +1,6 @@
 name: prf_design
 description: PRF Design System - Shared widgets, theme system, and essential utilities.
-version: "0.8.6"
+version: "1.0.0"
 repository: https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta
 homepage: https://parkroadfellowship.org
 issue_tracker: https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta/issues
@@ -12,12 +12,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_adaptive_ui: ^0.8.0+1
   flutter_animate: ^4.5.2
   flutter_staggered_grid_view: ^0.7.0
   flutter_svg: ^2.3.0
-  google_fonts: ^8.2.1
-  http: ^1.6.0
   intl: ^0.20.2
   pdfx: ^2.9.2
   phone_form_field: ^10.0.18
@@ -31,7 +28,49 @@ dev_dependencies:
   very_good_analysis: ^10.3.0
 
 flutter:
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/google_fonts/manrope/Manrope-ExtraLight.ttf
+          weight: 200
+        - asset: assets/google_fonts/manrope/Manrope-Light.ttf
+          weight: 300
+        - asset: assets/google_fonts/manrope/Manrope-Regular.ttf
+          weight: 400
+        - asset: assets/google_fonts/manrope/Manrope-Medium.ttf
+          weight: 500
+        - asset: assets/google_fonts/manrope/Manrope-SemiBold.ttf
+          weight: 600
+        - asset: assets/google_fonts/manrope/Manrope-Bold.ttf
+          weight: 700
+        - asset: assets/google_fonts/manrope/Manrope-ExtraBold.ttf
+          weight: 800
+    - family: Lato
+      fonts:
+        - asset: assets/google_fonts/lato/Lato-Thin.ttf
+          weight: 100
+        - asset: assets/google_fonts/lato/Lato-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/google_fonts/lato/Lato-Light.ttf
+          weight: 300
+        - asset: assets/google_fonts/lato/Lato-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/google_fonts/lato/Lato-Regular.ttf
+          weight: 400
+        - asset: assets/google_fonts/lato/Lato-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/google_fonts/lato/Lato-Bold.ttf
+          weight: 700
+        - asset: assets/google_fonts/lato/Lato-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/google_fonts/lato/Lato-Black.ttf
+          weight: 900
+        - asset: assets/google_fonts/lato/Lato-BlackItalic.ttf
+          weight: 900
+          style: italic
   assets:
     - assets/authentication/
-    - assets/google_fonts/lato/
-    - assets/google_fonts/manrope/

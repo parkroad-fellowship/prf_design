@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/enums/prf_failure.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
-import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
+import 'package:prf_design/src/widgets/buttons/prf_button.dart';
 import 'package:prf_design/src/widgets/states/error_view/_shared.dart';
 
+/// Tablet layout for PRFErrorView. Internal — prefer the parent widget.
 class PRFErrorViewTablet extends StatelessWidget {
   const PRFErrorViewTablet({
     required this.failure,
@@ -115,10 +116,9 @@ class PRFErrorViewTablet extends StatelessWidget {
                     constraints: const BoxConstraints(maxWidth: 320),
                     child: buildRetryButton(
                       context,
-                      button: PRFPrimaryButton(
+                      button: PRFButton(
                         onPressed: onRetry!,
                         title: 'Try Again',
-                        disabled: false,
                       ),
                     ),
                   ),

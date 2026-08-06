@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Chat message bubble with timestamp and optional delivery status.
+///
+/// Incoming messages use the secondary-container colour and align left;
+/// outgoing messages use the primary colour and align right. When
+/// [showStatusIndicator] is true a check icon appears next to the timestamp.
+///
+/// Example:
+/// ```dart
+/// PRFMessageBubble(
+///   message: message.text,
+///   timestamp: message.sentAtLabel,
+///   isIncoming: message.isIncoming,
+///   showStatusIndicator: message.isOutgoing && message.isRead,
+/// )
+/// ```
 class PRFMessageBubble extends StatelessWidget {
   const PRFMessageBubble({
     required this.message,
@@ -12,11 +27,22 @@ class PRFMessageBubble extends StatelessWidget {
     this.maxWidth,
   });
 
+  /// The message text.
   final String message;
+
+  /// Timestamp label rendered under the bubble.
   final String timestamp;
+
+  /// When true the bubble is styled as an incoming (left) message.
   final bool isIncoming;
+
+  /// When true a check-circle indicator follows the timestamp.
   final bool showStatusIndicator;
+
+  /// Overrides the default outer margin.
   final EdgeInsetsGeometry? margin;
+
+  /// Overrides the default 75%-width bubble constraint.
   final double? maxWidth;
 
   @override

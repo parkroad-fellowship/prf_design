@@ -13,6 +13,16 @@ import 'package:prf_design/src/theme/tokens/prf_spacing_tokens.dart';
 /// ranges, it shows both start and end dates separated by a divider.
 ///
 /// Set [isLast] to `true` to hide the vertical connector line below the badge.
+///
+/// Example:
+/// ```dart
+/// PRFTimelineDateBadge(
+///   startDate: mission.startDate,
+///   endDate: mission.endDate,
+///   statusColor: context.statusColors.inProgress.main,
+///   isLast: index == items.length - 1,
+/// )
+/// ```
 class PRFTimelineDateBadge extends StatelessWidget {
   const PRFTimelineDateBadge({
     required this.startDate,
@@ -54,7 +64,8 @@ class PRFTimelineDateBadge extends StatelessWidget {
 
     return Semantics(
       label: _isMultiDay
-          ? '${_monthAbbreviation(startDate.month)} ${startDate.day} to ${_monthAbbreviation(endDate!.month)} ${endDate!.day}'
+          ? '${_monthAbbreviation(startDate.month)} ${startDate.day} '
+                'to ${_monthAbbreviation(endDate!.month)} ${endDate!.day}'
           : '${_monthAbbreviation(startDate.month)} ${startDate.day}',
       child: SizedBox(
         width: badgeWidth + 10,

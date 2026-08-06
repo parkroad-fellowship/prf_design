@@ -1,11 +1,9 @@
 export 'action_card/action_card.dart';
-export 'animated_stat_card/animated_stat_card.dart';
 export 'detail_action_card/detail_action_card.dart';
 export 'info_card.dart';
 export 'message_bubble.dart';
 export 'navigation_tile.dart';
 export 'school_card.dart';
-export 'stat_highlight_card/stat_highlight_card.dart';
 export 'status_badge.dart';
 export 'timeline_date_badge.dart';
 export 'timeline_mission_card.dart';

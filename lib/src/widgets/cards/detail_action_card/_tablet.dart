@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Tablet layout for PRFDetailActionCard. Prefer the parent widget.
 class PRFDetailActionCardTablet extends StatelessWidget {
   const PRFDetailActionCardTablet({
     required this.title,

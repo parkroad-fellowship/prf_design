@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
+import 'package:prf_design/src/theme/adaptive/prf_adaptive.dart';
 import 'package:prf_design/src/widgets/states/category_chips/_handset.dart';
 import 'package:prf_design/src/widgets/states/category_chips/_tablet.dart';
 
 /// A generic, reusable category chip selector widget.
+///
+/// Renders a horizontally scrollable row of chips, one per [categories] item,
+/// plus an optional "ALL" chip. Selecting a chip calls [onCategorySelected]
+/// with the item — or `null` for the "ALL" chip.
 ///
 /// Usage:
 /// ```dart
@@ -26,18 +30,31 @@ class PRFCategoryChips<T> extends StatelessWidget {
     super.key,
   });
 
+  /// The items rendered as chips.
   final List<T> categories;
+
+  /// Invoked when a chip is selected — `null` for the "ALL" chip.
   final void Function(T?) onCategorySelected;
+
+  /// Builds the chip label for a category.
   final String Function(T) labelBuilder;
+
+  /// The currently selected category; highlighted chip.
   final T? selectedCategory;
+
+  /// When true the chips are replaced by loading placeholders.
   final bool isLoading;
+
+  /// When true a leading "ALL" chip is rendered. Defaults to true.
   final bool showAllOption;
+
+  /// Label of the "ALL" chip. Defaults to `ALL`.
   final String allLabel;
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveBuilder(
-      defaultBuilder: (_, _) => PRFCategoryChipsTablet<T>(
+    return PRFAdaptive(
+      handset: (_) => PRFCategoryChipsHandset<T>(
         categories: categories,
         onCategorySelected: onCategorySelected,
         labelBuilder: labelBuilder,
@@ -46,25 +63,23 @@ class PRFCategoryChips<T> extends StatelessWidget {
         showAllOption: showAllOption,
         allLabel: allLabel,
       ),
-      layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
-        handset: (_, _) => PRFCategoryChipsHandset<T>(
-          categories: categories,
-          onCategorySelected: onCategorySelected,
-          labelBuilder: labelBuilder,
-          selectedCategory: selectedCategory,
-          isLoading: isLoading,
-          showAllOption: showAllOption,
-          allLabel: allLabel,
-        ),
-        tablet: (_, _) => PRFCategoryChipsTablet<T>(
-          categories: categories,
-          onCategorySelected: onCategorySelected,
-          labelBuilder: labelBuilder,
-          selectedCategory: selectedCategory,
-          isLoading: isLoading,
-          showAllOption: showAllOption,
-          allLabel: allLabel,
-        ),
+      tablet: (_) => PRFCategoryChipsTablet<T>(
+        categories: categories,
+        onCategorySelected: onCategorySelected,
+        labelBuilder: labelBuilder,
+        selectedCategory: selectedCategory,
+        isLoading: isLoading,
+        showAllOption: showAllOption,
+        allLabel: allLabel,
+      ),
+      builder: (_, _) => PRFCategoryChipsTablet<T>(
+        categories: categories,
+        onCategorySelected: onCategorySelected,
+        labelBuilder: labelBuilder,
+        selectedCategory: selectedCategory,
+        isLoading: isLoading,
+        showAllOption: showAllOption,
+        allLabel: allLabel,
       ),
     );
   }

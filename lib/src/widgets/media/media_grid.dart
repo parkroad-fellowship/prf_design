@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
+import 'package:prf_design/src/theme/adaptive/prf_adaptive.dart';
 import 'package:prf_design/src/widgets/media/media_grid/_handset.dart';
 import 'package:prf_design/src/widgets/media/media_grid/_tablet.dart';
 
@@ -35,29 +35,27 @@ class PRFMediaGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveBuilder(
-      defaultBuilder: (_, _) => PRFMediaGridTablet(
+    return PRFAdaptive(
+      handset: (_) => PRFMediaGridHandset(
         itemCount: itemCount,
         itemBuilder: itemBuilder,
         onAdd: onAdd,
         addLabel: addLabel,
         addIcon: addIcon,
       ),
-      layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
-        handset: (_, _) => PRFMediaGridHandset(
-          itemCount: itemCount,
-          itemBuilder: itemBuilder,
-          onAdd: onAdd,
-          addLabel: addLabel,
-          addIcon: addIcon,
-        ),
-        tablet: (_, _) => PRFMediaGridTablet(
-          itemCount: itemCount,
-          itemBuilder: itemBuilder,
-          onAdd: onAdd,
-          addLabel: addLabel,
-          addIcon: addIcon,
-        ),
+      tablet: (_) => PRFMediaGridTablet(
+        itemCount: itemCount,
+        itemBuilder: itemBuilder,
+        onAdd: onAdd,
+        addLabel: addLabel,
+        addIcon: addIcon,
+      ),
+      builder: (_, _) => PRFMediaGridTablet(
+        itemCount: itemCount,
+        itemBuilder: itemBuilder,
+        onAdd: onAdd,
+        addLabel: addLabel,
+        addIcon: addIcon,
       ),
     );
   }

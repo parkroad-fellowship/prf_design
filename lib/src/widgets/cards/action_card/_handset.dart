@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/utils/device_helper.dart';
 
+/// Handset layout for PRFActionCard. Internal — prefer the parent widget.
 class PRFActionCardHandset extends StatelessWidget {
   const PRFActionCardHandset({
     required this.title,

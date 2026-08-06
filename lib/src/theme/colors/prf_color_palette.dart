@@ -1,73 +1,68 @@
 import 'dart:ui';
 
-/// Brand color palette variations with tints and shades.
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
+
+/// Backwards-compatible facade over [PRFColors].
 ///
-/// Provides a complete range of colors from light (50) to dark (900)
-/// for both Navy Blue and Lime Green brand colors.
+/// Kept for consumers that previously imported `PRFColorPalette`. All values
+/// live in [PRFColors] (the single source of truth); this class only forwards
+/// to them and is removed in a future major version.
 abstract final class PRFColorPalette {
   // ============================================
   // NAVY BLUE PALETTE
   // ============================================
 
-  /// Very light navy - ideal for backgrounds
-  static const Color navy50 = Color(0xFFEDF1FF);
-  static const Color navy100 = Color(0xFFD7E0FF);
-  static const Color navy200 = Color(0xFFB6C6F6);
-  static const Color navy300 = Color(0xFF95ACEA);
-  static const Color navy400 = Color(0xFF6D88D4);
-
-  /// Base navy blue - primary brand color
-  static const Color navy500 = Color(0xFF1A2253);
-
-  static const Color navy600 = Color(0xFF141B42);
-  static const Color navy700 = Color(0xFF111636);
-  static const Color navy800 = Color(0xFF0D112A);
-  static const Color navy900 = Color(0xFF090B1F);
+  static const Color navy50 = PRFColors.navy50;
+  static const Color navy100 = PRFColors.navy100;
+  static const Color navy200 = PRFColors.navy200;
+  static const Color navy300 = PRFColors.navy300;
+  static const Color navy400 = PRFColors.navy400;
+  static const Color navy500 = PRFColors.navy500;
+  static const Color navy600 = PRFColors.navy600;
+  static const Color navy700 = PRFColors.navy700;
+  static const Color navy800 = PRFColors.navy800;
+  static const Color navy900 = PRFColors.navy900;
 
   // ============================================
   // LIME GREEN PALETTE
   // ============================================
 
-  /// Very light lime - ideal for backgrounds
-  static const Color lime50 = Color(0xFFF6FEEB);
-  static const Color lime100 = Color(0xFFEAFCD2);
-  static const Color lime200 = Color(0xFFD9F8AE);
-  static const Color lime300 = Color(0xFFC4F184);
-  static const Color lime400 = Color(0xFFAFE964);
-
-  /// Base lime green - secondary brand color
-  static const Color lime500 = Color(0xFF9DE35D);
-
-  static const Color lime600 = Color(0xFF86C14D);
-  static const Color lime700 = Color(0xFF67973B);
-  static const Color lime800 = Color(0xFF4B6D2A);
-  static const Color lime900 = Color(0xFF31481B);
+  static const Color lime50 = PRFColors.lime50;
+  static const Color lime100 = PRFColors.lime100;
+  static const Color lime200 = PRFColors.lime200;
+  static const Color lime300 = PRFColors.lime300;
+  static const Color lime400 = PRFColors.lime400;
+  static const Color lime500 = PRFColors.lime500;
+  static const Color lime600 = PRFColors.lime600;
+  static const Color lime700 = PRFColors.lime700;
+  static const Color lime800 = PRFColors.lime800;
+  static const Color lime900 = PRFColors.lime900;
 
   // ============================================
   // CONVENIENCE GETTERS
   // ============================================
 
-  /// Primary color (Navy Blue base)
-  static const Color primary = navy500;
+  /// Primary color (Navy Blue base).
+  static const Color primary = PRFColors.navyBlue;
 
-  /// Primary light variant
-  static const Color primaryLight = navy100;
+  /// Primary light variant.
+  static const Color primaryLight = PRFColors.navy100;
 
-  /// Primary container (very light, for backgrounds)
-  static const Color primaryContainer = navy50;
+  /// Primary container (very light, for backgrounds).
+  static const Color primaryContainer = PRFColors.navy50;
 
-  /// Primary dark variant
-  static const Color primaryDark = navy700;
+  /// Primary dark variant.
+  static const Color primaryDark = PRFColors.navy700;
 
-  /// Secondary color (Lime Green base)
-  static const Color secondary = lime500;
+  /// Secondary color (Lime Green base).
+  static const Color secondary = PRFColors.limeGreen;
 
-  /// Secondary light variant
-  static const Color secondaryLight = lime100;
+  /// Secondary light variant.
+  static const Color secondaryLight = PRFColors.lime100;
 
-  /// Secondary container (very light, for backgrounds)
-  static const Color secondaryContainer = lime50;
+  /// Secondary container (very light, for backgrounds).
+  static const Color secondaryContainer = PRFColors.lime50;
 
-  /// Secondary dark variant
-  static const Color secondaryDark = lime700;
+  /// Secondary dark variant.
+  static const Color secondaryDark = PRFColors.lime700;
 }

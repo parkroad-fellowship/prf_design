@@ -3,6 +3,7 @@ import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/progress/linear_progress_indicator.dart';
 import 'package:prf_design/src/widgets/states/category_chips/_shared.dart';
 
+/// Handset layout for PRFCategoryChips. Internal — prefer the parent widget.
 class PRFCategoryChipsHandset<T> extends StatelessWidget {
   const PRFCategoryChipsHandset({
     required this.categories,

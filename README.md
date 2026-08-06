@@ -95,12 +95,48 @@ import 'package:prf_design/exports/enums.dart';
 Provides complete Material 3 theme configurations for light and dark modes.
 
 ```dart
-// Static factory methods (breaking API)
-static ThemeData light({required double scaleFactor})
-static ThemeData dark({required double scaleFactor})
+// Static factory methods
+static ThemeData light({
+  required double scaleFactor,
+  ColorScheme? colorScheme,
+  PRFBaseColors? colors,
+})
+static ThemeData dark({
+  required double scaleFactor,
+  ColorScheme? colorScheme,
+  PRFBaseColors? colors,
+})
 ```
 
 Both methods configure: color scheme, text theme, app bar, buttons, inputs, cards, dividers, tab bar, data table, snackbar, icon, dialog, list tile, chip, and dropdown menu themes.
+
+Omitting both parameters uses the hand-authored PRF palette. Apps with their
+own brand have two ways to theme the design system:
+
+1. **Base colours** — pass `PRFBaseColors` (primary/secondary/tertiary/error).
+   The theme derives on-colours and container roles from Material 3 tonal
+   palettes while keeping PRF's neutral surfaces:
+
+   ```dart
+   PRFTheme.light(
+     scaleFactor: DeviceHelper.getScaleFactor(context: context),
+     colors: const PRFBaseColors(
+       primary: myBrandColor,
+       secondary: myAccentColor,
+     ),
+   )
+   ```
+
+2. **Full scheme** — pass any Material 3 `ColorScheme` for complete control.
+   Every component theme is derived from the supplied scheme (its `brightness`
+   selects light or dark typography). This takes precedence over `colors`:
+
+   ```dart
+   PRFTheme.light(
+     scaleFactor: DeviceHelper.getScaleFactor(context: context),
+     colorScheme: myColorScheme,
+   )
+   ```
 
 ### PRFColors
 
@@ -181,7 +217,8 @@ context.theme        // ThemeData
 
 ### PRFTextTheme
 
-Typography system using Google Fonts (Manrope) with responsive scaling and light/dark variants.
+Typography system using the bundled Manrope family. Fonts ship offline with the
+package (declared as Flutter font assets), so no runtime network fetching occurs.
 
 ```dart
 static TextTheme getLightTheme({required double scaleFactor})
@@ -191,60 +228,83 @@ static TextTheme getDarkTheme({required double scaleFactor})
 Utility text styles:
 
 ```dart
-PRFTextTheme.getErrorTextStyle(scaleFactor: 1)
-PRFTextTheme.getSuccessTextStyle(scaleFactor: 1)
-PRFTextTheme.getWarningTextStyle(scaleFactor: 1)
-PRFTextTheme.getInfoTextStyle(scaleFactor: 1)
 PRFTextTheme.getButtonTextStyle(scaleFactor: 1)
-PRFTextTheme.getCaptionTextStyle(scaleFactor: 1)
+```
+
+### PRFAdaptive
+
+The adaptive layer replaces `flutter_adaptive_ui`. Every widget routes to a
+device-specific implementation via `PRFAdaptive`, with breakpoints from
+`PRFBreakpoints`.
+
+```dart
+PRFAdaptive(
+  handset: (_) => PRFMyWidgetHandset(...),
+  tablet: (_) => PRFMyWidgetTablet(...),
+  builder: (_, _) => PRFMyWidgetTablet(...), // fallback
+)
+```
+
+```dart
+PRFBreakpoints.of(context)              // PRFBreakpoint.handset | tablet | desktop
+PRFBreakpoints.fromWidth(400)           // handset (<600), tablet (<1024), desktop (>=1024)
+PRFBreakpoints.isTabletOrWider(context) // true on tablet/desktop
 ```
 
 ## Widgets
 
+All widgets live under `lib/src/widgets/` and are exported through
+`package:prf_design/exports/widgets.dart` (or the main barrel). Every
+component reads colours/typography from the current `ThemeData` and respects
+adaptive breakpoints via `PRFAdaptive`.
+
 ### Buttons
 
-#### PRFPrimaryButton
+Unified adaptive buttons with a single implementation across device sizes.
+Full-width on handset, width-constrained on tablet, press-scale feedback, and a
+spinner replacing the label while loading.
 
-Adaptive primary button with handset/tablet variants.
+#### PRFButton
+
+The single button API. Configure behaviour through `variant`, `disabled` and
+`isLoading`.
 
 ```dart
-PRFPrimaryButton({
+PRFButton({
   required VoidCallback onPressed,
   required String title,
-  required bool disabled,
-  bool? isLoading,
+  PRFButtonVariant variant = PRFButtonVariant.primary,
+  bool disabled = false,
+  bool isLoading = false,
 })
 ```
 
-#### PRFSecondaryButton
-
-Outlined style variant. Same signature as `PRFPrimaryButton`.
-
-#### PRFDestroyButton
-
-Destructive/error style variant. Same signature as `PRFPrimaryButton`.
-
-#### PRFGoogleAuthButton
+`PRFButtonVariant` is `primary | secondary | destructive | google`.
 
 ```dart
-PRFGoogleAuthButton({
-  required VoidCallback onPressed,
-  required String title,
-  required bool disabled,
-  bool? isLoading,
-})
+PRFButton(
+  onPressed: _continue,
+  title: 'Continue',
+  variant: PRFButtonVariant.primary,
+  disabled: false,
+  isLoading: _submitting,
+)
 ```
 
 ### Inputs
 
-All input widgets are responsive with handset/tablet adaptive variants.
+All inputs are adaptive. The unified `PRFTextField` is the only input API; the
+`type` parameter selects the behaviour of each variant.
 
-#### PRFTextInput
+#### PRFTextField
+
+Single adaptive text input implementation for every PRF input variant.
 
 ```dart
-PRFTextInput({
+PRFTextField({
   required String hintText,
   required TextEditingController controller,
+  PRFTextFieldType type = PRFTextFieldType.text,
   bool enabled = true,
   bool readOnly = false,
   ValueChanged<String>? onChanged,
@@ -254,75 +314,48 @@ PRFTextInput({
   TextInputType? keyboardType,
   TextInputAction textInputAction = TextInputAction.next,
   bool normalizeLeadingCapitalization = true,
-})
-```
-
-#### PRFEmailInput
-
-```dart
-PRFEmailInput({
-  required String hintText,
-  required TextEditingController emailController,
-  bool enabled = true,
-})
-```
-
-#### PRFPasswordInput
-
-```dart
-PRFPasswordInput({
-  required String hintText,
-  required ValueNotifier<bool> hidePasswordNotifier,
-  required TextEditingController passwordController,
-  bool enabled = true,
-})
-```
-
-#### PRFNameInput
-
-```dart
-PRFNameInput({
-  required String hintText,
-  required TextEditingController controller,
-  bool enabled = true,
-})
-```
-
-#### PRFNumberInput
-
-```dart
-PRFNumberInput({
-  required String hintText,
-  required TextEditingController controller,
   bool isLoading = false,
-  bool enabled = true,
   String? prefixText,
-  String? labelText,
-  String? errorText,
-  String? helperText,
-  ValueChanged<String>? onChanged,
-  TextInputAction textInputAction = TextInputAction.next,
+  int? minLines,
+  int? maxLines,
+  bool? autocorrect,
+  ValueNotifier<bool>? obscureNotifier,
+  bool initiallyHidden = true,
 })
 ```
 
-#### PRFTextAreaInput
+`PRFTextFieldType` is `text | email | name | number | password | textArea`.
+Number inputs accept an optional `prefixText` (e.g. `'KES'`); password inputs
+obscure the value and expose a visibility toggle driven by `obscureNotifier`.
 
 ```dart
-PRFTextAreaInput({
+PRFTextField(
+  hintText: 'Enter amount',
+  controller: _amountController,
+  type: PRFTextFieldType.number,
+  prefixText: 'KES',
+  errorText: _amountError,
+)
+```
+
+#### PRFPhoneInput
+
+International phone input backed by `phone_form_field`, with a draggable
+country selector. Validates as a required, valid mobile number.
+
+```dart
+PRFPhoneInput({
   required String hintText,
-  required TextEditingController controller,
+  required PhoneController controller,
   bool enabled = true,
-  String? labelText,
-  String? errorText,
-  String? helperText,
-  int minLines = 3,
-  int maxLines = 5,
-  TextInputAction textInputAction = TextInputAction.newline,
-  bool normalizeLeadingCapitalization = true,
+  ValueChanged<PhoneNumber>? onChanged,
+  List<IsoCode> countries = const [IsoCode.KE],
 })
 ```
 
 #### PRFFormFieldLabel
+
+Label with an optional required marker.
 
 ```dart
 PRFFormFieldLabel({
@@ -333,34 +366,99 @@ PRFFormFieldLabel({
 })
 ```
 
-### Progress Indicators
+#### PRFFormSection
 
-#### PRFCircularProgressIndicator
+Groups a form field with an icon, title and optional subtitle.
 
 ```dart
-PRFCircularProgressIndicator({
-  Color? color,
-  double? value,
-  double size = 24,
-  double strokeWidth = 2,
+PRFFormSection({
+  required IconData icon,
+  required String title,
+  required Widget child,
+  bool isRequired = false,
+  String? subtitle,
+  EdgeInsets? margin,
 })
 ```
 
-#### PRFLinearProgressIndicator
+```dart
+PRFFormSection(
+  icon: Icons.person_outline,
+  title: 'Contact details',
+  subtitle: 'How can the team reach you?',
+  child: PRFTextField(hintText: 'Full name', controller: _nameController),
+)
+```
+
+#### PRFSearchableList\<T\>
+
+Searchable picker with single- and multi-select modes. Works inline on normal
+pages (dynamic shrink-wrapped height up to `maxResultHeight`) or modally in
+bottom sheets via `showModal`. Pass `selection` for single-select or
+`selections` for multi-select.
 
 ```dart
-PRFLinearProgressIndicator({
-  Color? color,
-  double? value,
-  double height = 4,
-  double? borderRadius,
-  Color? backgroundColor,
+PRFSearchableList<T>({
+  required List<PRFSearchableListEntry<T>> entries,
+  required ValueChanged<T?> onSelected,
+  T? selection,
+  List<T>? selections,
+  String hintText = 'Search',
+  String emptyText = 'No results found',
+  double maxResultHeight = 240,
+  bool isExpanded = false,
+  bool autoFocus = false,
+})
+```
+
+```dart
+// Inline on normal page
+PRFSearchableList<Team>(
+  entries: teams
+      .map((t) => PRFSearchableListEntry(value: t, label: t.name))
+      .toList(),
+  onSelected: (team) => setState(() => _team = team),
+  selection: _team,
+)
+
+// Modal bottom sheet picker
+final selectedTeam = await PRFSearchableList.showModal<Team>(
+  context,
+  title: 'Select team',
+  entries: teams
+      .map((t) => PRFSearchableListEntry(value: t, label: t.name))
+      .toList(),
+  selection: _team,
+);
+```
+
+`PRFSearchableListEntry<T>` holds a stable `value` and a searchable `label`.
+
+#### PRFReplyComposer
+
+Fixed message-composing bar with a send button, for pinning at the bottom of a
+chat screen. The send button activates once `isComposing` is true.
+
+```dart
+PRFReplyComposer({
+  required TextEditingController controller,
+  required String hintText,
+  required bool isComposing,
+  required bool isLoading,
+  required VoidCallback onSend,
+  bool enabled = true,
+  bool hasFocus = false,
+  double bottomInset = 0,
+  int minLines = 1,
+  int maxLines = 4,
 })
 ```
 
 ### State Displays
 
 #### PRFEmptyView
+
+Full-screen empty state with a centred icon, message and optional action.
 
 ```dart
 PRFEmptyView({
@@ -379,7 +477,21 @@ PRFEmptyView({
 })
 ```
 
+```dart
+PRFEmptyView(
+  label: 'No missions yet',
+  description: 'Tap below to start your first mission.',
+  icon: Icons.rocket_launch_outlined,
+  actionLabel: 'Create mission',
+  onActionPressed: _createMission,
+  navBarTitle: 'Missions',
+)
+```
+
 #### PRFErrorView
+
+Error state with an optional retry button. `compact` renders a smaller inline
+variant for lists/cards.
 
 ```dart
 PRFErrorView({
@@ -388,25 +500,18 @@ PRFErrorView({
   bool compact = false,
 })
 
-// Factory constructors
+// Factories:
 PRFErrorView.fromMessage({required String message, VoidCallback? onRetry, bool compact})
 PRFErrorView.fromFailure({required PRFFailure failure, VoidCallback? onRetry, bool compact})
 ```
 
-#### PRFSnackbar
-
-Static methods for typed snackbar notifications. Replaces the old `PRFErrorSnackbar`.
-
 ```dart
-PRFSnackbar.error(context, 'Something went wrong', onRetry: () => _retry());
-PRFSnackbar.success(context, 'Saved successfully');
-PRFSnackbar.info(context, 'New update available');
-PRFSnackbar.warning(context, 'Low storage space');
+PRFErrorView(failure: PRFFailure.noConnection(), onRetry: _reload)
 ```
 
-Each method accepts an optional `Duration duration` parameter.
-
 #### PRFCategoryChips\<T\>
+
+Horizontally scrollable category chip selector with an optional "ALL" chip.
 
 ```dart
 PRFCategoryChips<T>({
@@ -417,26 +522,12 @@ PRFCategoryChips<T>({
   bool isLoading = false,
   bool showAllOption = true,
   String allLabel = 'ALL',
-  double height = 48,
-  double spacing = 10,
-  EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 16),
-})
-```
-
-#### ImagePreviewPage
-
-Full-screen image preview with pan/zoom and pagination.
-
-```dart
-ImagePreviewPage({
-  required List<String> imageUrls,
-  required int initialIndex,
-  String Function(int index, int total)? titleBuilder,
-  String? appBarTitle,
 })
 ```
 
 #### ReplyStatusView
+
+Read/unread reply-status toggle.
 
 ```dart
 ReplyStatusView({
@@ -448,62 +539,373 @@ ReplyStatusView({
 })
 ```
 
+#### PRFChatView\<T\>
+
+Full chat screen scaffold: nav bar, scrollable message list rendered via
+`messageBuilder`, and a fixed `composer` (e.g. `PRFReplyComposer`).
+
+```dart
+PRFChatView<T>({
+  required String title,
+  required List<T> messages,
+  required Widget Function(BuildContext context, T message, int index) messageBuilder,
+  required Widget composer,
+  VoidCallback? onBack,
+  Color? navBarBackgroundColor,
+  ScrollController? scrollController,
+  bool loading = false,
+  String? emptyLabel,
+  String? emptyDescription,
+  Widget bottomSpacing = const SizedBox(height: PRFSpacingTokens.lg),
+})
+```
+
+#### PRFSnackbar
+
+Static typed snackbar helpers. Replaces the old `PRFErrorSnackbar`.
+
+```dart
+PRFSnackbar.error(context, 'Something went wrong', onRetry: () => _retry());
+PRFSnackbar.success(context, 'Saved successfully');
+PRFSnackbar.info(context, 'New update available');
+PRFSnackbar.warning(context, 'Low storage space');
+```
+
+Each method accepts an optional `Duration duration` parameter (default 4s).
+
 ### Cards
 
-#### AnimatedStatCard
+#### PRFActionCard
+
+Tappable card with an image and title, adaptive to device size.
 
 ```dart
-AnimatedStatCard({
-  required String value,
-  required String label,
-  IconData? icon,
-  Color? color,
-  Duration delay = Duration.zero,
+PRFActionCard({
+  required String title,
+  required Widget image,
+  VoidCallback? onTap,
 })
 ```
 
-#### StatHighlightCard
+#### PRFDetailActionCard
+
+Tappable detail card with title, subtitle and optional leading/trailing/footer
+slots.
 
 ```dart
-StatHighlightCard({
+PRFDetailActionCard({
   required String title,
   required String subtitle,
-  IconData? icon,
-  List<Color>? gradient,
-  Duration delay = Duration.zero,
+  VoidCallback? onTap,
+  Widget? leading,
+  Widget? trailing,
+  Widget? footer,
+  EdgeInsetsGeometry? margin,
+  EdgeInsetsGeometry? padding,
+  Color? backgroundColor,
 })
 ```
 
-Additional exported cards: `PRFActionCard`, `PRFDetailActionCard`, `PRFInfoCard`, `PRFMessageBubble`, `PRFNavigationTile`, `PRFStatusBadge`, `PRFTimelineDateBadge`, `PRFTimelineMissionCard`.
+#### PRFInfoCard
+
+Read-only label/value card with a tinted icon tile.
+
+```dart
+PRFInfoCard({
+  required IconData icon,
+  required String label,
+  required String value,
+})
+```
+
+#### PRFMessageBubble
+
+Chat message bubble with timestamp and optional delivery status.
+
+```dart
+PRFMessageBubble({
+  required String message,
+  required String timestamp,
+  required bool isIncoming,
+  bool showStatusIndicator = false,
+  EdgeInsetsGeometry? margin,
+  double? maxWidth,
+})
+```
+
+#### PRFNavigationTile
+
+Tappable card with an SVG illustration and a chevron affordance.
+
+```dart
+PRFNavigationTile({
+  required String title,
+  required String assetPath,
+  required VoidCallback onTap,
+  double assetHeight = 56,
+  bool isNeutralCard = false,
+})
+```
+
+#### PRFSchoolCard
+
+School list tile with icon, name, address, optional mission count and chevron.
+
+```dart
+PRFSchoolCard({
+  required String schoolName,
+  required String address,
+  required VoidCallback onTap,
+  int? missionCount,
+})
+```
+
+#### PRFStatusBadge
+
+Small rounded status pill on a solid colour.
+
+```dart
+PRFStatusBadge({
+  required String label,
+  required Color color,
+  EdgeInsetsGeometry? padding,
+  BorderRadius? borderRadius,
+  TextStyle? textStyle,
+  List<BoxShadow>? boxShadow,
+})
+```
+
+#### PRFTimelineDateBadge
+
+Timeline date badge with an optional connector line; supports single- and
+multi-day ranges.
+
+```dart
+PRFTimelineDateBadge({
+  required DateTime startDate,
+  required Color statusColor,
+  DateTime? endDate,
+  bool isLast = false,
+  double connectorHeight = 60,
+  double badgeWidth = 50,
+})
+```
+
+#### PRFTimelineMissionCard
+
+Model-agnostic mission timeline card. All display values are passed as
+constructor parameters, so no mission model is required.
+
+```dart
+PRFTimelineMissionCard({
+  required bool isLast,
+  required DateTime startDate,
+  required Color statusColor,
+  required String statusText,
+  required String schoolName,
+  required String missionTypeName,
+  required String durationLabel,
+  required String durationValue,
+  required String capacityLabel,
+  required String capacityValue,
+  required String datePrimaryText,
+  required String actionLabel,
+  DateTime? endDate,
+  String? dateSecondaryText,
+  bool showActiveIndicator = false,
+  Color? activeIndicatorColor,
+  VoidCallback? onTap,
+})
+```
 
 ### Dialogs
 
-Exported: `PRFBottomSheet`, `PRFConfirmationDialog`.
+#### PRFBottomSheet
+
+Rounded modal bottom sheet with a handle, title, close button and scrollable
+body. Stays above the keyboard.
+
+```dart
+// Push it:
+final result = await PRFBottomSheet.show<Report>(
+  context,
+  title: 'Generate report',
+  heightFactor: 0.7,
+  child: ReportForm(onSubmit: (r) => Navigator.pop(context, r)),
+);
+```
+
+`show` accepts `heightFactor` (default 0.94), `useSafeArea`, `isScrollControlled`,
+`isDismissible`, `enableDrag` and `showHandle`.
+
+#### PRFConfirmationDialog
+
+Confirmation dialog with an icon header and confirm/cancel actions. Resolves
+`true` when confirmed, `false` when cancelled.
+
+```dart
+final confirmed = await PRFConfirmationDialog.show<bool>(
+  context,
+  title: 'Delete mission?',
+  message: 'This action cannot be undone.',
+  confirmLabel: 'Delete',
+  isDestructive: true,
+  onConfirm: _deleteMission,
+);
+```
 
 ### Media
 
-Exported: `PRFMediaCarousel`, `PRFMediaGrid`, `PRFMediaTile`.
+#### PRFMediaCarousel
+
+Full-screen media carousel with swipe navigation, pinch-zoom, and optional
+delete/save actions and video pages.
+
+```dart
+// Push it:
+await PRFMediaCarousel.show(
+  context,
+  items: [
+    PRFCarouselItem(url: photo.url, isVideo: false),
+    PRFCarouselItem(url: video.url, isVideo: true),
+  ],
+  initialIndex: 0,
+  onSave: (item) => _download(item.url),
+  onDelete: (index) async => await _confirmDelete(),
+  videoBuilder: (context, item) => VideoPlayerPage(url: item.url),
+);
+```
+
+`PRFCarouselItem({required String url, required bool isVideo, String? id})`.
+
+#### PRFMediaGrid
+
+Masonry grid of media tiles (2 columns on handset, 3 on tablet) with an
+optional leading "Add Media" tile.
+
+```dart
+PRFMediaGrid({
+  required int itemCount,
+  required Widget Function(BuildContext context, int index) itemBuilder,
+  VoidCallback? onAdd,
+  String addLabel = 'Add Media',
+  IconData addIcon = Icons.add_a_photo_outlined,
+})
+```
+
+#### PRFMediaTile
+
+Single media tile handling image loading states, video overlays and taps.
+
+```dart
+PRFMediaTile({
+  required String url,
+  bool isVideo = false,
+  VoidCallback? onTap,
+  Widget Function(BuildContext context, String url)? imageBuilder,
+  Widget Function(BuildContext context, String url)? videoThumbnailBuilder,
+  double? height,
+})
+```
 
 ### Navigation
 
-Exported: `PRFBrandedNavBar`, `PRFDomainTabSection`, `PRFNavBar`, `PRFSectionHeader`.
+#### PRFNavBar
 
-### Additional Inputs
-
-Exported: `PRFPhoneInput`, `PRFSearchableList<T>`, `PRFReplyComposer`, `PRFFormSection`.
-
-### Additional State Widgets
-
-Exported: `PRFChatView<T>`.
-
-### Viewers
-
-#### PDFViewerPage
+Adaptive top bar with back button, title and actions. Defaults to a sliver
+(for `CustomScrollView`); pass `isSliver: false` for a plain bar.
 
 ```dart
-PDFViewerPage({
-  required String pdfUrl,
+PRFNavBar({
   required String title,
+  VoidCallback? onBack,
+  List<Widget>? actions,
+  IconData? backIcon,
+  Color? backgroundColor,
+  bool centerTitle = true,
+  bool isSliver = true,
+})
+```
+
+#### PRFAppBar
+
+Non-sliver variant of `PRFNavBar` for use as `Scaffold.appBar`.
+
+```dart
+Scaffold(
+  appBar: PRFAppBar(title: 'Profile', onBack: _close),
+  body: /* ... */,
+)
+```
+
+#### PRFBrandedNavBar
+
+Branded app bar with a filled primary background and large title.
+
+```dart
+PRFBrandedNavBar({
+  required String title,
+  VoidCallback? onBack,
+  List<Widget>? actions,
+  bool showBackButton = true,
+  Color? backgroundColor,
+  Color? foregroundColor,
+})
+```
+
+#### PRFDomainTabSection
+
+Titled `TabBar` + `TabBarView` section that fills the remaining vertical space.
+
+```dart
+PRFDomainTabSection({
+  required String title,
+  required String subtitle,
+  required List<Widget> tabs,
+  required List<Widget> children,
+})
+```
+
+#### PRFSectionHeader
+
+Bold section heading with an optional subtitle line.
+
+```dart
+PRFSectionHeader({
+  required String title,
+  String? subtitle,
+  EdgeInsetsGeometry? padding,
+  CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.start,
+})
+```
+
+### Progress Indicators
+
+#### PRFCircularProgressIndicator
+
+Themed circular spinner, centred in its parent. `value` (0–1) makes it
+determinate; null is indeterminate.
+
+```dart
+PRFCircularProgressIndicator({
+  Color? color,
+  double? value,
+  double size = 24,
+  double strokeWidth = 2,
+})
+```
+
+#### PRFLinearProgressIndicator
+
+Themed linear progress bar, centred in its parent.
+
+```dart
+PRFLinearProgressIndicator({
+  Color? color,
+  double? value,
+  double height = PRFSizeTokens.progressBarHeight,
+  double? borderRadius,
+  Color? backgroundColor,
 })
 ```
 
@@ -511,11 +913,32 @@ PDFViewerPage({
 
 #### WrappedPageIndicator
 
+Animated pill-style page dots (active dot becomes a wide bar).
+
 ```dart
 WrappedPageIndicator({
   required int currentPage,
   required int pageCount,
 })
+```
+
+### Viewers
+
+#### PRFPdfViewer
+
+Full-screen PDF viewer. The package performs no network I/O — decode the file
+and pass the bytes in. Shows a spinner while opening and an error state with
+retry on failure.
+
+```dart
+PRFPdfViewer({
+  required Uint8List bytes,
+  required String title,
+  String errorText = 'Failed to open PDF document.',
+})
+
+// Push it full-screen:
+await PRFPdfViewer.show(context, bytes: bytes, title: 'Document');
 ```
 
 ## Utilities
@@ -656,66 +1079,75 @@ PRFSnackbar.error(context, failure.message, onRetry: () => _retry());
 ```
 prf_design/
 ├── lib/
-│   ├── prf_design.dart                # Main barrel export
-│   ├── exports/
-│   │   ├── theme.dart                 # Theme system exports
-│   │   ├── widgets.dart               # Widget exports
-│   │   ├── utils.dart                 # Utility exports
-│   │   └── enums.dart                 # Enum & model exports
+│   ├── prf_design.dart                # Full library barrel export
+│   ├── tokens.dart                    # Standalone design tokens (no widget deps)
+│   ├── exports/                       # Granular entry points
+│   │   ├── theme.dart                 #   Theme system exports
+│   │   ├── widgets.dart               #   Widget exports
+│   │   ├── utils.dart                 #   Utility exports
+│   │   └── enums.dart                 #   Enum & model exports
 │   └── src/
-│       ├── enums/                     # Error types, failure model
+│       ├── enums/                     # Error model
+│       │   ├── prf_failure.dart
 │       │   ├── prf_error_type.dart
 │       │   ├── prf_error_severity.dart
-│       │   ├── prf_snackbar_type.dart
-│       │   └── prf_failure.dart
-│       ├── theme/                     # Colors, text, extensions
-│       │   ├── prf_theme.dart
-│       │   ├── text_theme.dart
-│       │   ├── colors/
-│       │   │   ├── prf_colors.dart
-│       │   │   └── prf_color_palette.dart
-│       │   └── extensions/
-│       │       ├── prf_colors_extension.dart
-│       │       ├── prf_status_extension.dart
-│       │       └── theme_context_extensions.dart
-│       ├── utils/                     # DeviceHelper, formatters, debouncer
-│       │   ├── debouncer.dart
-│       │   ├── device_helper.dart
-│       │   └── formatters/
-│       │       ├── date_formatter.dart
-│       │       ├── number_formatter.dart
-│       │       └── string_formatter.dart
-│       └── widgets/                   # All UI components
-│           ├── buttons/
-│           ├── cards/
-│           ├── indicators/
-│           ├── inputs/
-│           ├── progress/
-│           ├── states/
-│           └── viewers/
+│       │   └── prf_snackbar_type.dart
+│       ├── theme/                     # Theming system
+│       │   ├── prf_theme.dart         #   ThemeData factories (light/dark)
+│       │   ├── text_theme.dart        #   Typography (Manrope/Lato)
+│       │   ├── adaptive/              #   PRFAdaptive + PRFBreakpoints
+│       │   ├── colors/                #   PRFColors, palette, color utils
+│       │   ├── extensions/            #   Theme extension data classes
+│       │   └── tokens/                #   Spacing/size/radius/motion/status tokens
+│       ├── utils/                     # DeviceHelper, debouncer, formatters
+│       └── widgets/                   # Adaptive widgets, one folder per widget
+│           ├── buttons/               #   PRFButton (single implementation)
+│           ├── inputs/                #   PRFTextField, PRFPhoneInput, searchable list
+│           ├── cards/                 #   Action/detail cards, tiles, badges
+│           ├── states/                #   Empty/error/reply status views, snackbar
+│           ├── media/                 #   Carousel, grid, tiles
+│           ├── navigation/            #   Nav bars, tabs, section headers
+│           ├── progress/              #   Circular/linear progress indicators
+│           ├── indicators/            #   Wrapped page indicator
+│           ├── dialogs/               #   Confirmation dialog, bottom sheet
+│           └── viewers/               #   PDF viewer
 ```
+
+Each adaptive widget folder follows the shell + variants pattern:
+
+```
+<widget>/
+├── <widget>.dart      # Public API shell (PRFAdaptive routing only)
+├── _shared.dart       # Pure builder functions + optional shared state
+├── _handset.dart      # Handset layout
+└── _tablet.dart       # Tablet layout
+```
+
+Consolidated widgets (buttons, inputs, PDF viewer) live in a single file that
+shares one `_base` implementation instead of the folder split.
 
 ## Requirements
 
 | Requirement | Version |
 |-------------|---------|
-| Dart SDK | `>=3.10.3 <4.0.0` |
+| Dart SDK | `>=3.12.2 <4.0.0` |
 | Flutter | `>=3.38.5` |
 
 ## Dependencies
 
 | Package | Description |
 |---------|-------------|
-| `flutter_adaptive_ui` | Responsive handset/tablet layouts |
 | `flutter_animate` | Declarative animations |
 | `flutter_staggered_grid_view` | Staggered and masonry grid layouts |
 | `flutter_svg` | SVG rendering support |
-| `google_fonts` | Manrope font and other Google Fonts |
-| `http` | HTTP client for network requests |
 | `intl` | Internationalization and formatting |
 | `pdfx` | PDF rendering |
 | `phone_form_field` | International phone number input |
 | `timezone` | Timezone-aware date/time handling |
+
+The package ships offline: the Manrope typeface is bundled as Flutter font
+assets, and removed runtime dependencies (`google_fonts`, `http`,
+`flutter_adaptive_ui`) are gone.
 
 ## Contributing
 
@@ -739,7 +1171,9 @@ All pull requests are checked for:
 - Static analysis
 - Tests
 
-Publishing to pub.dev is automated via GitHub Actions.
+Publishing to pub.dev is a manual GitHub Actions workflow (`release.yaml`,
+triggered via **Run workflow** in the Actions tab) — it publishes the version
+declared in `pubspec.yaml`, skipping if the tag already exists.
 
 ## Open Source Contribution Standards
 

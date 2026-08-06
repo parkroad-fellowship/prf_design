@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_adaptive_ui/flutter_adaptive_ui.dart';
 import 'package:prf_design/src/enums/prf_failure.dart';
+import 'package:prf_design/src/theme/adaptive/prf_adaptive.dart';
 import 'package:prf_design/src/widgets/states/error_view/_handset.dart';
 import 'package:prf_design/src/widgets/states/error_view/_tablet.dart';
 
 /// A widget that displays an error state with an optional retry action.
+///
+/// Shows the [failure] message alongside an error icon. When [onRetry] is
+/// provided a retry button is shown; [compact] renders a smaller inline
+/// variant for embedding in lists or cards.
+///
+/// Example:
+/// ```dart
+/// PRFErrorView(
+///   failure: PRFFailure.noConnection(),
+///   onRetry: _reload,
+/// )
+///
+/// // Or from a plain message:
+/// PRFErrorView.fromMessage(message: 'Something went wrong', onRetry: _retry)
+/// ```
 class PRFErrorView extends StatelessWidget {
   const PRFErrorView({
     required this.failure,
@@ -43,29 +58,33 @@ class PRFErrorView extends StatelessWidget {
     );
   }
 
+  /// The error to display.
   final PRFFailure failure;
+
+  /// Invoked when the retry button is pressed. When null no retry button is
+  /// shown.
   final VoidCallback? onRetry;
+
+  /// When true renders a smaller variant suited to inline/embedded layouts.
   final bool compact;
 
   @override
   Widget build(BuildContext context) {
-    return AdaptiveBuilder(
-      defaultBuilder: (_, _) => PRFErrorViewTablet(
+    return PRFAdaptive(
+      handset: (_) => PRFErrorViewHandset(
         failure: failure,
         onRetry: onRetry,
         compact: compact,
       ),
-      layoutDelegate: AdaptiveLayoutDelegateWithMinimallScreenType(
-        handset: (_, _) => PRFErrorViewHandset(
-          failure: failure,
-          onRetry: onRetry,
-          compact: compact,
-        ),
-        tablet: (_, _) => PRFErrorViewTablet(
-          failure: failure,
-          onRetry: onRetry,
-          compact: compact,
-        ),
+      tablet: (_) => PRFErrorViewTablet(
+        failure: failure,
+        onRetry: onRetry,
+        compact: compact,
+      ),
+      builder: (_, _) => PRFErrorViewTablet(
+        failure: failure,
+        onRetry: onRetry,
+        compact: compact,
       ),
     );
   }

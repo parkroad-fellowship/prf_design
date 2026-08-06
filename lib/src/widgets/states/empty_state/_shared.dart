@@ -66,9 +66,13 @@ Widget buildEmptyDescription(
 Widget buildEmptyAction(
   BuildContext context, {
   required Widget? action,
-  required Widget actionButton,
+  Widget? actionButton,
 }) {
-  final widget = action ?? actionButton;
+  assert(
+    action != null || actionButton != null,
+    'Provide either an action widget or an actionButton.',
+  );
+  final widget = action ?? actionButton!;
   if (MediaQuery.of(context).disableAnimations) return widget;
   return widget
       .animate()

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Handset layout for PRFNavBar. Internal — prefer the parent widget.
 class PRFNavBarHandset extends StatelessWidget {
   const PRFNavBarHandset({
     required this.title,

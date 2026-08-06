@@ -1,6 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// School list tile with icon, name, address, mission count and chevron.
+///
+/// Renders a tappable card with a school icon, [schoolName] and [address], an
+/// optional [missionCount] pill and a trailing chevron.
+///
+/// Example:
+/// ```dart
+/// PRFSchoolCard(
+///   schoolName: school.name,
+///   address: school.address,
+///   missionCount: school.missions.length,
+///   onTap: () => _openSchool(school),
+/// )
+/// ```
 class PRFSchoolCard extends StatelessWidget {
   const PRFSchoolCard({
     required this.schoolName,
@@ -10,9 +24,16 @@ class PRFSchoolCard extends StatelessWidget {
     this.missionCount,
   });
 
+  /// School name.
   final String schoolName;
+
+  /// School address.
   final String address;
+
+  /// Optional number of missions shown in a pill.
   final int? missionCount;
+
+  /// Invoked when the card is tapped.
   final VoidCallback onTap;
 
   @override

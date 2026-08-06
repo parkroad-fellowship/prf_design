@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Read-only label/value card with a tinted icon tile.
+///
+/// Renders [icon] in a tinted rounded tile next to a muted [label] and a bold
+/// [value]. Suited to stat/contact rows in detail screens.
+///
+/// Example:
+/// ```dart
+/// PRFInfoCard(
+///   icon: Icons.phone_outlined,
+///   label: 'Phone',
+///   value: '+254 712 345 678',
+/// )
+/// ```
 class PRFInfoCard extends StatelessWidget {
   const PRFInfoCard({
     required this.icon,
@@ -9,8 +22,13 @@ class PRFInfoCard extends StatelessWidget {
     super.key,
   });
 
+  /// Icon shown in the tinted tile.
   final IconData icon;
+
+  /// Muted caption above the value.
   final String label;
+
+  /// Bold value text.
   final String value;
 
   @override

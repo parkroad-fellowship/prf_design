@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
-import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
+import 'package:prf_design/src/widgets/buttons/prf_button.dart';
 import 'package:prf_design/src/widgets/navigation/branded_navbar.dart';
 import 'package:prf_design/src/widgets/states/empty_state/_shared.dart';
 
+/// Handset layout for PRFEmptyView. Internal — prefer the parent widget.
 class PRFEmptyViewHandset extends StatelessWidget {
   const PRFEmptyViewHandset({
     required this.label,
@@ -69,11 +70,12 @@ class PRFEmptyViewHandset extends StatelessWidget {
                 buildEmptyAction(
                   context,
                   action: action,
-                  actionButton: PRFPrimaryButton(
-                    onPressed: onActionPressed!,
-                    title: actionLabel!,
-                    disabled: false,
-                  ),
+                  actionButton: action == null && actionLabel != null
+                      ? PRFButton(
+                          onPressed: onActionPressed!,
+                          title: actionLabel!,
+                        )
+                      : null,
                 ),
               ],
             ],

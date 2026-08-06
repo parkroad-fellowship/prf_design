@@ -33,7 +33,7 @@ A purpose-built mission management platform for a single fellowship, co-develope
 ## Capabilities and Constraints
 
 - **Framework**: Flutter >=3.38.5, Dart >=3.12.2, Material 3.
-- **Adaptive layout pattern**: every screen is a 4-file structure — shell (`@RoutePage` + `AdaptiveBuilder`), `_shared.dart` (pure builders + shared state class), `_handset.dart`, `_tablet.dart`. This pattern is mandatory for all widget contributions to the design system.
+- **Adaptive layout pattern**: every screen is a 4-file structure — shell (`@RoutePage` + `PRFAdaptive`), `_shared.dart` (pure builders + shared state class), `_handset.dart`, `_tablet.dart`. This pattern is mandatory for all widget contributions to the design system.
 - **Responsive typography**: `DeviceHelper.getScaleFactor(context:)` drives font scaling; do not hard-code text sizes.
 - **Tablet layout specifics**: multi-column side-by-side, max button width ~280-320 px centred, 4:3 image aspect ratio, more spacious token usage.
 - **Shared state**: use a plain Dart class in `_shared.dart` (not a mixin) to share controllers and logic across variants; each variant owns its own instance lifecycle.
@@ -42,7 +42,7 @@ A purpose-built mission management platform for a single fellowship, co-develope
 ## Brand Commitments
 
 - **Primary colours**: Navy Blue `#1A2253` and Lime Green `#9DE35D` — locked. No substitutions.
-- **Typefaces**: Lato (body) and Manrope (display/UI) — bundled as Google Fonts assets; locked.
+- **Typefaces**: Lato (body) and Manrope (display/UI) — bundled as offline Flutter font assets (no `google_fonts` runtime fetching); locked.
 - **Organisation name**: Parkroad Fellowship.
 - **App names**: PRF Missions, PRF Leadership.
 - **Homepage**: [parkroadfellowship.org](https://parkroadfellowship.org).

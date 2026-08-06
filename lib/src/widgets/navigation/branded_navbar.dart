@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Branded app bar with a filled primary background and large title.
+///
+/// Renders the PRF brand colour as the bar background with a rounded back
+/// button, bold [title], and optional [actions]. Usable as a standard
+/// `Scaffold.appBar`.
+///
+/// Example:
+/// ```dart
+/// Scaffold(
+///   appBar: PRFBrandedNavBar(
+///     title: 'Missions',
+///     onBack: () => Navigator.pop(context),
+///     actions: [
+///       IconButton(
+///         icon: const Icon(Icons.settings),
+///         onPressed: _openSettings,
+///       ),
+///     ],
+///   ),
+///   body: /* ... */,
+/// )
+/// ```
 class PRFBrandedNavBar extends StatelessWidget implements PreferredSizeWidget {
   const PRFBrandedNavBar({
     required this.title,
@@ -12,11 +34,22 @@ class PRFBrandedNavBar extends StatelessWidget implements PreferredSizeWidget {
     this.foregroundColor,
   });
 
+  /// Title text.
   final String title;
+
+  /// Invoked when the back button is pressed; defaults to `maybePop`.
   final VoidCallback? onBack;
+
+  /// Optional trailing action widgets.
   final List<Widget>? actions;
+
+  /// When false the back button is hidden. Defaults to true.
   final bool showBackButton;
+
+  /// Overrides the brand-coloured background.
   final Color? backgroundColor;
+
+  /// Overrides the foreground (title/icon) colour.
   final Color? foregroundColor;
 
   @override

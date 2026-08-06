@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Handset layout for PRFDetailActionCard. Prefer the parent widget.
 class PRFDetailActionCardHandset extends StatelessWidget {
   const PRFDetailActionCardHandset({
     required this.title,

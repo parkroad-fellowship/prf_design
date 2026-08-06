@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-08-06
+
+### Added
+
+- `PRFAdaptive` + `PRFBreakpoints` adaptive layer, replacing `flutter_adaptive_ui`.
+- Unified `PRFButton` (primary/secondary/destructive/google variants).
+- Unified `PRFTextField` (text/email/name/number/password/textArea types).
+- `PRFPdfViewer` taking decoded `Uint8List` bytes (no network I/O in the package).
+- Offline Manrope/Lato fonts declared as Flutter font assets.
+
+### Changed
+
+- Rewritten `PRFColors` as the single source of truth for every hex value
+  (brand anchors, navy/lime 10-stop palettes, grays, status, accents).
+- `PRFTheme` now uses a hand-authored Material 3 `ColorScheme` per brightness;
+  dropped `PRFThemeConfig` and index-flipping palettes.
+- `PRFTheme.light`/`dark` accept optional `colors:` (`PRFBaseColors`, scheme
+  derived from Material 3 tonal palettes) and `colorScheme:` (full override) so
+  consuming apps can bring their own palette.
+- Token values re-based on a 4px spacing grid and fixed radius scale.
+- `PRFMediaCarousel` copy (tooltips, image error text) is now parameterized.
+- `PRFPhoneInput` accepts a `countries` list (defaults to Kenya).
+- Button and input widgets consolidated from per-variant folders into a single
+  adaptive implementation.
+
+### Removed
+
+- Dependencies: `flutter_adaptive_ui`, `google_fonts`, `http`.
+- Widgets with no consumers: `ImagePreviewPage`, `AnimatedStatCard`,
+  `StatHighlightCard`.
+- Backwards-compatible wrapper widgets: `PRFPrimaryButton`,
+  `PRFSecondaryButton`, `PRFDestroyButton`, `PRFGoogleAuthButton`,
+  `PRFTextInput`, `PRFEmailInput`, `PRFNameInput`, `PRFNumberInput`,
+  `PRFPasswordInput`, `PRFTextAreaInput` — use `PRFButton`/`PRFTextField`
+  directly (see `docs/migration_guide.md`).
+- `PRFThemeConfig`, `PRFTextTheme.getErrorTextStyle`/`getSuccessTextStyle`/
+  `getWarningTextStyle`/`getInfoTextStyle`/`getCaptionTextStyle`.
+
 ## [0.9.7] - 2026-06-06
 
 ### Added

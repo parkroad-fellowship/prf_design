@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Tablet layout for PRFNavBar. Internal — prefer the parent widget.
 class PRFNavBarTablet extends StatelessWidget {
   const PRFNavBarTablet({
     required this.title,

@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
-import 'package:prf_design/src/widgets/inputs/text_area/text_area.dart';
+import 'package:prf_design/src/widgets/inputs/prf_text_field.dart';
 
+/// Fixed message-composing bar with a send button.
+///
+/// Pinned at the bottom of a chat screen. The send button only activates once
+/// [isComposing] is true, and shows a spinner while [isLoading]. Use
+/// [bottomInset] to clear the on-screen keyboard inset.
+///
+/// Example:
+/// ```dart
+/// PRFReplyComposer(
+///   controller: _replyController,
+///   hintText: 'Reply…',
+///   isComposing: _replyController.text.trim().isNotEmpty,
+///   isLoading: _sending,
+///   onSend: _sendReply,
+/// )
+/// ```
 class PRFReplyComposer extends StatelessWidget {
   const PRFReplyComposer({
     required this.controller,
@@ -17,15 +33,34 @@ class PRFReplyComposer extends StatelessWidget {
     this.maxLines = 4,
   });
 
+  /// The editing controller for the message text.
   final TextEditingController controller;
+
+  /// Placeholder shown while the field is empty.
   final String hintText;
+
+  /// When true the send button is active (e.g. the text is non-empty).
   final bool isComposing;
+
+  /// When true a spinner replaces the send icon and input is disabled.
   final bool isLoading;
+
+  /// Invoked when the send button is pressed.
   final VoidCallback onSend;
+
+  /// When false the composer is non-interactive.
   final bool enabled;
+
+  /// Drives the focused border colour of the input.
   final bool hasFocus;
+
+  /// Vertical inset to clear the on-screen keyboard.
   final double bottomInset;
+
+  /// Minimum visible lines of the input.
   final int minLines;
+
+  /// Maximum visible lines of the input before it scrolls.
   final int maxLines;
 
   @override
@@ -69,9 +104,10 @@ class PRFReplyComposer extends StatelessWidget {
                         : theme.colorScheme.outline.withValues(alpha: 0.3),
                   ),
                 ),
-                child: PRFTextAreaInput(
+                child: PRFTextField(
                   hintText: hintText,
                   controller: controller,
+                  type: PRFTextFieldType.textArea,
                   minLines: minLines,
                   maxLines: maxLines,
                   enabled: enabled && !isLoading,

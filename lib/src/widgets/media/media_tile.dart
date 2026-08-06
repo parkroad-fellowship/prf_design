@@ -7,6 +7,15 @@ import 'package:prf_design/src/theme/tokens/_index.dart';
 /// Handles image loading states, video indicator overlays, and tap callbacks.
 /// Uses [Image.network] for image rendering. For advanced loading (e.g.,
 /// `ExtendedImage`), wrap the tile or provide a custom [imageBuilder].
+///
+/// Example:
+/// ```dart
+/// PRFMediaTile(
+///   url: photo.url,
+///   isVideo: photo.isVideo,
+///   onTap: () => _openMedia(photo),
+/// )
+/// ```
 class PRFMediaTile extends StatelessWidget {
   const PRFMediaTile({
     required this.url,

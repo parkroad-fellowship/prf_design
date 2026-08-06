@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/utils/device_helper.dart';
 
+/// Tablet layout for PRFActionCard. Internal — prefer the parent widget.
 class PRFActionCardTablet extends StatelessWidget {
   const PRFActionCardTablet({
     required this.title,

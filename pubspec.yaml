@@ -1,9 +1,9 @@
 name: prf_design
 description: PRF Design System - Shared widgets, theme system, and essential utilities.
 version: "1.0.0"
-repository: https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta
+repository: https://github.com/parkroad-fellowship/prf_design
 homepage: https://parkroadfellowship.org
-issue_tracker: https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta/issues
+issue_tracker: https://github.com/parkroad-fellowship/prf_design/issues
 
 environment:
   sdk: ">=3.12.2 <4.0.0"

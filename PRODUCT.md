@@ -52,7 +52,7 @@ A purpose-built mission management platform for a single fellowship, co-develope
 - Published package: [pub.dev/packages/prf_design](https://pub.dev/packages/prf_design)
 - PRF Missions on [Google Play](https://play.google.com/store/apps/details?id=org.parkroadfellowship.app) and [App Store](https://apps.apple.com/us/app/prf-missions/id6746665088)
 - PRF Leadership on [Google Play](https://play.google.com/store/apps/details?id=org.parkroadfellowship.leadership) and [App Store](https://apps.apple.com/app/prf-leadership/id6758022193)
-- Source: [github.com/PARKROAD-FELLOWSHIP/stunning-fiesta](https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta)
+- Source: [github.com/parkroad-fellowship/prf_design](https://github.com/parkroad-fellowship/prf_design)
 
 ## Product Principles
 

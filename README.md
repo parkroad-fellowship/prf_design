@@ -2,7 +2,7 @@
 
 [![pub package](https://img.shields.io/pub/v/prf_design.svg)](https://pub.dev/packages/prf_design)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![CI](https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta/actions/workflows/ci.yaml/badge.svg)](https://github.com/PARKROAD-FELLOWSHIP/stunning-fiesta/actions)
+[![CI](https://github.com/parkroad-fellowship/prf_design/actions/workflows/ci.yaml/badge.svg)](https://github.com/parkroad-fellowship/prf_design/actions)
 
 A reusable Flutter package containing shared widgets, theme system, and essential utilities for PRF applications.
 

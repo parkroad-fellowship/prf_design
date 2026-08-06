@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design/src/theme/tokens/_index.dart';
+import 'package:prf_design/src/theme/adaptive/prf_adaptive.dart';
+import 'package:prf_design/src/widgets/states/reply_status/_handset.dart';
+import 'package:prf_design/src/widgets/states/reply_status/_tablet.dart';
 
 /// A widget for selecting reply status (read/unread).
 ///
-/// This is a generic toggle widget that can be used for any binary status.
-class ReplyStatusView extends StatefulWidget {
+/// Renders a toggle with [unreadLabel] and [repliedLabel] options. Use
+/// [reversed] to flip their order, and [defaultStatus] for the initially
+/// selected value.
+///
+/// Example:
+/// ```dart
+/// ReplyStatusView(
+///   onStatusSelected: ({required bool status}) =>
+///       setState(() => _isReplied = status),
+///   unreadLabel: 'Unread',
+///   repliedLabel: 'Replied',
+/// )
+/// ```
+class ReplyStatusView extends StatelessWidget {
   const ReplyStatusView({
     required this.onStatusSelected,
     required this.unreadLabel,
@@ -14,125 +28,44 @@ class ReplyStatusView extends StatefulWidget {
     super.key,
   });
 
+  /// Invoked when a status is picked; `true` means "replied".
   final void Function({required bool status}) onStatusSelected;
+
+  /// Label for the "unread" option.
   final String unreadLabel;
+
+  /// Label for the "replied" option.
   final String repliedLabel;
+
+  /// When true the replied option is rendered first.
   final bool reversed;
+
+  /// The status selected when the view first renders.
   final bool defaultStatus;
 
   @override
-  State<ReplyStatusView> createState() => _ReplyStatusViewState();
-}
-
-class _ReplyStatusViewState extends State<ReplyStatusView> {
-  bool? _selectedStatus;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedStatus = widget.defaultStatus;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final chips = [
-      _StatusChip(
-        label: widget.unreadLabel.toUpperCase(),
-        selected: _selectedStatus == false,
-        onTap: () {
-          widget.onStatusSelected(status: false);
-          setState(() => _selectedStatus = false);
-        },
-        theme: theme,
+    return PRFAdaptive(
+      handset: (_) => PRFReplyStatusHandset(
+        onStatusSelected: onStatusSelected,
+        unreadLabel: unreadLabel,
+        repliedLabel: repliedLabel,
+        reversed: reversed,
+        defaultStatus: defaultStatus,
       ),
-      _StatusChip(
-        label: widget.repliedLabel.toUpperCase(),
-        selected: _selectedStatus ?? false,
-        onTap: () {
-          widget.onStatusSelected(status: true);
-          setState(() => _selectedStatus = true);
-        },
-        theme: theme,
+      tablet: (_) => PRFReplyStatusTablet(
+        onStatusSelected: onStatusSelected,
+        unreadLabel: unreadLabel,
+        repliedLabel: repliedLabel,
+        reversed: reversed,
+        defaultStatus: defaultStatus,
       ),
-    ];
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: SizedBox(
-        height: 40,
-        child: Row(
-          children: widget.reversed ? chips.reversed.toList() : chips,
-        ),
-      ),
-    );
-  }
-}
-
-class _StatusChip extends StatelessWidget {
-  const _StatusChip({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-    required this.theme,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-  final ThemeData theme;
-
-  @override
-  Widget build(BuildContext context) {
-    final selectedColor = theme.colorScheme.primary;
-    final unselectedColor = theme.colorScheme.surface;
-    final selectedTextColor = theme.colorScheme.onPrimary;
-    final unselectedTextColor = theme.colorScheme.primary;
-
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: Semantics(
-        button: true,
-        label: label,
-        selected: selected,
-        child: GestureDetector(
-          onTap: onTap,
-          child: AnimatedContainer(
-            duration: PRFMotionTokens.standard,
-            curve: Curves.easeOut,
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
-            decoration: BoxDecoration(
-              color: selected ? selectedColor : unselectedColor,
-              borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-              border: Border.all(
-                color: selected
-                    ? selectedColor.withValues(alpha: 0.5)
-                    : theme.colorScheme.outline.withValues(alpha: 0.3),
-                width: 1.1,
-              ),
-              boxShadow: selected
-                  ? [
-                      BoxShadow(
-                        color: selectedColor.withValues(alpha: 0.13),
-                        blurRadius: 6,
-                        offset: const Offset(0, 2),
-                      ),
-                    ]
-                  : [],
-            ),
-            child: Center(
-              child: Text(
-                label,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: selected ? selectedTextColor : unselectedTextColor,
-                  letterSpacing: 0.2,
-                ),
-              ),
-            ),
-          ),
-        ),
+      builder: (_, _) => PRFReplyStatusTablet(
+        onStatusSelected: onStatusSelected,
+        unreadLabel: unreadLabel,
+        repliedLabel: repliedLabel,
+        reversed: reversed,
+        defaultStatus: defaultStatus,
       ),
     );
   }

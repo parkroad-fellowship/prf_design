@@ -7,7 +7,29 @@ import 'package:prf_design/src/widgets/cards/timeline_date_badge.dart';
 /// A model-agnostic mission timeline card.
 ///
 /// This widget is intentionally data-shape independent: all display values are
-/// passed through constructor parameters.
+/// passed through constructor parameters. Renders a [PRFTimelineDateBadge]
+/// beside a card with status header, duration/capacity chips, a date range
+/// view and a full-width action row.
+///
+/// Example:
+/// ```dart
+/// PRFTimelineMissionCard(
+///   isLast: index == missions.length - 1,
+///   startDate: mission.startDate,
+///   endDate: mission.endDate,
+///   statusColor: context.statusColors.completed.main,
+///   statusText: 'Completed',
+///   schoolName: mission.school.name,
+///   missionTypeName: mission.type.label,
+///   durationLabel: 'Duration',
+///   durationValue: mission.durationLabel,
+///   capacityLabel: 'Capacity',
+///   capacityValue: mission.capacityLabel,
+///   datePrimaryText: mission.dateLabel,
+///   actionLabel: 'View details',
+///   onTap: () => _openMission(mission),
+/// )
+/// ```
 class PRFTimelineMissionCard extends StatelessWidget {
   const PRFTimelineMissionCard({
     required this.isLast,
@@ -30,22 +52,55 @@ class PRFTimelineMissionCard extends StatelessWidget {
     super.key,
   });
 
+  /// Whether this is the last item in the timeline (hides the connector).
   final bool isLast;
+
+  /// Start date of the mission; also drives the date badge.
   final DateTime startDate;
+
+  /// End date for multi-day ranges. When null the badge shows a single day.
   final DateTime? endDate;
+
+  /// Accent colour for the badge, header and action row.
   final Color statusColor;
+
+  /// Status label shown in the header badge.
   final String statusText;
+
+  /// School name shown in the card header.
   final String schoolName;
+
+  /// Mission type label shown under the school name.
   final String missionTypeName;
+
+  /// Label of the duration info chip.
   final String durationLabel;
+
+  /// Value of the duration info chip.
   final String durationValue;
+
+  /// Label of the capacity info chip.
   final String capacityLabel;
+
+  /// Value of the capacity info chip.
   final String capacityValue;
+
+  /// Primary line of the date range view.
   final String datePrimaryText;
+
+  /// Optional secondary line of the date range view.
   final String? dateSecondaryText;
+
+  /// When true a glowing dot marks the mission as active.
   final bool showActiveIndicator;
+
+  /// Colour of the active dot; defaults to [statusColor].
   final Color? activeIndicatorColor;
+
+  /// Label of the full-width action row.
   final String actionLabel;
+
+  /// Invoked when the card is tapped.
   final VoidCallback? onTap;
 
   bool get _isMultiDay =>
@@ -74,7 +129,7 @@ class PRFTimelineMissionCard extends StatelessWidget {
           child: GestureDetector(
             onTap: onTap,
             child: Container(
-              margin: EdgeInsets.only(bottom: isLast ? 0 : 16),
+              margin: EdgeInsets.only(bottom: isLast ? 0 : PRFSpacingTokens.lg),
               decoration: BoxDecoration(
                 color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(PRFRadiusTokens.md),

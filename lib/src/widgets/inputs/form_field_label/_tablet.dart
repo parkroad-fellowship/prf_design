@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/colors/prf_colors.dart';
 
+/// Tablet layout for PRFFormFieldLabel. Internal — prefer the parent widget.
 class PRFFormFieldLabelTablet extends StatelessWidget {
   const PRFFormFieldLabelTablet({
     required this.label,

@@ -1,4 +1,4 @@
-import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
 /// Motion tokens keep interaction timing and easing consistent across widgets.
 abstract final class PRFMotionTokens {
@@ -19,4 +19,8 @@ abstract final class PRFMotionTokens {
 
   static const Curve emphasized = Curves.easeOutQuart;
   static const Curve standardCurve = Curves.easeInOut;
+
+  // Returns Duration.zero when the user has requested reduced motion.
+  static Duration resolve(BuildContext context, Duration duration) =>
+      MediaQuery.of(context).disableAnimations ? Duration.zero : duration;
 }

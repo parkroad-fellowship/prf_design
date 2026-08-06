@@ -1,6 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// A titled tab section that fills the remaining vertical space.
+///
+/// Renders a card with [title], [subtitle] and a scrollable [TabBar] of [tabs]
+/// above a `TabBarView` of [children]. One [children] entry per tab.
+///
+/// Example:
+/// ```dart
+/// PRFDomainTabSection(
+///   title: 'Missions',
+///   subtitle: 'Explore by status',
+///   tabs: const [
+///     Tab(text: 'Active'),
+///     Tab(text: 'Past'),
+///   ],
+///   children: [
+///     _ActiveMissions(),
+///     _PastMissions(),
+///   ],
+/// )
+/// ```
 class PRFDomainTabSection extends StatelessWidget {
   const PRFDomainTabSection({
     required this.title,
@@ -10,9 +30,16 @@ class PRFDomainTabSection extends StatelessWidget {
     super.key,
   });
 
+  /// Section heading.
   final String title;
+
+  /// Supporting text under the heading.
   final String subtitle;
+
+  /// One tab per [children] entry.
   final List<Widget> tabs;
+
+  /// One body view per tab.
   final List<Widget> children;
 
   @override

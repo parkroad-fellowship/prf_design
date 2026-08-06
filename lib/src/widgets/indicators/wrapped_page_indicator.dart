@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Animated pill-style page indicator (dots turn into a wide bar when active).
+///
+/// Example:
+/// ```dart
+/// WrappedPageIndicator(currentPage: _page, pageCount: 5)
+/// ```
 class WrappedPageIndicator extends StatelessWidget {
   const WrappedPageIndicator({
     required this.currentPage,
@@ -8,7 +14,10 @@ class WrappedPageIndicator extends StatelessWidget {
     super.key,
   });
 
+  /// The active page (0-based).
   final int currentPage;
+
+  /// Total number of pages.
   final int pageCount;
 
   @override
@@ -22,7 +31,7 @@ class WrappedPageIndicator extends StatelessWidget {
         children: List.generate(
           pageCount,
           (index) => AnimatedContainer(
-            duration: PRFMotionTokens.slow,
+            duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
             margin: const EdgeInsets.symmetric(horizontal: 4),
             width: currentPage == index ? 32 : 8,
             height: 8,

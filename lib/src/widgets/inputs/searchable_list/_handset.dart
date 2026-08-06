@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// A selectable search result with a stable [value] and searchable [label].
 class PRFSearchableListEntry<T> {
   const PRFSearchableListEntry({
     required this.value,
     required this.label,
   });
 
+  /// The underlying value returned through `PRFSearchableList.onSelected`.
   final T value;
+
+  /// Human-readable text used for filtering and display.
   final String label;
 }
 
+/// Handset layout for `PRFSearchableList`. Internal — prefer the parent widget.
 class PRFSearchableListHandset<T> extends StatefulWidget {
   const PRFSearchableListHandset({
     required this.entries,
@@ -20,7 +25,10 @@ class PRFSearchableListHandset<T> extends StatefulWidget {
     this.selections,
     this.hintText = 'Search',
     this.emptyText = 'No results found',
-    this.resultHeight = 200,
+    this.maxResultHeight = 240,
+    this.isExpanded = false,
+    this.autoFocus = false,
+    this.padding,
   });
 
   final List<PRFSearchableListEntry<T>> entries;
@@ -29,7 +37,10 @@ class PRFSearchableListHandset<T> extends StatefulWidget {
   final List<T>? selections;
   final String hintText;
   final String emptyText;
-  final double resultHeight;
+  final double maxResultHeight;
+  final bool isExpanded;
+  final bool autoFocus;
+  final EdgeInsetsGeometry? padding;
 
   @override
   State<PRFSearchableListHandset<T>> createState() =>
@@ -39,7 +50,7 @@ class PRFSearchableListHandset<T> extends StatefulWidget {
 class _PRFSearchableListHandsetState<T>
     extends State<PRFSearchableListHandset<T>> {
   late final TextEditingController _controller;
-  final FocusNode _focusNode = FocusNode();
+  late final FocusNode _focusNode;
 
   String _query = '';
   bool _hasFocus = false;
@@ -50,7 +61,16 @@ class _PRFSearchableListHandsetState<T>
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    _focusNode = FocusNode();
     _focusNode.addListener(_onFocusChanged);
+
+    if (widget.autoFocus) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _focusNode.requestFocus();
+        }
+      });
+    }
   }
 
   @override
@@ -102,16 +122,16 @@ class _PRFSearchableListHandsetState<T>
     return null;
   }
 
-  bool get _showResults => _hasFocus || _query.isNotEmpty;
+  bool get _showResults => _hasFocus || _query.isNotEmpty || widget.isExpanded;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final results = _filtered;
 
-    return Column(
+    final content = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: widget.isExpanded ? MainAxisSize.max : MainAxisSize.min,
       children: [
         if (_isMultiSelect)
           _buildMultiSelectChips(theme)
@@ -126,6 +146,11 @@ class _PRFSearchableListHandsetState<T>
         ],
       ],
     );
+
+    if (widget.padding != null) {
+      return Padding(padding: widget.padding!, child: content);
+    }
+    return content;
   }
 
   // --- Single-select chip ---
@@ -133,28 +158,25 @@ class _PRFSearchableListHandsetState<T>
   Widget _buildChip(ThemeData theme, String label) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(PRFSpacingTokens.md),
+      padding: const EdgeInsets.symmetric(
+        horizontal: PRFSpacingTokens.md,
+        vertical: PRFSpacingTokens.sm,
+      ),
       margin: const EdgeInsets.only(
-        bottom: PRFSpacingTokens.md,
+        bottom: PRFSpacingTokens.sm,
       ),
       decoration: BoxDecoration(
-        color: theme.colorScheme.primary.withValues(
-          alpha: 0.08,
-        ),
-        borderRadius: BorderRadius.circular(
-          PRFRadiusTokens.md,
-        ),
+        color: theme.colorScheme.primary.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
         border: Border.all(
-          color: theme.colorScheme.primary.withValues(
-            alpha: 0.3,
-          ),
+          color: theme.colorScheme.primary.withValues(alpha: 0.3),
         ),
       ),
       child: Row(
         children: [
           Icon(
             Icons.check_circle,
-            size: 20,
+            size: 18,
             color: theme.colorScheme.primary,
           ),
           const SizedBox(width: PRFSpacingTokens.sm),
@@ -169,10 +191,13 @@ class _PRFSearchableListHandsetState<T>
           ),
           GestureDetector(
             onTap: () => widget.onSelected(null),
-            child: Icon(
-              Icons.close,
-              size: 18,
-              color: theme.colorScheme.onSurfaceVariant,
+            child: Tooltip(
+              message: 'Clear selection',
+              child: Icon(
+                Icons.close,
+                size: 18,
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
         ],
@@ -187,7 +212,7 @@ class _PRFSearchableListHandsetState<T>
     if (selected.isEmpty) return const SizedBox.shrink();
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: PRFSpacingTokens.md),
+      padding: const EdgeInsets.only(bottom: PRFSpacingTokens.sm),
       child: Wrap(
         spacing: PRFSpacingTokens.xs,
         runSpacing: PRFSpacingTokens.xs,
@@ -232,7 +257,11 @@ class _PRFSearchableListHandsetState<T>
         hintStyle: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),
-        prefixIcon: const Icon(Icons.search, size: 20),
+        prefixIcon: Icon(
+          Icons.search,
+          size: 20,
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
         suffixIcon: _query.isNotEmpty
             ? IconButton(
                 icon: const Icon(Icons.clear, size: 20),
@@ -260,30 +289,40 @@ class _PRFSearchableListHandsetState<T>
     List<PRFSearchableListEntry<T>> results,
   ) {
     if (results.isEmpty) {
-      return SizedBox(
+      final emptyWidget = Container(
         height: 48,
-        child: Center(
-          child: Text(
-            widget.emptyText,
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
+        alignment: Alignment.center,
+        child: Text(
+          widget.emptyText,
+          style: theme.textTheme.bodySmall?.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
       );
+      return widget.isExpanded ? Expanded(child: emptyWidget) : emptyWidget;
     }
 
-    return SizedBox(
-      height: widget.resultHeight,
-      child: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: results.length,
-        itemBuilder: (context, index) {
-          final entry = results[index];
-          final isSelected = _isItemSelected(entry.value);
-          return _buildTile(theme, entry, isSelected);
-        },
+    final listView = ListView.builder(
+      padding: EdgeInsets.zero,
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      shrinkWrap: !widget.isExpanded,
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final entry = results[index];
+        final isSelected = _isItemSelected(entry.value);
+        return _buildTile(theme, entry, isSelected);
+      },
+    );
+
+    if (widget.isExpanded) {
+      return Expanded(child: listView);
+    }
+
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: widget.maxResultHeight,
       ),
+      child: listView,
     );
   }
 
@@ -293,27 +332,21 @@ class _PRFSearchableListHandsetState<T>
     bool isSelected,
   ) {
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: PRFSpacingTokens.xs,
-      ),
+      padding: const EdgeInsets.only(bottom: PRFSpacingTokens.xs),
       child: Material(
         color: isSelected
-            ? theme.colorScheme.primary.withValues(
-                alpha: 0.08,
-              )
+            ? theme.colorScheme.primary.withValues(alpha: 0.08)
             : theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(
-          PRFRadiusTokens.md,
-        ),
+        borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
         child: InkWell(
-          borderRadius: BorderRadius.circular(
-            PRFRadiusTokens.md,
-          ),
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           onTap: () {
             widget.onSelected(entry.value);
             _controller.clear();
             setState(() => _query = '');
-            _focusNode.unfocus();
+            if (!_isMultiSelect) {
+              _focusNode.unfocus();
+            }
           },
           child: Container(
             padding: const EdgeInsets.symmetric(
@@ -321,17 +354,11 @@ class _PRFSearchableListHandsetState<T>
               vertical: PRFSpacingTokens.md,
             ),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                PRFRadiusTokens.md,
-              ),
+              borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
               border: Border.all(
                 color: isSelected
-                    ? theme.colorScheme.primary.withValues(
-                        alpha: 0.3,
-                      )
-                    : theme.colorScheme.outline.withValues(
-                        alpha: 0.2,
-                      ),
+                    ? theme.colorScheme.primary.withValues(alpha: 0.3)
+                    : theme.colorScheme.outline.withValues(alpha: 0.2),
               ),
             ),
             child: Row(

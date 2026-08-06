@@ -1,20 +1,63 @@
 import 'dart:ui';
 
-/// Core color constants for the PRF brand identity.
+/// Single source of truth for every raw color value in the PRF brand.
 ///
-/// This class contains all raw color values used throughout the app.
-/// For palette variations (tints/shades), see `PRFColorPalette`.
-/// For theme-aware colors, use `PRFColorsExtension` via BuildContext.
+/// All palettes, status colors and accents are defined here and nowhere else.
+/// Theme-aware colors (surfaces, containers, on-colors) are derived from these
+/// in `PRFTheme` via the Material 3 `ColorScheme`.
+///
+/// Prefer `Theme.of(context).colorScheme` for surfaces and
+/// `context.prfColors` for brand anchors when writing widgets.
 abstract final class PRFColors {
   // ============================================
   // BRAND COLORS
   // ============================================
 
-  /// Navy Blue - Primary brand anchor
+  /// Navy Blue - Primary brand anchor.
   static const Color navyBlue = Color(0xFF1A2253);
 
-  /// Lime Green - Secondary brand anchor
+  /// Lime Green - Secondary brand anchor.
+  /// Used for filled secondary buttons, accents, and highlights.
+  /// Pair with dark navy (#1A2253 / #090B1F) text for AAA contrast (~9.7:1).
   static const Color limeGreen = Color(0xFF9DE35D);
+
+  // ============================================
+  // NAVY BLUE PALETTE (10 stops)
+  // ============================================
+
+  /// Very light navy - ideal for tinted backgrounds.
+  static const Color navy50 = Color(0xFFEDF1FF);
+  static const Color navy100 = Color(0xFFD7E0FF);
+  static const Color navy200 = Color(0xFFB6C6F6);
+  static const Color navy300 = Color(0xFF95ACEA);
+  static const Color navy400 = Color(0xFF6D88D4);
+
+  /// Base navy blue - primary brand color.
+  static const Color navy500 = Color(0xFF1A2253);
+
+  static const Color navy600 = Color(0xFF141B42);
+  static const Color navy700 = Color(0xFF111636);
+  static const Color navy800 = Color(0xFF0D112A);
+  static const Color navy900 = Color(0xFF090B1F);
+
+  // ============================================
+  // LIME GREEN PALETTE (10 stops)
+  // ============================================
+
+  /// Very light lime - ideal for tinted backgrounds.
+  static const Color lime50 = Color(0xFFF6FEEB);
+  static const Color lime100 = Color(0xFFEAFCD2);
+  static const Color lime200 = Color(0xFFD9F8AE);
+  static const Color lime300 = Color(0xFFC4F184);
+  static const Color lime400 = Color(0xFFAFE964);
+
+  /// Base lime green - secondary brand color.
+  static const Color lime500 = Color(0xFF9DE35D);
+
+  static const Color lime600 = Color(0xFF86C14D);
+  static const Color lime700 = Color(0xFF67973B);
+  static const Color lime800 = Color(0xFF4B6D2A);
+  static const Color lime900 = Color(0xFF31481B);
 
   // ============================================
   // NEUTRAL COLORS (Gray Scale)
@@ -60,16 +103,16 @@ abstract final class PRFColors {
   // Complementary colors for UI states and highlights
   // ============================================
 
-  /// Purple - For mission states, events
+  /// Purple - For mission states, events.
   static const Color purple = Color(0xFF6E4CEB);
 
-  /// Blue - For contact/initiated states
+  /// Blue - For contact/initiated states.
   static const Color blue = Color(0xFF296DFF);
 
-  /// Orange - For scheduled/pending states
+  /// Orange - For scheduled/pending states.
   static const Color orange = Color(0xFFEB8B2D);
 
-  /// Emerald - For active/ongoing indicators
+  /// Emerald - For active/ongoing indicators.
   static const Color emerald = Color(0xFF12B886);
 
   // ============================================

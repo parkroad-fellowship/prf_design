@@ -1,183 +1,172 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:prf_design/src/theme/colors/_index.dart';
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
 
+/// Builds the PRF typography scale with the bundled Manrope family.
+///
+/// Fonts ship offline (declared as a Flutter font family in `pubspec.yaml`),
+/// so no runtime network fetching occurs.
 class PRFTextTheme {
   PRFTextTheme._();
 
-  static TextTheme getLightTheme({required double scaleFactor}) => _buildTheme(
+  /// Public helper kept for consumer compatibility.
+  static TextTheme getLightTheme({required double scaleFactor}) => build(
     scaleFactor,
-    defaultTextColor: PRFColors.black,
+    defaultTextColor: PRFColors.gray900,
     secondaryTextColor: PRFColors.gray600,
   );
 
-  static TextTheme getDarkTheme({required double scaleFactor}) => _buildTheme(
+  /// Public helper kept for consumer compatibility.
+  static TextTheme getDarkTheme({required double scaleFactor}) => build(
     scaleFactor,
-    defaultTextColor: PRFColors.white,
+    defaultTextColor: PRFColors.gray100,
     secondaryTextColor: PRFColors.gray400,
   );
 
-  static TextTheme _buildTheme(
+  static TextTheme build(
     double scaleFactor, {
     required Color defaultTextColor,
     required Color secondaryTextColor,
   }) {
     final s = scaleFactor;
 
-    return GoogleFonts.manropeTextTheme().copyWith(
-      displayLarge: GoogleFonts.manrope(
-        fontSize: 38 * s,
-        fontWeight: FontWeight.w800,
-        color: defaultTextColor,
+    return TextTheme(
+      displayLarge: _manrope(
+        s,
+        38,
+        FontWeight.w800,
+        defaultTextColor,
         height: 1.1,
         letterSpacing: -0.9,
       ),
-      displayMedium: GoogleFonts.manrope(
-        fontSize: 32 * s,
-        fontWeight: FontWeight.w700,
-        color: defaultTextColor,
+      displayMedium: _manrope(
+        s,
+        32,
+        FontWeight.w700,
+        defaultTextColor,
         height: 1.15,
         letterSpacing: -0.5,
       ),
-      displaySmall: GoogleFonts.manrope(
-        fontSize: 28 * s,
-        fontWeight: FontWeight.w700,
-        color: defaultTextColor,
+      displaySmall: _manrope(
+        s,
+        28,
+        FontWeight.w700,
+        defaultTextColor,
         height: 1.2,
         letterSpacing: -0.3,
       ),
-      headlineLarge: GoogleFonts.manrope(
-        fontSize: 24 * s,
-        fontWeight: FontWeight.w700,
-        color: defaultTextColor,
+      headlineLarge: _manrope(
+        s,
+        24,
+        FontWeight.w700,
+        defaultTextColor,
         height: 1.25,
       ),
-      headlineMedium: GoogleFonts.manrope(
-        fontSize: 20 * s,
-        fontWeight: FontWeight.w700,
-        color: defaultTextColor,
+      headlineMedium: _manrope(
+        s,
+        20,
+        FontWeight.w700,
+        defaultTextColor,
         height: 1.3,
       ),
-      headlineSmall: GoogleFonts.manrope(
-        fontSize: 18 * s,
-        fontWeight: FontWeight.w600,
-        color: defaultTextColor,
+      headlineSmall: _manrope(
+        s,
+        18,
+        FontWeight.w600,
+        defaultTextColor,
         height: 1.35,
       ),
-      titleLarge: GoogleFonts.manrope(
-        fontSize: 17 * s,
-        fontWeight: FontWeight.w700,
-        color: defaultTextColor,
+      titleLarge: _manrope(
+        s,
+        18,
+        FontWeight.w700,
+        defaultTextColor,
         height: 1.35,
       ),
-      titleMedium: GoogleFonts.manrope(
-        fontSize: 15 * s,
-        fontWeight: FontWeight.w600,
-        color: defaultTextColor,
+      titleMedium: _manrope(
+        s,
+        16,
+        FontWeight.w600,
+        defaultTextColor,
         height: 1.4,
       ),
-      titleSmall: GoogleFonts.manrope(
-        fontSize: 14 * s,
-        fontWeight: FontWeight.w600,
-        color: defaultTextColor,
+      titleSmall: _manrope(
+        s,
+        14,
+        FontWeight.w600,
+        defaultTextColor,
         height: 1.4,
       ),
-      bodyLarge: GoogleFonts.manrope(
-        fontSize: 16 * s,
-        fontWeight: FontWeight.w500,
-        color: defaultTextColor,
+      bodyLarge: _manrope(
+        s,
+        16,
+        FontWeight.w500,
+        defaultTextColor,
         height: 1.5,
       ),
-      bodyMedium: GoogleFonts.manrope(
-        fontSize: 15 * s,
-        fontWeight: FontWeight.w500,
-        color: defaultTextColor,
+      bodyMedium: _manrope(
+        s,
+        15,
+        FontWeight.w500,
+        defaultTextColor,
         height: 1.5,
       ),
-      bodySmall: GoogleFonts.manrope(
-        fontSize: 13 * s,
-        fontWeight: FontWeight.w500,
-        color: secondaryTextColor,
+      bodySmall: _manrope(
+        s,
+        13,
+        FontWeight.w500,
+        secondaryTextColor,
         height: 1.45,
       ),
-      labelLarge: GoogleFonts.manrope(
-        fontSize: 14 * s,
-        fontWeight: FontWeight.w700,
-        color: defaultTextColor,
+      labelLarge: _manrope(
+        s,
+        14,
+        FontWeight.w700,
+        defaultTextColor,
         height: 1.35,
       ),
-      labelMedium: GoogleFonts.manrope(
-        fontSize: 13 * s,
-        fontWeight: FontWeight.w700,
-        color: defaultTextColor,
+      labelMedium: _manrope(
+        s,
+        13,
+        FontWeight.w700,
+        defaultTextColor,
         height: 1.35,
       ),
-      labelSmall: GoogleFonts.manrope(
-        fontSize: 12 * s,
-        fontWeight: FontWeight.w600,
-        color: secondaryTextColor,
+      labelSmall: _manrope(
+        s,
+        12,
+        FontWeight.w600,
+        secondaryTextColor,
         height: 1.3,
       ),
     );
   }
 
-  static TextStyle getErrorTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 12 * s,
-      fontWeight: FontWeight.w600,
-      color: PRFColors.error,
-      height: 1.4,
+  static TextStyle _manrope(
+    double s,
+    double size,
+    FontWeight weight,
+    Color color, {
+    double? height,
+    double? letterSpacing,
+  }) {
+    return TextStyle(
+      fontFamily: 'Manrope',
+      fontSize: size * s,
+      fontWeight: weight,
+      color: color,
+      height: height,
+      letterSpacing: letterSpacing,
     );
   }
 
-  static TextStyle getSuccessTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 12 * s,
-      fontWeight: FontWeight.w600,
-      color: PRFColors.success,
-      height: 1.4,
-    );
-  }
-
-  static TextStyle getWarningTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 12 * s,
-      fontWeight: FontWeight.w600,
-      color: PRFColors.warning,
-      height: 1.4,
-    );
-  }
-
-  static TextStyle getInfoTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 12 * s,
-      fontWeight: FontWeight.w600,
-      color: PRFColors.info,
-      height: 1.4,
-    );
-  }
-
+  /// Text style for buttons, shared across every button variant.
   static TextStyle getButtonTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 15 * s,
-      fontWeight: FontWeight.w700,
+    return _manrope(
+      scaleFactor,
+      15,
+      FontWeight.w700,
+      PRFColors.gray900,
       height: 1.2,
-      letterSpacing: 0.1,
-    );
-  }
-
-  static TextStyle getCaptionTextStyle({required double scaleFactor}) {
-    final s = scaleFactor;
-    return GoogleFonts.manrope(
-      fontSize: 11 * s,
-      fontWeight: FontWeight.w500,
-      color: PRFColors.gray600,
-      height: 1.4,
-    );
+    ).copyWith(letterSpacing: 0.1);
   }
 }

@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:prf_design/src/theme/tokens/_index.dart';
-import 'package:prf_design/src/widgets/buttons/primary/primary.dart';
-import 'package:prf_design/src/widgets/navigation/branded_navbar.dart';
+import 'package:prf_design/src/theme/adaptive/prf_adaptive.dart';
+import 'package:prf_design/src/widgets/states/empty_state/_handset.dart';
+import 'package:prf_design/src/widgets/states/empty_state/_tablet.dart';
 
+/// Empty-state screen with a centred icon, message and optional action.
+///
+/// Renders a full-screen scaffold: an optional app-bar-like [navBarTitle] with
+/// back button, then an icon and message, then an optional CTA. Use [action] to
+/// supply a custom widget, or [actionLabel] + [onActionPressed] for a primary
+/// button.
+///
+/// Example:
+/// ```dart
+/// PRFEmptyView(
+///   label: 'No missions yet',
+///   description: 'Tap below to start your first mission.',
+///   icon: Icons.rocket_launch_outlined,
+///   actionLabel: 'Create mission',
+///   onActionPressed: _createMission,
+///   navBarTitle: 'Missions',
+/// )
+/// ```
 class PRFEmptyView extends StatelessWidget {
   const PRFEmptyView({
     required this.label,
@@ -21,109 +38,88 @@ class PRFEmptyView extends StatelessWidget {
     super.key,
   });
 
+  /// Headline message.
   final String label;
+
+  /// Supporting explanation shown under the headline.
   final String description;
+
+  /// Optional icon shown above the message.
   final IconData? icon;
+
+  /// Custom action widget rendered below the message. Overrides
+  /// [actionLabel]/[onActionPressed].
   final Widget? action;
+
+  /// Label of the default primary action button.
   final String? actionLabel;
+
+  /// Invoked when the default action button is pressed.
   final VoidCallback? onActionPressed;
+
+  /// Optional top-bar title shown with a back button.
   final String? navBarTitle;
+
+  /// Invoked when the top-bar back button is pressed; defaults to `pop`.
   final VoidCallback? onBackPressed;
+
+  /// When false the back button is hidden. Defaults to true.
   final bool showBackButton;
+
+  /// Optional trailing actions for the top bar.
   final List<Widget>? navBarActions;
+
+  /// Overrides the top-bar background colour.
   final Color? navBarBackgroundColor;
+
+  /// Overrides the top-bar foreground colour.
   final Color? navBarForegroundColor;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    final body = Semantics(
-      label: '$label. $description',
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withValues(alpha: 0.1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    icon ?? Icons.inbox_outlined,
-                    size: 48,
-                    color: theme.colorScheme.primary,
-                  ),
-                )
-                .animate()
-                .fadeIn(duration: PRFMotionTokens.enterShort)
-                .scale(delay: PRFMotionTokens.stagger2),
-            const SizedBox(height: 16),
-            Text(
-                  label,
-                  style: theme.textTheme.headlineSmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                  textAlign: TextAlign.center,
-                )
-                .animate()
-                .fadeIn(delay: PRFMotionTokens.stagger3)
-                .slideY(begin: 0.3, end: 0),
-            const SizedBox(height: 8),
-            Text(
-                  description,
-                  style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant.withValues(
-                      alpha: 0.7,
-                    ),
-                  ),
-                  textAlign: TextAlign.center,
-                )
-                .animate()
-                .fadeIn(delay: PRFMotionTokens.stagger4)
-                .slideY(begin: 0.3, end: 0),
-            if (action != null) ...[
-              const SizedBox(height: 24),
-              action!,
-            ] else if (actionLabel != null && onActionPressed != null) ...[
-              const SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: PRFSpacingTokens.lg,
-                ),
-                child:
-                    PRFPrimaryButton(
-                          onPressed: onActionPressed!,
-                          title: actionLabel!,
-                          disabled: false,
-                        )
-                        .animate()
-                        .fadeIn(delay: PRFMotionTokens.stagger5)
-                        .scale(delay: PRFMotionTokens.stagger1),
-              ),
-            ],
-          ],
-        ),
+    return PRFAdaptive(
+      handset: (_) => PRFEmptyViewHandset(
+        label: label,
+        description: description,
+        icon: icon,
+        action: action,
+        actionLabel: actionLabel,
+        onActionPressed: onActionPressed,
+        navBarTitle: navBarTitle,
+        onBackPressed: onBackPressed,
+        showBackButton: showBackButton,
+        navBarActions: navBarActions,
+        navBarBackgroundColor: navBarBackgroundColor,
+        navBarForegroundColor: navBarForegroundColor,
       ),
-    );
-
-    if (navBarTitle == null) {
-      return body;
-    }
-
-    return Column(
-      children: [
-        PRFBrandedNavBar(
-          title: navBarTitle!,
-          onBack: onBackPressed,
-          showBackButton: showBackButton,
-          actions: navBarActions,
-          backgroundColor: navBarBackgroundColor,
-          foregroundColor: navBarForegroundColor,
-        ),
-        Expanded(child: body),
-      ],
+      tablet: (_) => PRFEmptyViewTablet(
+        label: label,
+        description: description,
+        icon: icon,
+        action: action,
+        actionLabel: actionLabel,
+        onActionPressed: onActionPressed,
+        navBarTitle: navBarTitle,
+        onBackPressed: onBackPressed,
+        showBackButton: showBackButton,
+        navBarActions: navBarActions,
+        navBarBackgroundColor: navBarBackgroundColor,
+        navBarForegroundColor: navBarForegroundColor,
+      ),
+      builder: (_, _) => PRFEmptyViewTablet(
+        label: label,
+        description: description,
+        icon: icon,
+        action: action,
+        actionLabel: actionLabel,
+        onActionPressed: onActionPressed,
+        navBarTitle: navBarTitle,
+        onBackPressed: onBackPressed,
+        showBackButton: showBackButton,
+        navBarActions: navBarActions,
+        navBarBackgroundColor: navBarBackgroundColor,
+        navBarForegroundColor: navBarForegroundColor,
+      ),
     );
   }
 }

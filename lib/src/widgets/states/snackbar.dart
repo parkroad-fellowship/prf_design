@@ -4,6 +4,17 @@ import 'package:prf_design/src/theme/extensions/theme_context_extensions.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
 /// Unified snackbar helper with typed variants (error, success, info, warning).
+///
+/// Replaces the old `PRFErrorSnackbar`. Each method shows a floating,
+/// colour-coded snackbar with an icon; errors can include a Retry action.
+///
+/// Example:
+/// ```dart
+/// PRFSnackbar.error(context, 'Something went wrong', onRetry: _retry);
+/// PRFSnackbar.success(context, 'Saved successfully');
+/// PRFSnackbar.info(context, 'New update available');
+/// PRFSnackbar.warning(context, 'Low storage space');
+/// ```
 class PRFSnackbar {
   PRFSnackbar._();
 
@@ -81,8 +92,8 @@ class PRFSnackbar {
     final snackBar = SnackBar(
       content: Row(
         children: [
-          Icon(icon, color: colors.onColor, size: 20),
-          const SizedBox(width: 12),
+          Icon(icon, color: colors.onColor, size: PRFSizeTokens.iconMd),
+          const SizedBox(width: PRFSpacingTokens.md),
           Expanded(
             child: Text(
               message,

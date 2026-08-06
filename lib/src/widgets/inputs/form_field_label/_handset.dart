@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/colors/prf_colors.dart';
 
+/// Handset layout for PRFFormFieldLabel. Internal — prefer the parent widget.
 class PRFFormFieldLabelHandset extends StatelessWidget {
   const PRFFormFieldLabelHandset({
     required this.label,

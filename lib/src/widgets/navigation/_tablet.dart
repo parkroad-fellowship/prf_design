@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Tablet layout for PRFNavBar. Internal — prefer the parent widget.
 class PRFNavBarTablet extends StatelessWidget {
   const PRFNavBarTablet({
     required this.title,
@@ -39,7 +40,7 @@ class PRFNavBarTablet extends StatelessWidget {
       surfaceTintColor: Colors.transparent,
       pinned: true,
       elevation: PRFElevationTokens.none,
-      toolbarHeight: 100,
+      toolbarHeight: PRFNavigationTokens.appBarHeightTablet,
       flexibleSpace: _buildAppBarContent(theme, context),
     );
   }
@@ -50,7 +51,7 @@ class PRFNavBarTablet extends StatelessWidget {
       backgroundColor: backgroundColor ?? theme.colorScheme.surface,
       surfaceTintColor: Colors.transparent,
       elevation: PRFElevationTokens.none,
-      toolbarHeight: 100,
+      toolbarHeight: PRFNavigationTokens.appBarHeightTablet,
       flexibleSpace: _buildAppBarContent(theme, context),
     );
   }

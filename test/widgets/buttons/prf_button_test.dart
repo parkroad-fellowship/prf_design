@@ -7,9 +7,7 @@ import '../../helpers/button_test_helpers.dart';
 
 void main() {
   for (final variant in PRFButtonVariant.values) {
-    final buttonType =
-        variant == PRFButtonVariant.secondary ||
-            variant == PRFButtonVariant.google
+    final buttonType = variant == PRFButtonVariant.google
         ? OutlinedButton
         : ElevatedButton;
     final title = variant.name;

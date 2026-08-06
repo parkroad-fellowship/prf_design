@@ -40,9 +40,7 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final button =
-        widget.variant == PRFButtonVariant.secondary ||
-            widget.variant == PRFButtonVariant.google
+    final button = widget.variant == PRFButtonVariant.google
         ? OutlinedButton(
             onPressed: _isInteractive ? widget.onPressed : null,
             style: _style(theme),
@@ -86,14 +84,18 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
           background: scheme.primary,
           foreground: scheme.onPrimary,
         );
+      case PRFButtonVariant.secondary:
+        return _filledStyle(
+          theme,
+          background: scheme.secondary,
+          foreground: scheme.onSecondary,
+        );
       case PRFButtonVariant.destructive:
         return _filledStyle(
           theme,
           background: scheme.error,
           foreground: scheme.onError,
         );
-      case PRFButtonVariant.secondary:
-        return _outlinedStyle(theme);
       case PRFButtonVariant.google:
         return _googleStyle(theme);
     }
@@ -267,7 +269,7 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
   Color _loaderColor(ThemeData theme) {
     return switch (widget.variant) {
       PRFButtonVariant.primary => theme.colorScheme.onPrimary,
-      PRFButtonVariant.secondary => theme.colorScheme.primary,
+      PRFButtonVariant.secondary => theme.colorScheme.onSecondary,
       PRFButtonVariant.destructive => theme.colorScheme.onError,
       PRFButtonVariant.google => theme.colorScheme.primary,
     };
@@ -276,7 +278,7 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
   Color _labelColor(ThemeData theme) {
     return switch (widget.variant) {
       PRFButtonVariant.primary => theme.colorScheme.onPrimary,
-      PRFButtonVariant.secondary => theme.colorScheme.primary,
+      PRFButtonVariant.secondary => theme.colorScheme.onSecondary,
       PRFButtonVariant.destructive => theme.colorScheme.onError,
       PRFButtonVariant.google => theme.colorScheme.onSurface,
     };

@@ -74,3 +74,5 @@ flutter:
           style: italic
   assets:
     - assets/authentication/
+    - assets/google_fonts/manrope/OFL.txt
+    - assets/google_fonts/lato/OFL.txt

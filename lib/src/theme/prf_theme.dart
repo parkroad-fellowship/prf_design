@@ -143,7 +143,7 @@ class PRFTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         contentTextStyle: textTheme.bodyMedium?.copyWith(
-          color: isDark ? scheme.surfaceContainerHighest : PRFColors.white,
+          color: isDark ? scheme.onSecondary : PRFColors.white,
         ),
         backgroundColor: isDark ? scheme.secondary : scheme.primary,
         behavior: SnackBarBehavior.floating,

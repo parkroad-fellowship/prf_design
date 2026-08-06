@@ -7,7 +7,7 @@ enum PRFButtonVariant {
   /// Filled navy primary action.
   primary,
 
-  /// Outlined secondary action.
+  /// Filled lime green secondary action.
   secondary,
 
   /// Filled error-coloured destructive action.

@@ -17,8 +17,8 @@ abstract final class PRFColors {
   static const Color navyBlue = Color(0xFF1A2253);
 
   /// Lime Green - Secondary brand anchor.
-  /// ⚠️ Contrast ~1.5:1 on white/gray50 — never use as foreground text on light backgrounds.
-  /// Safe as foreground text on navy (#1A2253) at ~9.7:1 (AAA).
+  /// Used for filled secondary buttons, accents, and highlights.
+  /// Pair with dark navy (#1A2253 / #090B1F) text for AAA contrast (~9.7:1).
   static const Color limeGreen = Color(0xFF9DE35D);
 
   // ============================================

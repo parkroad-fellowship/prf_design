@@ -25,6 +25,10 @@ class PRFTextFieldBase extends StatefulWidget {
     required this.autocorrect,
     this.obscureNotifier,
     this.initiallyHidden = true,
+    this.autofillHints,
+    this.onSubmitted,
+    this.autofocus = false,
+    this.focusNode,
     super.key,
   });
 
@@ -50,6 +54,18 @@ class PRFTextFieldBase extends StatefulWidget {
   /// the visibility toggle writes here instead of local state.
   final ValueNotifier<bool>? obscureNotifier;
   final bool initiallyHidden;
+
+  /// Autofill hints passed to the platform autofill service.
+  final List<String>? autofillHints;
+
+  /// Invoked when the user submits the field.
+  final ValueChanged<String>? onSubmitted;
+
+  /// Whether the field attempts to take focus when first built.
+  final bool autofocus;
+
+  /// Optional focus node for programmatic focus control.
+  final FocusNode? focusNode;
 
   @override
   State<PRFTextFieldBase> createState() => _PRFTextFieldBaseState();
@@ -86,7 +102,11 @@ class _PRFTextFieldBaseState extends State<PRFTextFieldBase> {
         controller: widget.controller,
         enabled: _isEnabled,
         readOnly: widget.readOnly,
+        focusNode: widget.focusNode,
+        autofocus: widget.autofocus,
         onChanged: widget.onChanged,
+        onFieldSubmitted: widget.onSubmitted,
+        autofillHints: widget.autofillHints,
         keyboardType: widget.keyboardType ?? _keyboardType,
         textInputAction: widget.textInputAction,
         textCapitalization: _capitalization,

@@ -61,6 +61,10 @@ class PRFTextField extends StatelessWidget {
     this.autocorrect,
     this.obscureNotifier,
     this.initiallyHidden = true,
+    this.autofillHints,
+    this.onSubmitted,
+    this.autofocus = false,
+    this.focusNode,
     super.key,
   });
 
@@ -124,6 +128,21 @@ class PRFTextField extends StatelessWidget {
   /// Initial obscured state for password inputs without an external notifier.
   final bool initiallyHidden;
 
+  /// Autofill hints (e.g. [AutofillHints.email]) passed to the platform's
+  /// autofill service so password managers can engage. Wrap sibling fields
+  /// in an [AutofillGroup] for best results.
+  final List<String>? autofillHints;
+
+  /// Invoked when the user submits the field (keyboard action or Enter).
+  final ValueChanged<String>? onSubmitted;
+
+  /// Whether the field should attempt to take focus when first built.
+  final bool autofocus;
+
+  /// Optional focus node for programmatic focus control (e.g. moving focus
+  /// to the next field on submit).
+  final FocusNode? focusNode;
+
   @override
   Widget build(BuildContext context) {
     final base = PRFTextFieldBase(
@@ -146,6 +165,10 @@ class PRFTextField extends StatelessWidget {
       autocorrect: autocorrect,
       obscureNotifier: obscureNotifier,
       initiallyHidden: initiallyHidden,
+      autofillHints: autofillHints,
+      onSubmitted: onSubmitted,
+      autofocus: autofocus,
+      focusNode: focusNode,
     );
     return PRFAdaptive(
       handset: (_) => base,

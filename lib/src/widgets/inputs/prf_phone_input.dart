@@ -1,4 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide InputDecoration;
+import 'package:material_ui/material_ui.dart'
+    as material
+    show InputDecoration, OutlineInputBorder;
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:prf_design/src/theme/_index.dart';
 
@@ -61,30 +64,30 @@ class PRFPhoneInput extends StatelessWidget {
       style: theme.textTheme.bodyMedium?.copyWith(
         color: theme.colorScheme.onSurface,
       ),
-      decoration: InputDecoration(
+      decoration: material.InputDecoration(
         hintText: hintText,
         hintStyle: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),
         filled: true,
         fillColor: theme.colorScheme.surface,
-        border: OutlineInputBorder(
+        border: material.OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: material.OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
-        focusedBorder: OutlineInputBorder(
+        focusedBorder: material.OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
         ),
-        disabledBorder: OutlineInputBorder(
+        disabledBorder: material.OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: 0.1),

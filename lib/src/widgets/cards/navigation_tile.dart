@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:prf_design/src/theme/colors/prf_colors.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
 /// Tappable card with an SVG illustration and a chevron affordance.
 ///
 /// Renders a rounded, shadowed card with an SVG asset, a title, and a circular
-/// arrow indicator. Use for menu-style navigation entries; [isNeutralCard]
-/// switches the arrow to a neutral outline style.
+/// arrow indicator pinned to the top-right corner (outside the content flow,
+/// so it never contributes to the tile's height budget).
+///
+/// Use for menu-style navigation entries. [isNeutralCard] switches the arrow
+/// to a neutral outline style; [accent] renders the Living Root action moment:
+/// a navy surface with white text and a lime arrow — reserve it for the single
+/// most important action on a screen.
 ///
 /// Example:
 /// ```dart
@@ -24,6 +30,7 @@ class PRFNavigationTile extends StatelessWidget {
     super.key,
     this.assetHeight = 56,
     this.isNeutralCard = false,
+    this.accent = false,
   });
 
   /// Card title, shown under the asset.
@@ -41,21 +48,31 @@ class PRFNavigationTile extends StatelessWidget {
   /// When true the arrow affordance uses the neutral outline style.
   final bool isNeutralCard;
 
+  /// When true the tile becomes the screen's action moment: navy surface,
+  /// white title, lime arrow chip.
+  final bool accent;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final arrowBackgroundColor = isNeutralCard
+    final arrowBackgroundColor = accent
+        ? PRFColors.limeGreen
+        : isNeutralCard
         ? theme.colorScheme.surfaceContainerHigh
         : theme.colorScheme.primary.withValues(alpha: 0.12);
-    final arrowIconColor = isNeutralCard
+    final arrowIconColor = accent
+        ? PRFColors.navyBlue
+        : isNeutralCard
         ? theme.colorScheme.onSurfaceVariant
         : theme.colorScheme.primary;
-    final arrowBorderColor = isNeutralCard
+    final arrowBorderColor = !accent && isNeutralCard
         ? theme.colorScheme.outline.withValues(alpha: 0.35)
         : Colors.transparent;
+    final surfaceColor = accent ? PRFColors.navyBlue : null;
+    final titleColor = accent ? PRFColors.white : theme.colorScheme.onSurface;
 
     return Material(
-      color: theme.colorScheme.surface,
+      color: surfaceColor ?? theme.colorScheme.surface,
       borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
       child: InkWell(
         borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
@@ -64,15 +81,9 @@ class PRFNavigationTile extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
             border: Border.all(
-              color: theme.colorScheme.outline.withValues(alpha: 0.2),
-            ),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                theme.colorScheme.surface,
-                theme.colorScheme.surfaceContainerLowest,
-              ],
+              color: accent
+                  ? Colors.transparent
+                  : theme.colorScheme.outline.withValues(alpha: 0.2),
             ),
             boxShadow: [
               BoxShadow(
@@ -84,11 +95,27 @@ class PRFNavigationTile extends StatelessWidget {
           ),
           child: Padding(
             padding: const EdgeInsets.all(PRFSpacingTokens.md),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Stack(
               children: [
-                Align(
-                  alignment: Alignment.topRight,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SvgPicture.asset(assetPath, height: assetHeight),
+                    const Spacer(),
+                    Text(
+                      title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: theme.textTheme.titleSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: titleColor,
+                      ),
+                    ),
+                  ],
+                ),
+                Positioned(
+                  top: 0,
+                  right: 0,
                   child: Container(
                     // minimum 48dp touch target for the arrow affordance
                     width: PRFSizeTokens.minTouchTarget,
@@ -103,18 +130,6 @@ class PRFNavigationTile extends StatelessWidget {
                       size: PRFSizeTokens.iconSm,
                       color: arrowIconColor,
                     ),
-                  ),
-                ),
-                const SizedBox(height: PRFSpacingTokens.xs),
-                SvgPicture.asset(assetPath, height: assetHeight),
-                const Spacer(),
-                Text(
-                  title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    color: theme.colorScheme.onSurface,
                   ),
                 ),
               ],

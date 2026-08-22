@@ -44,4 +44,24 @@ abstract final class PRFShadowTokens {
       offset: const Offset(0, 4),
     ),
   ];
+
+  /// Raised card shadow — the tinted-primary lift used by interactive
+  /// action cards (courses, modules, payments, FAQs).
+  static List<BoxShadow> raised(Color glowColor) => [
+    BoxShadow(
+      color: glowColor.withValues(alpha: 0.08),
+      blurRadius: 16,
+      offset: const Offset(0, 6),
+    ),
+  ];
+
+  /// Hero glow — a single soft primary-colored halo for hero cards and
+  /// floating action surfaces that must feel luminous rather than lifted.
+  static List<BoxShadow> heroGlow(Color glowColor) => [
+    BoxShadow(
+      color: glowColor.withValues(alpha: 0.3),
+      blurRadius: 20,
+      offset: const Offset(0, 8),
+    ),
+  ];
 }

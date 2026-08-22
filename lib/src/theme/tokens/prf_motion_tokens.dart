@@ -8,6 +8,7 @@ abstract final class PRFMotionTokens {
   static const Duration slow = Duration(milliseconds: 360);
   static const Duration enterShort = Duration(milliseconds: 420);
   static const Duration enterMedium = Duration(milliseconds: 560);
+  static const Duration enterLong = Duration(milliseconds: 700);
 
   static const Duration stagger1 = Duration(milliseconds: 50);
   static const Duration stagger2 = Duration(milliseconds: 100);
@@ -17,6 +18,12 @@ abstract final class PRFMotionTokens {
 
   static const double pressedScale = 0.985;
 
+  // Easing vocabulary. [entering] is the house feel for elements sliding or
+  // fading into place; [settling] for gentler collapses; [overshoot] for
+  // playful pops; [emphasized] for decisive transitions.
+  static const Curve entering = Curves.easeOutCubic;
+  static const Curve settling = Curves.easeOut;
+  static const Curve overshoot = Curves.easeOutBack;
   static const Curve emphasized = Curves.easeOutQuart;
   static const Curve standardCurve = Curves.easeInOut;
 

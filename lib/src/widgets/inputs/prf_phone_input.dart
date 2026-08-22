@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart' hide InputDecoration;
-import 'package:material_ui/material_ui.dart'
-    as material
-    show InputDecoration, OutlineInputBorder;
+import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:prf_design/src/theme/_index.dart';
 
@@ -21,6 +18,12 @@ import 'package:prf_design/src/theme/_index.dart';
 ///   onChanged: (number) => _phone = number,
 /// )
 /// ```
+///
+/// Pinned to `phone_form_field` v10, the last major built on the framework's
+/// own Material library. v11 migrated to the standalone `material_ui` package
+/// whose widgets resolve separate Material/Theme/Localizations classes and
+/// crash inside hosts that only provide Flutter's (e.g.
+/// `showModalBottomSheet`).
 class PRFPhoneInput extends StatelessWidget {
   const PRFPhoneInput({
     required this.hintText,
@@ -64,30 +67,30 @@ class PRFPhoneInput extends StatelessWidget {
       style: theme.textTheme.bodyMedium?.copyWith(
         color: theme.colorScheme.onSurface,
       ),
-      decoration: material.InputDecoration(
+      decoration: InputDecoration(
         hintText: hintText,
         hintStyle: theme.textTheme.bodyMedium?.copyWith(
           color: theme.colorScheme.onSurfaceVariant,
         ),
         filled: true,
         fillColor: theme.colorScheme.surface,
-        border: material.OutlineInputBorder(
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
-        enabledBorder: material.OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
-        focusedBorder: material.OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(color: theme.colorScheme.primary, width: 2),
         ),
-        disabledBorder: material.OutlineInputBorder(
+        disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
             color: theme.colorScheme.outline.withValues(alpha: 0.1),

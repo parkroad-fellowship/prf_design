@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] - 2026-08-22
+
+### Changed
+
+- Downgraded `phone_form_field` from `^11.0.1` to `^10.0.18` and removed the
+  `material_ui` dependency. v11 builds on the standalone `material_ui` package
+  whose widgets resolve separate Material/Theme/MaterialLocalizations classes,
+  which crashed with "No Material widget found" / "No MaterialLocalizations
+  found" when `PRFPhoneInput` was rendered inside hosts providing only
+  Flutter's widgets (e.g. `showModalBottomSheet`). v10 is the last major built
+  on the framework's own Material library and needs no workarounds.
+
 ## [1.0.7] - 2026-08-22
 
 ### Added

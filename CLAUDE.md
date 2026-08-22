@@ -206,7 +206,11 @@ void main() {
 
 On push/PR to `main`: format check → analyze → test (see `.github/workflows/ci.yaml`).
 
-Publishing to pub.dev is manual: `release.yaml` runs only on
-`workflow_dispatch` (Actions → Release → Run workflow). It extracts the version
-from `pubspec.yaml`, dry-runs `dart pub publish`, then tags and publishes,
-skipping if the tag already exists.
+Publishing to pub.dev is manual via tag push: bump `version:` in
+`pubspec.yaml` (with a matching `CHANGELOG.md` entry), commit, then run
+`git tag vX.Y.Z && git push origin main vX.Y.Z`. `release.yaml` triggers on the
+tag push, verifies the tag matches `pubspec.yaml`, dry-runs then runs
+`dart pub publish --force` (authenticated via GitHub Actions OIDC — requires
+"Automated publishing" enabled for the repo on pub.dev's package Admin tab,
+tag pattern `v{{version}}`), and creates the GitHub Release after a
+successful publish.

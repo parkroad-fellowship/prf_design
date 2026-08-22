@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2026-08-22
+
+### Added
+
+- New `layouts` widget category, exported from the main widgets barrel.
+- `PRFTabletSplitScaffold` — canonical tablet geometry for list/detail screens:
+  centered max-width stage with a content column and side panel column
+  separated by a hairline divider (configurable flex weights and max width).
+- `PRFBrandPanel` — navy "Living Root" side panel used on tablet split screens,
+  with root-motif painting behind an optionally scrollable body.
+- `PRFTabletHeaderRow` — tablet screen header with back navigation, an
+  ellipsizing title, an optional inline loading spinner slot, and trailing
+  actions.
+
+### Changed
+
+- `PRFTimelineMissionCard` now uses an `InkWell` for tap ripple feedback
+  instead of a bare `GestureDetector`.
+- `PRFTimelineMissionCard` exposes `Semantics` (button role, school/status
+  label, action hint) for accessibility.
+- Capacity info chip on `PRFTimelineMissionCard` uses `colorScheme.primary`.
+
 ## [1.0.2] - 2026-08-06
 
 ### Added

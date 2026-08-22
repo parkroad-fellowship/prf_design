@@ -126,118 +126,132 @@ class PRFTimelineMissionCard extends StatelessWidget {
         ),
         const SizedBox(width: PRFSpacingTokens.lg),
         Expanded(
-          child: GestureDetector(
-            onTap: onTap,
-            child: Container(
-              margin: EdgeInsets.only(bottom: isLast ? 0 : PRFSpacingTokens.lg),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
+          child: Semantics(
+            button: true,
+            label: '$schoolName, $statusText',
+            hint: actionLabel,
+            child: Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: onTap,
                 borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-                border: Border.all(color: statusColor.withValues(alpha: 0.2)),
-                boxShadow: [
-                  BoxShadow(
-                    color: theme.colorScheme.shadow.withValues(alpha: 0.08),
-                    blurRadius: 12,
-                    offset: const Offset(0, 3),
+                child: Container(
+                  margin: EdgeInsets.only(
+                    bottom: isLast ? 0 : PRFSpacingTokens.lg,
                   ),
-                  BoxShadow(
-                    color: statusColor.withValues(alpha: 0.05),
-                    blurRadius: 24,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _Header(
-                      statusColor: statusColor,
-                      statusText: statusText,
-                      schoolName: schoolName,
-                      missionTypeName: missionTypeName,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+                    border: Border.all(
+                      color: statusColor.withValues(alpha: 0.2),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(PRFSpacingTokens.lg),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Row(
+                    boxShadow: [
+                      BoxShadow(
+                        color: theme.colorScheme.shadow.withValues(alpha: 0.08),
+                        blurRadius: 12,
+                        offset: const Offset(0, 3),
+                      ),
+                      BoxShadow(
+                        color: statusColor.withValues(alpha: 0.05),
+                        blurRadius: 24,
+                        offset: const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _Header(
+                          statusColor: statusColor,
+                          statusText: statusText,
+                          schoolName: schoolName,
+                          missionTypeName: missionTypeName,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(PRFSpacingTokens.lg),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Expanded(
-                                child: _InfoChip(
-                                  icon: Icons.access_time_rounded,
-                                  label: durationLabel,
-                                  value: durationValue,
-                                  color: theme.colorScheme.primary,
-                                ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: _InfoChip(
+                                      icon: Icons.access_time_rounded,
+                                      label: durationLabel,
+                                      value: durationValue,
+                                      color: theme.colorScheme.primary,
+                                    ),
+                                  ),
+                                  const SizedBox(width: PRFSpacingTokens.sm),
+                                  Expanded(
+                                    child: _InfoChip(
+                                      icon: Icons.people_rounded,
+                                      label: capacityLabel,
+                                      value: capacityValue,
+                                      color: theme.colorScheme.primary,
+                                    ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: PRFSpacingTokens.sm),
-                              Expanded(
-                                child: _InfoChip(
-                                  icon: Icons.people_rounded,
-                                  label: capacityLabel,
-                                  value: capacityValue,
-                                  color: theme.colorScheme.secondary,
+                              const SizedBox(height: PRFSpacingTokens.md),
+                              _DateRangeView(
+                                datePrimaryText: datePrimaryText,
+                                dateSecondaryText: dateSecondaryText,
+                                showActiveIndicator: showActiveIndicator,
+                                activeIndicatorColor:
+                                    activeIndicatorColor ?? statusColor,
+                              ),
+                              const SizedBox(height: PRFSpacingTokens.md),
+                              Container(
+                                width: double.infinity,
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: PRFSpacingTokens.lg,
+                                  vertical: PRFSpacingTokens.sm,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: statusColor.withValues(
+                                    alpha: isDark ? 0.18 : 0.1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    PRFRadiusTokens.sm,
+                                  ),
+                                  border: Border.all(
+                                    color: statusColor.withValues(
+                                      alpha: isDark ? 0.45 : 0.3,
+                                    ),
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      actionLabel,
+                                      style: theme.textTheme.bodySmall
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            color: actionTextColor,
+                                          ),
+                                    ),
+                                    const SizedBox(width: PRFSpacingTokens.xs),
+                                    Icon(
+                                      Icons.arrow_forward_rounded,
+                                      size: 14,
+                                      color: actionTextColor,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: PRFSpacingTokens.md),
-                          _DateRangeView(
-                            datePrimaryText: datePrimaryText,
-                            dateSecondaryText: dateSecondaryText,
-                            showActiveIndicator: showActiveIndicator,
-                            activeIndicatorColor:
-                                activeIndicatorColor ?? statusColor,
-                          ),
-                          const SizedBox(height: PRFSpacingTokens.md),
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: PRFSpacingTokens.lg,
-                              vertical: PRFSpacingTokens.sm,
-                            ),
-                            decoration: BoxDecoration(
-                              color: statusColor.withValues(
-                                alpha: isDark ? 0.18 : 0.1,
-                              ),
-                              borderRadius: BorderRadius.circular(
-                                PRFRadiusTokens.sm,
-                              ),
-                              border: Border.all(
-                                color: statusColor.withValues(
-                                  alpha: isDark ? 0.45 : 0.3,
-                                ),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  actionLabel,
-                                  style: theme.textTheme.bodySmall?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: actionTextColor,
-                                  ),
-                                ),
-                                const SizedBox(width: PRFSpacingTokens.xs),
-                                Icon(
-                                  Icons.arrow_forward_rounded,
-                                  size: 14,
-                                  color: actionTextColor,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),

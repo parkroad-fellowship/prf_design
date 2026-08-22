@@ -1,19 +1,18 @@
 name: Release
 
 on:
-  push:
-    tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+  workflow_dispatch:
 
 permissions:
   contents: write
-  id-token: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Extract version from pubspec.yaml
         id: version
@@ -21,19 +20,29 @@ jobs:
           version=$(grep '^version:' pubspec.yaml | sed 's/version: *"\?\([^"]*\)"\?/\1/')
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
-      - name: Verify tag matches pubspec version
+      - name: Check if tag already exists
+        id: tag_check
         run: |
-          if [ "v${{ steps.version.outputs.version }}" != "${GITHUB_REF_NAME}" ]; then
-            echo "::error::Tag ${GITHUB_REF_NAME} does not match pubspec version v${{ steps.version.outputs.version }}."
-            exit 1
+          if git rev-parse "v${{ steps.version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Exit if already released
+        if: steps.tag_check.outputs.exists == 'true'
+        run: |
+          echo "v${{ steps.version.outputs.version }} already released, skipping."
+          exit 0
+
       - uses: subosito/flutter-action@v2
+        if: steps.tag_check.outputs.exists == 'false'
         with:
           channel: stable
           cache: true
 
       - name: Cache Pub dependencies
+        if: steps.tag_check.outputs.exists == 'false'
         uses: actions/cache@v6
         with:
           path: ~/.pub-cache
@@ -42,12 +51,15 @@ jobs:
             ${{ runner.os }}-pub-
 
       - name: Install dependencies
+        if: steps.tag_check.outputs.exists == 'false'
         run: flutter pub get
 
       - name: Dry-run publish
+        if: steps.tag_check.outputs.exists == 'false'
         run: dart pub publish --dry-run
 
       - name: Extract changelog section
+        if: steps.tag_check.outputs.exists == 'false'
         id: changelog
         run: |
           section=$(awk '/^## \['"${{ steps.version.outputs.version }}"'\]/{found=1; next} /^## \[/{if(found) exit} found{print}' CHANGELOG.md)
@@ -57,13 +69,23 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Configure pub credentials
+        if: steps.tag_check.outputs.exists == 'false'
+        env:
+          PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
+        run: |
+          mkdir -p ~/.config/dart
+          printf '%s' "$PUB_CREDENTIALS" > ~/.config/dart/pub-credentials.json
+
       - name: Publish to pub.dev
+        if: steps.tag_check.outputs.exists == 'false'
         run: dart pub publish --force
 
-      - name: Create GitHub Release
+      - name: Create tag and GitHub Release
+        if: steps.tag_check.outputs.exists == 'false'
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.ref_name }}
-          name: ${{ github.ref_name }}
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
           body: ${{ steps.changelog.outputs.body }}
           generate_release_notes: false

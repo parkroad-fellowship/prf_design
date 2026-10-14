@@ -71,8 +71,8 @@ class _PRFReplyStatusTabletState extends State<PRFReplyStatusTablet> {
     return Padding(
       // tablet: wider outer padding for breathing room
       padding: const EdgeInsets.symmetric(horizontal: PRFSpacingTokens.xxxl),
-      child: SizedBox(
-        height: chipHeight,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: chipHeight),
         child: Row(
           children: [
             for (int i = 0; i < chips.length; i++) ...[

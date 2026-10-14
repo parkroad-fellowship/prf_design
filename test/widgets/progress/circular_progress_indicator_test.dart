@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prf_design/src/widgets/progress/circular_progress_indicator.dart';
 
-Widget _buildApp(Widget child) => MaterialApp(
-  home: Scaffold(body: child),
-);
+Widget _buildApp(Widget child) => MaterialApp(home: Scaffold(body: child));
 
 void main() {
   group('PRFCircularProgressIndicator', () {
     testWidgets('renders with default parameters (indeterminate)', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        _buildApp(const PRFCircularProgressIndicator()),
-      );
+      await tester.pumpWidget(_buildApp(const PRFCircularProgressIndicator()));
 
       final indicator = tester.widget<CircularProgressIndicator>(
         find.byType(CircularProgressIndicator),
@@ -74,14 +70,9 @@ void main() {
     });
 
     testWidgets('has Semantics label "Loading"', (tester) async {
-      await tester.pumpWidget(
-        _buildApp(const PRFCircularProgressIndicator()),
-      );
+      await tester.pumpWidget(_buildApp(const PRFCircularProgressIndicator()));
 
-      expect(
-        find.bySemanticsLabel('Loading'),
-        findsOneWidget,
-      );
+      expect(find.bySemanticsLabel('Loading'), findsOneWidget);
     });
   });
 }

@@ -4,9 +4,8 @@ import 'package:prf_design/src/theme/extensions/prf_status_extension.dart';
 import 'package:prf_design/src/widgets/states/snackbar.dart';
 
 /// Returns a minimal [ThemeData] that includes [PRFStatusExtension].
-ThemeData _testTheme() => ThemeData(
-  extensions: const [PRFStatusExtension.light],
-);
+ThemeData _testTheme() =>
+    ThemeData(extensions: const [PRFStatusExtension.light]);
 
 /// Wraps [child] in [MaterialApp] + [Scaffold] so snackbars can be shown.
 Widget _buildApp(Widget child) => MaterialApp(

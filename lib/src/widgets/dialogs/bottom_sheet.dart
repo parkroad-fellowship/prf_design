@@ -88,7 +88,9 @@ class PRFBottomSheet extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(PRFRadiusTokens.xl),
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -99,7 +101,9 @@ class PRFBottomSheet extends StatelessWidget {
               width: PRFSizeTokens.bottomSheetHandleWidth,
               height: PRFSizeTokens.bottomSheetHandleHeight,
               decoration: BoxDecoration(
-                color: theme.colorScheme.outline.withValues(alpha: 0.35),
+                color: theme.colorScheme.outline.withValues(
+                  alpha: PRFOpacities.accent,
+                ),
                 borderRadius: BorderRadius.circular(PRFRadiusTokens.full),
               ),
             ),
@@ -119,20 +123,22 @@ class PRFBottomSheet extends StatelessWidget {
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    color: theme.colorScheme.primary,
-                  ),
+                  tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
+                  icon: Icon(Icons.close, color: theme.colorScheme.primary),
                   onPressed: onClose ?? () => Navigator.pop(context),
                 ),
               ],
             ),
           ),
           Divider(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: theme.colorScheme.outline.withValues(
+              alpha: PRFOpacities.muted,
+            ),
             height: 1,
           ),
           Flexible(child: child),

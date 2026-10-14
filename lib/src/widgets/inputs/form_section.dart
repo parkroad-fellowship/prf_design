@@ -61,12 +61,14 @@ class PRFFormSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(PRFSpacingTokens.sm),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                  color: theme.colorScheme.primary.withValues(
+                    alpha: PRFOpacities.subtle,
+                  ),
                   borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
                 ),
                 child: Icon(
                   icon,
-                  size: 20,
+                  size: PRFSizeTokens.iconMd,
                   color: theme.colorScheme.primary,
                 ),
               ),

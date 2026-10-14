@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-14T00:00:00Z",
+  "title": "Design System: PRF Design",
+  "extensions": {
+    "colorMeta": {
+      "root-navy": { "role": "primary", "displayName": "Root Navy", "tonalRamp": ["#090B1F", "#0D112A", "#111636", "#1A2253", "#6D88D4", "#95ACEA", "#B6C6F6", "#EDF1FF"] },
+      "growth-lime": { "role": "secondary", "displayName": "Growth Lime", "tonalRamp": ["#31481B", "#4B6D2A", "#67973B", "#86C14D", "#9DE35D", "#C4F184", "#D9F8AE", "#F6FEEB"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "tonalRamp": ["#171C29", "#2F3547", "#4B5368", "#6B758D", "#8F9BB3", "#B5C0D3", "#E6EAF2", "#F7F9FC"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Brand panels, onboarding and campaign moments." },
+      "headline": { "displayName": "Headline", "purpose": "Screen titles and the branded navbar." },
+      "title": { "displayName": "Title", "purpose": "Card titles, section headers, list primaries." },
+      "body": { "displayName": "Body", "purpose": "Reading text, descriptions and form values." },
+      "label": { "displayName": "Label", "purpose": "Buttons, chips, badges and field labels." }
+    },
+    "shadows": [
+      { "name": "card", "value": "0 4px 16px rgba(26,34,83,0.08), 0 2px 8px rgba(26,34,83,0.04)", "purpose": "Content cards and list rows at rest." },
+      { "name": "elevated", "value": "0 8px 24px rgba(26,34,83,0.12), 0 4px 12px rgba(26,34,83,0.06)", "purpose": "Floating sheets, sticky bars, popovers." },
+      { "name": "raised", "value": "0 6px 16px rgba(26,34,83,0.08)", "purpose": "Interactive action cards." },
+      { "name": "badge", "value": "0 4px 8px rgba(18,184,134,0.30)", "purpose": "Glow under status and date badges (tinted by the badge colour)." }
+    ],
+    "motion": [
+      { "name": "fast", "value": "160ms", "purpose": "Press feedback and small state changes." },
+      { "name": "standard", "value": "240ms", "purpose": "Default transitions." },
+      { "name": "enter-short", "value": "420ms cubic-bezier(0.215, 0.61, 0.355, 1)", "purpose": "Content entering view (easeOutCubic)." },
+      { "name": "stagger", "value": "50ms per item, capped at 8 items", "purpose": "List entrance." },
+      { "name": "reduced-motion", "value": "0ms", "purpose": "Every duration resolves to zero when the OS asks for reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "handset", "value": "<600dp" },
+      { "name": "tablet", "value": "600–1023dp" },
+      { "name": "desktop", "value": ">=1024dp" }
+    ]
+  },
+  "components": [
+    { "name": "Primary Button", "kind": "button", "refersTo": "button-primary", "description": "Main action on a screen; full width on handset.",
+      "html": "<button class=\"ds-btn-primary\">Save expense</button>",
+      "css": ".ds-btn-primary{background:#1A2253;color:#fff;font:700 14px/1.35 Manrope,sans-serif;min-height:52px;width:100%;padding:12px 24px;border:none;border-radius:16px;transition:transform .16s ease-out}.ds-btn-primary:active{transform:scale(.985)}.ds-btn-primary:focus-visible{outline:2px solid #9DE35D;outline-offset:2px}" },
+    { "name": "Secondary Button", "kind": "button", "refersTo": "button-secondary", "description": "Lime positive action, navy label.",
+      "html": "<button class=\"ds-btn-secondary\">Join mission</button>",
+      "css": ".ds-btn-secondary{background:#9DE35D;color:#090B1F;font:700 14px/1.35 Manrope,sans-serif;min-height:52px;width:100%;padding:12px 24px;border:none;border-radius:16px}.ds-btn-secondary:focus-visible{outline:2px solid #1A2253;outline-offset:2px}" },
+    { "name": "Text Field", "kind": "input", "refersTo": "input", "description": "Labelled field with a visible 3:1 stroke.",
+      "html": "<label class=\"ds-field\"><span>Amount <em>(optional)</em></span><input placeholder=\"KES 0\"></label>",
+      "css": ".ds-field{display:grid;gap:8px;font:600 13px Manrope,sans-serif;color:#6B758D}.ds-field em{font-style:normal}.ds-field input{min-height:52px;padding:0 16px;border:1.2px solid #6B758D;border-radius:16px;font:500 15px Manrope,sans-serif;color:#171C29;background:#fff}.ds-field input:focus{outline:none;border:1.8px solid #1A2253}" },
+    { "name": "Branded Navbar", "kind": "nav", "refersTo": "branded-navbar", "description": "Navy header with back, title and labelled action.",
+      "html": "<header class=\"ds-nav\"><button aria-label=\"Back\">‹</button><h1>Requisitions</h1><button class=\"ds-nav-act\">+ New</button></header>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:12px;background:#1A2253;color:#fff;padding:8px 16px 12px;min-height:76px}.ds-nav h1{flex:1;margin:0;font:800 20px Manrope,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ds-nav button{min-width:48px;min-height:48px;border:none;border-radius:16px;background:rgba(255,255,255,.12);color:#fff;font:700 18px Manrope}.ds-nav .ds-nav-act{background:#9DE35D;color:#090B1F;font-size:14px;padding:0 16px}" },
+    { "name": "Status Badge", "kind": "chip", "refersTo": "chip", "description": "AA-safe status pill using a status pair.",
+      "html": "<span class=\"ds-badge\">Approved</span> <span class=\"ds-badge ds-badge-pending\">Pending</span>",
+      "css": ".ds-badge{display:inline-block;padding:4px 12px;border-radius:999px;background:#0C7F5B;color:#fff;font:600 12px Manrope,sans-serif}.ds-badge-pending{background:#EB8B2D;color:#090B1F}" },
+    { "name": "Card", "kind": "card", "refersTo": "card", "description": "Content card with the soft navy card shadow.",
+      "html": "<article class=\"ds-card\"><h3>Kibera outreach</h3><p>12–14 Nov · 18 members</p></article>",
+      "css": ".ds-card{background:#fff;border-radius:20px;padding:16px;box-shadow:0 4px 16px rgba(26,34,83,.08),0 2px 8px rgba(26,34,83,.04);font-family:Manrope,sans-serif}.ds-card h3{margin:0 0 4px;font:700 18px/1.35 Manrope;color:#171C29}.ds-card p{margin:0;font:500 13px/1.45 Manrope;color:#6B758D}" }
+  ],
+  "narrative": {
+    "northStar": "The Living Root",
+    "overview": "PRF is a fellowship's tool for sending people out and caring for them while they are there. Navy is the root: steady, deep, trustworthy. Lime is the new growth: rare, alive, only ever a point of emphasis. Everything else is calm paper and quiet ink so the content carries the screen. Built for people aged 18 to 90, mostly non-technical, often on a phone with patchy signal.",
+    "keyCharacteristics": ["Deep navy brand surfaces with the Living Root motif; white working surfaces.", "Lime as a sparing accent and fill, never as text on white.", "Manrope everywhere, weight-led hierarchy.", "Soft, generous corners and soft navy-tinted shadows.", "Accessibility as a floor: AA contrast, 48dp targets, reduced motion, scalable type."],
+    "rules": [
+      { "name": "The Lime Is Never Ink Rule", "body": "Lime is a fill and an accent. Never set lime text or thin lime icons on white or paper.", "section": "colors" },
+      { "name": "The Pair, Not the Paint Rule", "body": "Status colours are used as sets: text on a fill uses onColor, text on a tint uses foreground.", "section": "colors" },
+      { "name": "The Theme Owns Colour Rule", "body": "Widget code reads colour from the theme; raw literals live only in the theme layer.", "section": "colors" },
+      { "name": "The Twelve Floor Rule", "body": "Nothing renders below labelSmall (12sp base, never under 11sp after scaling).", "section": "typography" },
+      { "name": "The Grow, Don't Clip Rule", "body": "Text containers use minimum heights, never fixed heights.", "section": "typography" },
+      { "name": "The Token Shadow Rule", "body": "Shadows come from PRFShadowTokens only.", "section": "elevation" }
+    ],
+    "dos": ["Do take every colour from colorScheme, context.prfColors or context.statusColors, and pair status fills with their onColor.", "Do keep every tappable element at 48dp or larger and give icon-only buttons a localised tooltip.", "Do route every animation duration and delay through PRFMotionTokens.resolve(context, …), and cap list staggers (eight items, 400ms).", "Do use spacing, radius, size, opacity and shadow tokens for every value.", "Do write user-facing copy in plain words: say what happened and what to do next.", "Do test new widgets in dark mode and at 2× text scale."],
+    "donts": ["Don't put lime text on white or white text on lime.", "Don't set raw fontSize: or build a TextStyle from scratch; nothing below 12sp.", "Don't wrap text in fixed-height boxes.", "Don't show an error as an empty state, or show raw exception text or HTTP codes to users.", "Don't fork a design-system widget inside an app.", "Don't use PRFColors.*, Colors.* or hex literals in widget code."]
+  }
+}

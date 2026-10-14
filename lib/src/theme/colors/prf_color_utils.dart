@@ -5,6 +5,33 @@ abstract final class PRFColorUtils {
   static const _white = Color(0xFFFFFFFF);
   static const _black = Color(0xFF000000);
 
+  /// WCAG 2.x contrast ratio between [a] and [b] (1.0 – 21.0).
+  ///
+  /// Uses relative luminance, so order does not matter. AA requires 4.5 for
+  /// body text and 3.0 for large text, icons and component boundaries.
+  static double contrastRatio(Color a, Color b) {
+    final la = a.computeLuminance();
+    final lb = b.computeLuminance();
+    final lighter = la > lb ? la : lb;
+    final darker = la > lb ? lb : la;
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+
+  /// Returns whichever of [candidates] has the highest contrast against
+  /// [background].
+  static Color mostReadable(Color background, List<Color> candidates) {
+    var best = candidates.first;
+    var bestRatio = contrastRatio(best, background);
+    for (final c in candidates.skip(1)) {
+      final ratio = contrastRatio(c, background);
+      if (ratio > bestRatio) {
+        best = c;
+        bestRatio = ratio;
+      }
+    }
+    return best;
+  }
+
   /// Generates a 10-stop palette (50–900) from a [baseColor].
   ///
   /// Shade 500 is the base color. Shades 50–400 are increasingly lighter

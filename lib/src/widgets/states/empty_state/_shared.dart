@@ -13,7 +13,7 @@ Widget buildEmptyIcon(
   final widget = Container(
     padding: EdgeInsets.all(containerPadding),
     decoration: BoxDecoration(
-      color: theme.colorScheme.primary.withValues(alpha: 0.1),
+      color: theme.colorScheme.primary.withValues(alpha: PRFOpacities.subtle),
       shape: BoxShape.circle,
     ),
     child: Icon(icon, size: size, color: theme.colorScheme.primary),
@@ -21,8 +21,14 @@ Widget buildEmptyIcon(
   if (MediaQuery.of(context).disableAnimations) return widget;
   return widget
       .animate()
-      .fadeIn(duration: PRFMotionTokens.enterShort)
-      .scale(delay: PRFMotionTokens.stagger2);
+      .fadeIn(
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.enterShort),
+      )
+      .scale(
+        delay: PRFMotionTokens.resolve(context, PRFMotionTokens.stagger2),
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
+        curve: PRFMotionTokens.overshoot,
+      );
 }
 
 Widget buildEmptyLabel(
@@ -40,8 +46,16 @@ Widget buildEmptyLabel(
   if (MediaQuery.of(context).disableAnimations) return widget;
   return widget
       .animate()
-      .fadeIn(delay: PRFMotionTokens.stagger3)
-      .slideY(begin: 0.3, end: 0);
+      .fadeIn(
+        delay: PRFMotionTokens.resolve(context, PRFMotionTokens.stagger3),
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
+      )
+      .slideY(
+        begin: 0.3,
+        end: 0,
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
+        curve: PRFMotionTokens.entering,
+      );
 }
 
 Widget buildEmptyDescription(
@@ -52,15 +66,23 @@ Widget buildEmptyDescription(
   final widget = Text(
     description,
     style: theme.textTheme.bodyMedium?.copyWith(
-      color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+      color: theme.colorScheme.onSurfaceVariant,
     ),
     textAlign: TextAlign.center,
   );
   if (MediaQuery.of(context).disableAnimations) return widget;
   return widget
       .animate()
-      .fadeIn(delay: PRFMotionTokens.stagger4)
-      .slideY(begin: 0.3, end: 0);
+      .fadeIn(
+        delay: PRFMotionTokens.resolve(context, PRFMotionTokens.stagger4),
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
+      )
+      .slideY(
+        begin: 0.3,
+        end: 0,
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
+        curve: PRFMotionTokens.entering,
+      );
 }
 
 Widget buildEmptyAction(
@@ -76,6 +98,13 @@ Widget buildEmptyAction(
   if (MediaQuery.of(context).disableAnimations) return widget;
   return widget
       .animate()
-      .fadeIn(delay: PRFMotionTokens.stagger5)
-      .scale(delay: PRFMotionTokens.stagger1);
+      .fadeIn(
+        delay: PRFMotionTokens.resolve(context, PRFMotionTokens.stagger5),
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
+      )
+      .scale(
+        delay: PRFMotionTokens.resolve(context, PRFMotionTokens.stagger1),
+        duration: PRFMotionTokens.resolve(context, PRFMotionTokens.slow),
+        curve: PRFMotionTokens.entering,
+      );
 }

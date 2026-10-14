@@ -11,9 +11,7 @@ void main() {
     testWidgets('renders message text in full layout', (tester) async {
       await tester.pumpWidget(
         _buildApp(
-          const PRFErrorView(
-            failure: PRFFailure(message: 'Something broke'),
-          ),
+          const PRFErrorView(failure: PRFFailure(message: 'Something broke')),
         ),
       );
       await tester.pumpAndSettle();
@@ -34,7 +32,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Connection Error'), findsOneWidget);
+      expect(find.text('No internet connection'), findsOneWidget);
       expect(find.byIcon(Icons.wifi_off_outlined), findsOneWidget);
     });
 
@@ -53,7 +51,7 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Authentication Required'), findsOneWidget);
+      expect(find.text('Please sign in again'), findsOneWidget);
     });
 
     testWidgets('shows correct title for server failure type', (tester) async {
@@ -69,10 +67,10 @@ void main() {
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Server Error'), findsOneWidget);
+      expect(find.text('Something went wrong on our side'), findsOneWidget);
     });
 
-    testWidgets('shows Try Again button when isRecoverable and onRetry set', (
+    testWidgets('shows Try again button when isRecoverable and onRetry set', (
       tester,
     ) async {
       var retryCalled = false;
@@ -80,39 +78,34 @@ void main() {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
-            failure: const PRFFailure(
-              message: 'Error',
-            ),
+            failure: const PRFFailure(message: 'Error'),
             onRetry: () => retryCalled = true,
           ),
         ),
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Try Again'), findsOneWidget);
-      await tester.tap(find.text('Try Again'));
+      expect(find.text('Try again'), findsOneWidget);
+      await tester.tap(find.text('Try again'));
       await tester.pump();
 
       expect(retryCalled, isTrue);
     });
 
-    testWidgets('does not show Try Again button when isRecoverable is false', (
+    testWidgets('does not show Try again button when isRecoverable is false', (
       tester,
     ) async {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
-            failure: const PRFFailure(
-              message: 'Error',
-              isRecoverable: false,
-            ),
+            failure: const PRFFailure(message: 'Error', isRecoverable: false),
             onRetry: () {},
           ),
         ),
       );
       await tester.pumpAndSettle();
 
-      expect(find.text('Try Again'), findsNothing);
+      expect(find.text('Try again'), findsNothing);
     });
 
     testWidgets('compact layout renders inline row', (tester) async {
@@ -137,9 +130,7 @@ void main() {
       await tester.pumpWidget(
         _buildApp(
           PRFErrorView(
-            failure: const PRFFailure(
-              message: 'Compact retry',
-            ),
+            failure: const PRFFailure(message: 'Compact retry'),
             compact: true,
             onRetry: () => retryCalled = true,
           ),
@@ -158,9 +149,7 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        _buildApp(
-          PRFErrorView.fromMessage(message: 'Factory message'),
-        ),
+        _buildApp(PRFErrorView.fromMessage(message: 'Factory message')),
       );
       await tester.pumpAndSettle();
 
@@ -183,7 +172,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('Failure message'), findsOneWidget);
-      expect(find.text('Request Timeout'), findsOneWidget);
+      expect(find.text('This is taking too long'), findsOneWidget);
     });
 
     testWidgets('has Semantics with liveRegion for full layout', (

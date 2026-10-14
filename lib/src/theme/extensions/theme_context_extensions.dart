@@ -21,6 +21,7 @@ extension PRFThemeContextExtensions on BuildContext {
   /// ```dart
   /// final successColor = context.statusColors.success.main;
   /// final errorBg = context.statusColors.error.background;
+  /// final errorText = context.statusColors.error.foreground; // on errorBg
   /// ```
   PRFStatusExtension get statusColors =>
       Theme.of(this).extension<PRFStatusExtension>() ??

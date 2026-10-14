@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart' show BuildContext, MediaQuery;
+import 'package:prf_design/src/theme/adaptive/prf_breakpoints.dart';
 
 /// Device type enumeration
-enum DeviceType {
-  phone,
-  tablet,
-  desktop,
-}
+enum DeviceType { phone, tablet, desktop }
 
 /// Device-related utilities.
 class DeviceHelper {
@@ -38,13 +35,17 @@ class DeviceHelper {
 
     final scaleFactor = screenWidth / baseWidth;
 
-    // Dynamic scale ranges based on device type
+    // Dynamic scale ranges based on device type. The phone floor is 0.92 so
+    // the smallest theme style (labelSmall, 12sp base) never renders below
+    // 11sp on narrow 320dp phones. The desktop floor equals the tablet
+    // ceiling so text never shrinks as the screen widens (on these mobile
+    // apps "desktop" is a large iPad in landscape).
     final minScaleValue =
         minScale ??
         switch (deviceType) {
-          DeviceType.phone => 0.8,
+          DeviceType.phone => 0.92,
           DeviceType.tablet => 0.7,
-          DeviceType.desktop => 0.6,
+          DeviceType.desktop => 1.6,
         };
 
     final maxScaleValue =
@@ -58,7 +59,8 @@ class DeviceHelper {
     return scaleFactor.clamp(minScaleValue, maxScaleValue);
   }
 
-  /// Get device type based on screen size
+  /// Get device type based on screen size, using the same [PRFBreakpoints]
+  /// as `PRFAdaptive` so scaling and layout always agree.
   static DeviceType getDeviceType({BuildContext? context}) {
     final mediaQuery = context != null ? MediaQuery.maybeOf(context) : null;
     if (mediaQuery == null) {
@@ -66,9 +68,11 @@ class DeviceHelper {
     }
     final screenWidth = mediaQuery.size.width;
 
-    if (screenWidth >= 1200) return DeviceType.desktop;
-    if (screenWidth >= 600) return DeviceType.tablet;
-    return DeviceType.phone;
+    return switch (PRFBreakpoints.fromWidth(screenWidth)) {
+      PRFBreakpoint.desktop => DeviceType.desktop,
+      PRFBreakpoint.tablet => DeviceType.tablet,
+      PRFBreakpoint.handset => DeviceType.phone,
+    };
   }
 
   /// Check if device is in landscape mode

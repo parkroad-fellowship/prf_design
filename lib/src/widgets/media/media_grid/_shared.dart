@@ -21,15 +21,17 @@ Widget buildAddMediaTile(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           border: Border.all(
-            color: theme.colorScheme.primary.withValues(alpha: 0.3),
+            color: theme.colorScheme.primary.withValues(
+              alpha: PRFOpacities.glow,
+            ),
             width: 2,
           ),
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              theme.colorScheme.primary.withValues(alpha: 0.05),
-              theme.colorScheme.primary.withValues(alpha: 0.1),
+              theme.colorScheme.primary.withValues(alpha: PRFOpacities.faint),
+              theme.colorScheme.primary.withValues(alpha: PRFOpacities.subtle),
             ],
           ),
         ),
@@ -40,7 +42,9 @@ Widget buildAddMediaTile(
               padding: const EdgeInsets.all(PRFSpacingTokens.lg),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                color: theme.colorScheme.primary.withValues(
+                  alpha: PRFOpacities.subtle,
+                ),
               ),
               child: Icon(
                 icon,
@@ -63,18 +67,31 @@ Widget buildAddMediaTile(
   );
 }
 
+/// Items past this index share the last stagger slot (total cap 400ms).
+const int _maxStaggeredItems = 8;
+
 Widget buildAnimatedMediaItem(
   BuildContext context, {
   required Widget child,
   required int index,
 }) {
   if (MediaQuery.of(context).disableAnimations) return child;
+  // Cap the stagger so item 40 does not wait seconds to appear: only the
+  // first [_maxStaggeredItems] items cascade, the rest arrive together.
+  final step = index < _maxStaggeredItems ? index : _maxStaggeredItems;
+  final enter = PRFMotionTokens.resolve(context, PRFMotionTokens.enterShort);
   return child
-      .animate(delay: Duration(milliseconds: 70 * index))
-      .fadeIn(duration: PRFMotionTokens.enterShort)
+      .animate(
+        delay: PRFMotionTokens.resolve(
+          context,
+          PRFMotionTokens.stagger1 * step,
+        ),
+      )
+      .fadeIn(duration: enter, curve: PRFMotionTokens.entering)
       .scale(
         begin: const Offset(0.95, 0.95),
         end: const Offset(1, 1),
-        duration: PRFMotionTokens.enterShort,
+        duration: enter,
+        curve: PRFMotionTokens.entering,
       );
 }

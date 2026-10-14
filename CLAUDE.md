@@ -184,6 +184,10 @@ void main() {
 
 ### Theme System
 
+Visual rules (palette roles, type hierarchy, shapes, shadows, component
+behaviour, do's and don'ts) live in `DESIGN.md`; read it before adding or
+restyling a widget.
+
 - `PRFTheme.light(scaleFactor:)` / `PRFTheme.dark(scaleFactor:)` — Material 3 ThemeData factories with a hand-authored `ColorScheme` per brightness; optional `colorScheme:` (full override) and `colors:` (`PRFBaseColors` primary/secondary/tertiary/error, scheme derived via Material 3 tonal palettes) parameters let consumers bring their own palette
 - `PRFColors` — single source of truth for every raw hex value (brand anchors, navy/lime palettes, grays, status, accents)
 - Typography uses the bundled offline Manrope family (declared in `pubspec.yaml` `flutter.fonts`); no `google_fonts`

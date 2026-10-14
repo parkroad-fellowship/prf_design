@@ -72,6 +72,8 @@ class PRFSnackbar {
     VoidCallback? onRetry,
     Duration duration = const Duration(seconds: 4),
   }) {
+    // Fill with `main` and draw with `onColor`: the status set guarantees
+    // that pair is ≥ 4.5:1 in both light and dark themes.
     final statusColors = context.statusColors;
     final colors = switch (type) {
       PRFSnackbarType.error => statusColors.error,
@@ -97,9 +99,9 @@ class PRFSnackbar {
           Expanded(
             child: Text(
               message,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: colors.onColor,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(color: colors.onColor),
             ),
           ),
         ],

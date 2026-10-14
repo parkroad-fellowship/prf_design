@@ -99,6 +99,37 @@ abstract final class PRFColors {
   static const Color infoDark = Color(0xFF245FD1);
 
   // ============================================
+  // ACCESSIBLE STATUS TONES
+  // Shades tuned so every status pair clears WCAG AA (4.5:1). Light-mode
+  // "text" tones sit on the matching `*Light` / tint background; "bright"
+  // tones are dark-mode fills and text on the dark status tints.
+  // ============================================
+
+  /// Amber text on [warningLight] (5.8:1). Bright [warning] is fill-only.
+  static const Color warningText = Color(0xFF8A5300);
+
+  /// Orange text on the pending/scheduled tint (5.7:1).
+  static const Color orangeText = Color(0xFF9A4A0B);
+
+  /// Emerald text on the in-progress tint (5.6:1).
+  static const Color emeraldText = Color(0xFF08705A);
+
+  /// Deep blue fill for "initiated" (white text 5.8:1; on tint 5.1:1).
+  static const Color blueDark = Color(0xFF1F5AE0);
+
+  /// Dark-mode success fill/text (navy900 text 10:1; on dark tint 6.4:1).
+  static const Color successBright = Color(0xFF3DD39A);
+
+  /// Dark-mode error fill/text (navy900 text 8.2:1; on dark tint 6.0:1).
+  static const Color errorBright = Color(0xFFF48A8A);
+
+  /// Dark-mode info fill/text (navy900 text 8.1:1; on dark tint 5.1:1).
+  static const Color infoBright = Color(0xFF6EA8FF);
+
+  /// Dark-mode "initiated" fill/text (navy900 text 9.2:1; on tint 6.4:1).
+  static const Color blueBright = Color(0xFF85B4FF);
+
+  // ============================================
   // ACCENT COLORS
   // Complementary colors for UI states and highlights
   // ============================================

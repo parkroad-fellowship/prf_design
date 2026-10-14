@@ -40,12 +40,7 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        _buildApp(
-          const PRFEmptyView(
-            label: 'Empty',
-            description: 'No data.',
-          ),
-        ),
+        _buildApp(const PRFEmptyView(label: 'Empty', description: 'No data.')),
       );
       await tester.pumpAndSettle();
 
@@ -98,12 +93,7 @@ void main() {
       tester,
     ) async {
       await tester.pumpWidget(
-        _buildApp(
-          const PRFEmptyView(
-            label: 'Empty',
-            description: 'No items.',
-          ),
-        ),
+        _buildApp(const PRFEmptyView(label: 'Empty', description: 'No items.')),
       );
       await tester.pumpAndSettle();
 

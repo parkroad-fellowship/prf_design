@@ -17,10 +17,7 @@ void main() {
 
       await tester.pumpWidget(
         buildSubject(
-          PRFSearchableList<String>(
-            entries: testEntries,
-            onSelected: (_) {},
-          ),
+          PRFSearchableList<String>(entries: testEntries, onSelected: (_) {}),
         ),
       );
       await tester.pumpAndSettle();

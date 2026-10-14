@@ -13,6 +13,22 @@ import 'package:prf_design/src/theme/colors/prf_colors.dart';
 /// Only brand anchors and accents are exposed here. Surfaces, containers and
 /// on-colors are derived by `PRFTheme` and should be read from
 /// `Theme.of(context).colorScheme` instead.
+///
+/// **These are fill colours.** Values are identical in light and dark mode so
+/// brand surfaces (a navy header, a lime highlight) look the same in both.
+/// They are not guaranteed to be readable as text or icons on theme
+/// surfaces. On the dark surface (`navy900`):
+///
+/// | Field | As foreground on dark surface |
+/// |---|---|
+/// | [navyBlue] | 1.3:1 — fill only, never text |
+/// | [purple] | 3.6:1 — icons / large text only |
+/// | [blue] | 4.4:1 — icons / large text only |
+/// | [limeGreen], [orange], [emerald] | ≥ 4.6:1 — safe |
+///
+/// For brand-coloured text use `colorScheme.primary` (navy in light,
+/// periwinkle in dark) or `colorScheme.secondary`; for status text use
+/// `context.statusColors.<status>.foreground`.
 @immutable
 class PRFColorsExtension extends ThemeExtension<PRFColorsExtension> {
   const PRFColorsExtension({
@@ -24,16 +40,17 @@ class PRFColorsExtension extends ThemeExtension<PRFColorsExtension> {
     required this.emerald,
   });
 
-  /// Primary brand anchor (navy).
+  /// Primary brand anchor (navy). Fill only: use `colorScheme.primary` for
+  /// navy text/icons so dark mode stays legible.
   final Color navyBlue;
 
   /// Secondary brand anchor (lime).
   final Color limeGreen;
 
-  /// Accent purple.
+  /// Accent purple. Fill / large text only on dark surfaces.
   final Color purple;
 
-  /// Accent blue.
+  /// Accent blue. Fill / large text only on dark surfaces.
   final Color blue;
 
   /// Accent orange.
@@ -53,7 +70,8 @@ class PRFColorsExtension extends ThemeExtension<PRFColorsExtension> {
     emerald: PRFColors.emerald,
   );
 
-  /// Alias of [light]: brand colors do not shift with brightness.
+  /// Alias of [light]: brand fills do not shift with brightness. See the
+  /// class docs for which fields are safe as foreground on dark surfaces.
   static const PRFColorsExtension dark = light;
 
   @override

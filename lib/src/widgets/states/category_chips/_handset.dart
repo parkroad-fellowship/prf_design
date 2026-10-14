@@ -40,7 +40,11 @@ class PRFCategoryChipsHandset<T> extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: PRFSpacingTokens.lg),
       child: SizedBox(
-        height: PRFSizeTokens.minTouchTarget,
+        height: categoryChipRowHeight(
+          context,
+          theme: theme,
+          minHeight: PRFSizeTokens.minTouchTarget,
+        ),
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: categories.length + (showAllOption ? 1 : 0),
@@ -61,9 +65,8 @@ class PRFCategoryChipsHandset<T> extends StatelessWidget {
               theme: theme,
               label: label,
               isSelected: isSelected,
-              onTap: () => onCategorySelected(
-                isAll ? null : categories[catIndex],
-              ),
+              onTap: () =>
+                  onCategorySelected(isAll ? null : categories[catIndex]),
             );
           },
         ),

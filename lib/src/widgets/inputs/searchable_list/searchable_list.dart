@@ -4,6 +4,7 @@ import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/buttons/prf_button.dart';
 import 'package:prf_design/src/widgets/dialogs/bottom_sheet.dart';
 import 'package:prf_design/src/widgets/inputs/searchable_list/_handset.dart';
+import 'package:prf_design/src/widgets/inputs/searchable_list/_tablet.dart';
 
 export '_handset.dart' show PRFSearchableListEntry;
 
@@ -51,6 +52,7 @@ class PRFSearchableList<T> extends StatelessWidget {
     this.isExpanded = false,
     this.autoFocus = false,
     this.padding,
+    this.clearSelectionTooltip = 'Clear selection',
   });
 
   /// The items available to pick from.
@@ -96,6 +98,11 @@ class PRFSearchableList<T> extends StatelessWidget {
   /// Optional padding around the searchable list container.
   final EdgeInsetsGeometry? padding;
 
+  /// Tooltip and screen-reader label for the button that clears the current
+  /// selection. Defaults to `Clear selection`; pass a localised string in
+  /// non-English apps.
+  final String clearSelectionTooltip;
+
   /// Presents a searchable picker modally inside a [PRFBottomSheet].
   ///
   /// Automatically resolves with the chosen item in single-select mode when an
@@ -114,6 +121,7 @@ class PRFSearchableList<T> extends StatelessWidget {
     double heightFactor = 0.9,
     bool autoFocus = true,
     String doneButtonText = 'Done',
+    String clearSelectionTooltip = 'Clear selection',
   }) {
     final isMultiSelect = selections != null;
 
@@ -132,6 +140,7 @@ class PRFSearchableList<T> extends StatelessWidget {
         autoFocus: autoFocus,
         isMultiSelect: isMultiSelect,
         doneButtonText: doneButtonText,
+        clearSelectionTooltip: clearSelectionTooltip,
       ),
     );
   }
@@ -150,8 +159,9 @@ class PRFSearchableList<T> extends StatelessWidget {
         isExpanded: isExpanded,
         autoFocus: autoFocus,
         padding: padding,
+        clearSelectionTooltip: clearSelectionTooltip,
       ),
-      builder: (_, _) => PRFSearchableListHandset<T>(
+      tablet: (_) => PRFSearchableListTablet<T>(
         entries: entries,
         onSelected: onSelected,
         selection: selection,
@@ -162,6 +172,20 @@ class PRFSearchableList<T> extends StatelessWidget {
         isExpanded: isExpanded,
         autoFocus: autoFocus,
         padding: padding,
+        clearSelectionTooltip: clearSelectionTooltip,
+      ),
+      builder: (_, _) => PRFSearchableListTablet<T>(
+        entries: entries,
+        onSelected: onSelected,
+        selection: selection,
+        selections: selections,
+        hintText: hintText,
+        emptyText: emptyText,
+        maxResultHeight: effectiveMaxResultHeight,
+        isExpanded: isExpanded,
+        autoFocus: autoFocus,
+        padding: padding,
+        clearSelectionTooltip: clearSelectionTooltip,
       ),
     );
   }
@@ -175,6 +199,7 @@ class _PRFSearchableListModalBody<T> extends StatefulWidget {
     required this.autoFocus,
     required this.isMultiSelect,
     required this.doneButtonText,
+    required this.clearSelectionTooltip,
     this.selection,
     this.selections,
     this.onSelected,
@@ -189,6 +214,7 @@ class _PRFSearchableListModalBody<T> extends StatefulWidget {
   final bool autoFocus;
   final bool isMultiSelect;
   final String doneButtonText;
+  final String clearSelectionTooltip;
 
   @override
   State<_PRFSearchableListModalBody<T>> createState() =>
@@ -251,6 +277,7 @@ class __PRFSearchableListModalBodyState<T>
               emptyText: widget.emptyText,
               autoFocus: widget.autoFocus,
               isExpanded: true,
+              clearSelectionTooltip: widget.clearSelectionTooltip,
             ),
           ),
           if (widget.isMultiSelect) ...[

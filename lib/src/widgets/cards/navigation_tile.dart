@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:prf_design/src/theme/colors/prf_colors.dart';
+import 'package:prf_design/src/theme/extensions/theme_context_extensions.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
 /// Tappable card with an SVG illustration and a chevron affordance.
@@ -55,84 +56,88 @@ class PRFNavigationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final brand = context.prfColors;
     final arrowBackgroundColor = accent
-        ? PRFColors.limeGreen
+        ? brand.limeGreen
         : isNeutralCard
         ? theme.colorScheme.surfaceContainerHigh
-        : theme.colorScheme.primary.withValues(alpha: 0.12);
+        : theme.colorScheme.primary.withValues(alpha: PRFOpacities.hairline);
     final arrowIconColor = accent
-        ? PRFColors.navyBlue
+        ? brand.navyBlue
         : isNeutralCard
         ? theme.colorScheme.onSurfaceVariant
         : theme.colorScheme.primary;
     final arrowBorderColor = !accent && isNeutralCard
-        ? theme.colorScheme.outline.withValues(alpha: 0.35)
+        ? theme.colorScheme.outline.withValues(alpha: PRFOpacities.accent)
         : Colors.transparent;
-    final surfaceColor = accent ? PRFColors.navyBlue : null;
+    final surfaceColor = accent ? brand.navyBlue : null;
+    // The accent surface is a fixed brand fill in both modes, so its title is
+    // fixed white rather than a theme on-colour.
     final titleColor = accent ? PRFColors.white : theme.colorScheme.onSurface;
 
-    return Material(
-      color: surfaceColor ?? theme.colorScheme.surface,
-      borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-      child: InkWell(
+    return Semantics(
+      button: true,
+      child: Material(
+        color: surfaceColor ?? theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-        onTap: onTap,
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
-            border: Border.all(
-              color: accent
-                  ? Colors.transparent
-                  : theme.colorScheme.outline.withValues(alpha: 0.2),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: theme.colorScheme.shadow.withValues(alpha: 0.08),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+          onTap: onTap,
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+              border: Border.all(
+                color: accent
+                    ? Colors.transparent
+                    : theme.colorScheme.outline.withValues(
+                        alpha: PRFOpacities.muted,
+                      ),
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(PRFSpacingTokens.md),
-            child: Stack(
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SvgPicture.asset(assetPath, height: assetHeight),
-                    const Spacer(),
-                    Text(
-                      title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.titleSmall?.copyWith(
-                        fontWeight: FontWeight.w700,
-                        color: titleColor,
+              boxShadow: PRFShadowTokens.card(theme.colorScheme.shadow),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(PRFSpacingTokens.md),
+              child: Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset(assetPath, height: assetHeight),
+                      const Spacer(),
+                      Text(
+                        title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w700,
+                          color: titleColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Container(
+                      // minimum 48dp touch target for the arrow affordance
+                      width: PRFSizeTokens.minTouchTarget,
+                      height: PRFSizeTokens.minTouchTarget,
+                      decoration: BoxDecoration(
+                        color: arrowBackgroundColor,
+                        borderRadius: BorderRadius.circular(
+                          PRFRadiusTokens.full,
+                        ),
+                        border: Border.all(color: arrowBorderColor),
+                      ),
+                      child: Icon(
+                        Icons.arrow_forward_rounded,
+                        size: PRFSizeTokens.iconSm,
+                        color: arrowIconColor,
                       ),
                     ),
-                  ],
-                ),
-                Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Container(
-                    // minimum 48dp touch target for the arrow affordance
-                    width: PRFSizeTokens.minTouchTarget,
-                    height: PRFSizeTokens.minTouchTarget,
-                    decoration: BoxDecoration(
-                      color: arrowBackgroundColor,
-                      borderRadius: BorderRadius.circular(PRFRadiusTokens.full),
-                      border: Border.all(color: arrowBorderColor),
-                    ),
-                    child: Icon(
-                      Icons.arrow_forward_rounded,
-                      size: PRFSizeTokens.iconSm,
-                      color: arrowIconColor,
-                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

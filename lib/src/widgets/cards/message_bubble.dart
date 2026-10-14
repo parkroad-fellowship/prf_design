@@ -55,7 +55,9 @@ class PRFMessageBubble extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: [
               theme.colorScheme.secondaryContainer,
-              theme.colorScheme.secondaryContainer.withValues(alpha: 0.8),
+              theme.colorScheme.secondaryContainer.withValues(
+                alpha: PRFOpacities.stronger,
+              ),
             ],
           )
         : LinearGradient(
@@ -63,7 +65,9 @@ class PRFMessageBubble extends StatelessWidget {
             end: Alignment.bottomRight,
             colors: [
               theme.colorScheme.primary,
-              theme.colorScheme.primary.withValues(alpha: 0.9),
+              theme.colorScheme.primary.withValues(
+                alpha: PRFOpacities.nearOpaque,
+              ),
             ],
           );
 
@@ -103,20 +107,14 @@ class PRFMessageBubble extends StatelessWidget {
                   isIncoming ? PRFRadiusTokens.lg : PRFRadiusTokens.xs,
                 ),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: bubbleColor.withValues(alpha: 0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+              boxShadow: PRFShadowTokens.badge(bubbleColor),
             ),
             child: Text(
               message,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: isIncoming
                     ? theme.colorScheme.onSecondaryContainer
-                    : Colors.white,
+                    : theme.colorScheme.onPrimary,
                 height: 1.4,
               ),
             ),
@@ -139,8 +137,10 @@ class PRFMessageBubble extends StatelessWidget {
                   const SizedBox(width: PRFSpacingTokens.xs),
                   Icon(
                     Icons.check_circle,
-                    size: 12,
-                    color: theme.colorScheme.primary.withValues(alpha: 0.7),
+                    size: PRFSizeTokens.iconXs,
+                    color: theme.colorScheme.primary.withValues(
+                      alpha: PRFOpacities.high,
+                    ),
                   ),
                 ],
               ],

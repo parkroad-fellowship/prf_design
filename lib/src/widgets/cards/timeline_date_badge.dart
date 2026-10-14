@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design/src/theme/colors/prf_colors.dart';
+import 'package:prf_design/src/theme/extensions/theme_context_extensions.dart';
+import 'package:prf_design/src/theme/tokens/prf_opacity_tokens.dart';
 import 'package:prf_design/src/theme/tokens/prf_radius_tokens.dart';
 import 'package:prf_design/src/theme/tokens/prf_shadow_tokens.dart';
 import 'package:prf_design/src/theme/tokens/prf_spacing_tokens.dart';
@@ -31,6 +32,7 @@ class PRFTimelineDateBadge extends StatelessWidget {
     this.isLast = false,
     this.connectorHeight = 60,
     this.badgeWidth = 50,
+    this.onStatusColor,
     super.key,
   });
 
@@ -52,6 +54,10 @@ class PRFTimelineDateBadge extends StatelessWidget {
   /// Width of the date badge.
   final double badgeWidth;
 
+  /// Text colour on the badge. Defaults to the matching status set's
+  /// `onColor`, or a light/dark colour picked from [statusColor]'s brightness.
+  final Color? onStatusColor;
+
   bool get _isMultiDay =>
       endDate != null &&
       (startDate.year != endDate!.year ||
@@ -61,6 +67,8 @@ class PRFTimelineDateBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final onColor =
+        onStatusColor ?? context.statusColors.onColorFor(statusColor);
 
     return Semantics(
       label: _isMultiDay
@@ -74,14 +82,19 @@ class PRFTimelineDateBadge extends StatelessWidget {
             // Date badge
             Container(
               width: badgeWidth,
-              height: _isMultiDay ? 100 : 60,
+              // Minimum, not fixed: the day/month stack grows with the
+              // system text scale instead of clipping.
+              constraints: BoxConstraints(minHeight: _isMultiDay ? 100 : 60),
+              padding: const EdgeInsets.symmetric(
+                vertical: PRFSpacingTokens.xs,
+              ),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
                     statusColor,
-                    statusColor.withValues(alpha: 0.8),
+                    statusColor.withValues(alpha: PRFOpacities.stronger),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
@@ -96,14 +109,16 @@ class PRFTimelineDateBadge extends StatelessWidget {
                     Text(
                       startDate.day.toString(),
                       style: theme.textTheme.labelLarge?.copyWith(
-                        color: PRFColors.white,
+                        color: onColor,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     Text(
                       _monthAbbreviation(startDate.month),
                       style: theme.textTheme.labelSmall?.copyWith(
-                        color: PRFColors.white.withValues(alpha: 0.9),
+                        color: onColor.withValues(
+                          alpha: PRFOpacities.nearOpaque,
+                        ),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -111,21 +126,23 @@ class PRFTimelineDateBadge extends StatelessWidget {
                     Container(
                       width: 12,
                       height: 1,
-                      color: PRFColors.white.withValues(alpha: 0.7),
+                      color: onColor.withValues(alpha: PRFOpacities.high),
                       margin: const EdgeInsets.symmetric(vertical: 2),
                     ),
                     // End date
                     Text(
                       endDate!.day.toString(),
                       style: theme.textTheme.labelLarge?.copyWith(
-                        color: PRFColors.white,
+                        color: onColor,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     Text(
                       _monthAbbreviation(endDate!.month),
                       style: theme.textTheme.labelSmall?.copyWith(
-                        color: PRFColors.white.withValues(alpha: 0.9),
+                        color: onColor.withValues(
+                          alpha: PRFOpacities.nearOpaque,
+                        ),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -134,14 +151,16 @@ class PRFTimelineDateBadge extends StatelessWidget {
                     Text(
                       startDate.day.toString(),
                       style: theme.textTheme.titleMedium?.copyWith(
-                        color: PRFColors.white,
+                        color: onColor,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
                     Text(
                       _monthAbbreviation(startDate.month),
                       style: theme.textTheme.labelSmall?.copyWith(
-                        color: PRFColors.white.withValues(alpha: 0.9),
+                        color: onColor.withValues(
+                          alpha: PRFOpacities.nearOpaque,
+                        ),
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -162,8 +181,10 @@ class PRFTimelineDateBadge extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      statusColor.withValues(alpha: 0.6),
-                      theme.colorScheme.outline.withValues(alpha: 0.2),
+                      statusColor.withValues(alpha: PRFOpacities.prominent),
+                      theme.colorScheme.outline.withValues(
+                        alpha: PRFOpacities.muted,
+                      ),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(1),

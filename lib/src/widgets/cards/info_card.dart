@@ -43,7 +43,9 @@ class PRFInfoCard extends StatelessWidget {
           color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           border: Border.all(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: theme.colorScheme.outline.withValues(
+              alpha: PRFOpacities.muted,
+            ),
           ),
         ),
         child: Row(
@@ -51,12 +53,14 @@ class PRFInfoCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(PRFSpacingTokens.sm),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                color: theme.colorScheme.primary.withValues(
+                  alpha: PRFOpacities.subtle,
+                ),
                 borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
               ),
               child: Icon(
                 icon,
-                size: 20,
+                size: PRFSizeTokens.iconMd,
                 color: theme.colorScheme.primary,
               ),
             ),
@@ -68,7 +72,7 @@ class PRFInfoCard extends StatelessWidget {
                   Text(
                     label,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                      color: theme.colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

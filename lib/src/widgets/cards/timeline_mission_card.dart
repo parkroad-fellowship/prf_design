@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design/src/theme/colors/prf_colors.dart';
-import 'package:prf_design/src/theme/tokens/prf_radius_tokens.dart';
-import 'package:prf_design/src/theme/tokens/prf_spacing_tokens.dart';
+import 'package:prf_design/src/theme/extensions/theme_context_extensions.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/cards/timeline_date_badge.dart';
 
 /// A model-agnostic mission timeline card.
@@ -113,7 +112,13 @@ class PRFTimelineMissionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final actionTextColor = isDark ? theme.colorScheme.onSurface : statusColor;
+    // Text on the status tint: prefer the matching set's AA-safe foreground.
+    final statusSet = context.statusColors.all
+        .where((set) => set.main == statusColor)
+        .firstOrNull;
+    final actionTextColor =
+        statusSet?.foreground ??
+        (isDark ? theme.colorScheme.onSurface : statusColor);
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,20 +148,9 @@ class PRFTimelineMissionCard extends StatelessWidget {
                     color: theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
                     border: Border.all(
-                      color: statusColor.withValues(alpha: 0.2),
+                      color: statusColor.withValues(alpha: PRFOpacities.muted),
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: theme.colorScheme.shadow.withValues(alpha: 0.08),
-                        blurRadius: 12,
-                        offset: const Offset(0, 3),
-                      ),
-                      BoxShadow(
-                        color: statusColor.withValues(alpha: 0.05),
-                        blurRadius: 24,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
+                    boxShadow: PRFShadowTokens.card(theme.colorScheme.shadow),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
@@ -214,14 +208,18 @@ class PRFTimelineMissionCard extends StatelessWidget {
                                 ),
                                 decoration: BoxDecoration(
                                   color: statusColor.withValues(
-                                    alpha: isDark ? 0.18 : 0.1,
+                                    alpha: isDark
+                                        ? PRFOpacities.muted
+                                        : PRFOpacities.subtle,
                                   ),
                                   borderRadius: BorderRadius.circular(
                                     PRFRadiusTokens.sm,
                                   ),
                                   border: Border.all(
                                     color: statusColor.withValues(
-                                      alpha: isDark ? 0.45 : 0.3,
+                                      alpha: isDark
+                                          ? PRFOpacities.half
+                                          : PRFOpacities.glow,
                                     ),
                                   ),
                                 ),
@@ -240,7 +238,7 @@ class PRFTimelineMissionCard extends StatelessWidget {
                                     const SizedBox(width: PRFSpacingTokens.xs),
                                     Icon(
                                       Icons.arrow_forward_rounded,
-                                      size: 14,
+                                      size: PRFSizeTokens.iconSm,
                                       color: actionTextColor,
                                     ),
                                   ],
@@ -286,8 +284,8 @@ class _Header extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            statusColor.withValues(alpha: 0.1),
-            statusColor.withValues(alpha: 0.05),
+            statusColor.withValues(alpha: PRFOpacities.subtle),
+            statusColor.withValues(alpha: PRFOpacities.faint),
           ],
         ),
       ),
@@ -317,19 +315,13 @@ class _Header extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: statusColor,
                   borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
-                  boxShadow: [
-                    BoxShadow(
-                      color: statusColor.withValues(alpha: 0.3),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
+                  boxShadow: PRFShadowTokens.badge(statusColor),
                 ),
                 child: Text(
                   statusText,
                   style: theme.textTheme.labelSmall?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: PRFColors.white,
+                    color: context.statusColors.onColorFor(statusColor),
                   ),
                 ),
               ),
@@ -346,7 +338,7 @@ class _Header extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.school_rounded,
-                  size: 16,
+                  size: PRFSizeTokens.iconSm,
                   color: theme.colorScheme.onPrimaryContainer,
                 ),
               ),
@@ -386,20 +378,15 @@ class _InfoChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    final labelColor = theme.colorScheme.onSurface.withValues(
-      alpha: isDark ? 0.82 : 0.72,
-    );
-    final valueColor = theme.colorScheme.onSurface.withValues(
-      alpha: isDark ? 0.98 : 0.9,
-    );
+    final labelColor = theme.colorScheme.onSurfaceVariant;
+    final valueColor = theme.colorScheme.onSurface;
 
     return Container(
       padding: const EdgeInsets.all(PRFSpacingTokens.sm),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: color.withValues(alpha: PRFOpacities.subtle),
         borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
-        border: Border.all(color: color.withValues(alpha: 0.2)),
+        border: Border.all(color: color.withValues(alpha: PRFOpacities.muted)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -408,7 +395,7 @@ class _InfoChip extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, size: 12, color: color),
+              Icon(icon, size: PRFSizeTokens.iconXs, color: color),
               const SizedBox(width: PRFSpacingTokens.xs),
               Flexible(
                 child: Text(
@@ -423,7 +410,7 @@ class _InfoChip extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 2),
+          const SizedBox(height: PRFSpacingTokens.xs / 2),
           Text(
             value,
             style: theme.textTheme.bodySmall?.copyWith(
@@ -455,7 +442,6 @@ class _DateRangeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
 
     return Container(
       padding: const EdgeInsets.all(PRFSpacingTokens.md),
@@ -463,14 +449,16 @@ class _DateRangeView extends StatelessWidget {
         color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
         border: Border.all(
-          color: theme.colorScheme.outline.withValues(alpha: 0.2),
+          color: theme.colorScheme.outline.withValues(
+            alpha: PRFOpacities.muted,
+          ),
         ),
       ),
       child: Row(
         children: [
           Icon(
             Icons.calendar_today_rounded,
-            size: 16,
+            size: PRFSizeTokens.iconSm,
             color: theme.colorScheme.primary,
           ),
           const SizedBox(width: PRFSpacingTokens.sm),
@@ -492,9 +480,7 @@ class _DateRangeView extends StatelessWidget {
                   Text(
                     dateSecondaryText!,
                     style: theme.textTheme.labelSmall?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(
-                        alpha: isDark ? 0.78 : 0.68,
-                      ),
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -509,13 +495,7 @@ class _DateRangeView extends StatelessWidget {
               decoration: BoxDecoration(
                 color: activeIndicatorColor,
                 shape: BoxShape.circle,
-                boxShadow: [
-                  BoxShadow(
-                    color: activeIndicatorColor.withValues(alpha: 0.5),
-                    blurRadius: 6,
-                    spreadRadius: 1,
-                  ),
-                ],
+                boxShadow: PRFShadowTokens.badge(activeIndicatorColor),
               ),
             ),
         ],

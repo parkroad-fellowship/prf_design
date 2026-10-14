@@ -77,13 +77,17 @@ class PRFPhoneInput extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: theme.colorScheme.outline.withValues(
+              alpha: PRFOpacities.muted,
+            ),
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: theme.colorScheme.outline.withValues(
+              alpha: PRFOpacities.muted,
+            ),
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -93,7 +97,9 @@ class PRFPhoneInput extends StatelessWidget {
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.smd),
           borderSide: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.1),
+            color: theme.colorScheme.outline.withValues(
+              alpha: PRFOpacities.subtle,
+            ),
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(

@@ -154,10 +154,7 @@ void main() {
 
       final sportsSemantics = tester.getSemantics(
         find
-            .ancestor(
-              of: find.text('SPORTS'),
-              matching: find.byType(Semantics),
-            )
+            .ancestor(of: find.text('SPORTS'), matching: find.byType(Semantics))
             .first,
       );
       expect(sportsSemantics.flagsCollection.isButton, isTrue);
@@ -165,10 +162,7 @@ void main() {
 
       final musicSemantics = tester.getSemantics(
         find
-            .ancestor(
-              of: find.text('MUSIC'),
-              matching: find.byType(Semantics),
-            )
+            .ancestor(of: find.text('MUSIC'), matching: find.byType(Semantics))
             .first,
       );
       expect(musicSemantics.flagsCollection.isButton, isTrue);

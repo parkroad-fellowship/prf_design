@@ -5,6 +5,83 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-10-14
+
+### Added
+
+- `StatusColorSet.foreground` — AA-safe text/icon colour for content sitting on
+  a status `background` tint (falls back to `main` when not supplied).
+- `PRFStatusExtension.all` and `PRFStatusExtension.onColorFor(fill)`, which
+  returns the matching set's `onColor` or the more legible of white/navy900.
+- `PRFStatusBadge.foregroundColor` override.
+- Accessible status tones in `PRFColors`: `warningText`, `orangeText`,
+  `emeraldText`, `blueDark`, and dark-mode `successBright`, `errorBright`,
+  `infoBright`, `blueBright`.
+- Component themes for checkbox, radio, switch, tab bar, list tile, tooltip and
+  floating action button, with padded 48dp tap targets.
+- Contrast regression test (`test/theme/contrast_test.dart`) asserting WCAG AA
+  for every status set and key colour-scheme pair in light and dark.
+- `PRFButtonVariant.outlined` and `PRFButtonVariant.text` for secondary and
+  low-emphasis actions, an optional leading `PRFButton.icon`, and
+  `PRFButton.fullWidth` (set `false` for compact inline buttons that still
+  keep a 48dp target).
+- `PRFStatPill` — compact value + label pill for header stats, with optional
+  icon and `onPrimary` / `container` tones; respects system text scaling.
+- `PRFListItemCard` — adaptive list row card (icon tile, title, subtitle,
+  active/inactive status, labelled 48dp delete action).
+- `PRFNavBarAction` — labelled 48dp header action for `PRFBrandedNavBar`
+  (`primary` and `neutral` variants).
+- `PRFErrorView.inline` — inline error with a labelled "Try again" button for
+  use inside lists and sections; `title` and `retryLabel` on all constructors.
+- `showPRFMediaSourceSheet` / `PRFMediaSourceSheet` — camera, gallery and file
+  picker sheet with large labelled options (`PRFMediaSource`,
+  `PRFMediaSourceLabels`).
+- `PRFSyncStatusBar` — presentational upload/sync status bar (`PRFSyncStatus`
+  synced, pending, syncing, failed) with retry and progress semantics.
+- `PRFDomainTabSection` now owns its `TabController` and accepts
+  `initialIndex`, `onTabChanged` and an optional `subtitle`.
+- `PRFSearchableList` tablet variant.
+- Optional localisable labels: `PRFSearchableList.clearSelectionTooltip`,
+  `PRFReplyComposer.sendTooltip`, `PRFMediaTile.videoLabel`,
+  `PRFBrandedNavBar.backLabel`, `PRFTimelineDateBadge.onStatusColor`.
+
+### Changed
+
+- Status colours now meet WCAG AA (4.5:1) in both brightnesses. Light-mode
+  success, completed, info, initiated and ignored fills are darker; orange
+  (pending/scheduled) and emerald (in progress) fills now pair with navy900
+  text instead of white; dark-mode fills use bright tones with navy900 text.
+  Widgets placing text on `statusColors.*.main` should use `.onColor`.
+- Enabled input, unselected checkbox/radio and switch-track borders now reach
+  3:1 against their fill (WCAG 1.4.11). Dividers are unchanged.
+- `PRFFormFieldLabel` label and "(optional)" text use
+  `colorScheme.onSurfaceVariant`, passing AA and adapting to dark mode.
+- Light snackbar text and action colours derive from `colorScheme.onPrimary`.
+- `PRFColorsExtension` documents which brand colours are fill-only on dark
+  surfaces.
+- Buttons, category chips, navbar titles, bottom-sheet titles, reply status
+  and timeline badges grow with the system text size instead of clipping.
+- Every icon-only control has a tooltip and screen-reader label (back, close,
+  send, clear, retry); the searchable-list clear action is a 48dp button.
+- `PRFButton` exposes its label on the tappable semantics node.
+- `PRFActionCard` and `PRFNavigationTile` announce as buttons;
+  `PRFActionCard` no longer paints white blocks in dark mode.
+- `PRFErrorView` uses plain-language titles (e.g. "No internet connection"),
+  scrolls at large text sizes and no longer reads text twice.
+- All animations route through `PRFMotionTokens.resolve`; the media grid
+  stagger is capped at 400ms.
+- Widgets use `PRFSizeTokens`, `PRFOpacities` and `PRFShadowTokens` instead of
+  raw values; some disabled and overlay opacities shift slightly.
+- `PRFBrandedNavBar` height uses `PRFNavigationTokens.brandedNavBarHeight`.
+- `DeviceHelper` classifies devices with `PRFBreakpoints` (desktop now starts
+  at 1024dp, matching `PRFAdaptive`); text no longer shrinks from tablet to
+  desktop widths, and narrow phones keep `labelSmall` at 11sp or larger.
+- `PRFDomainTabSection.subtitle` is now nullable.
+
+### Removed
+
+- The unused Lato font family (692 KB). Manrope is the sole typeface.
+
 ## [1.0.8] - 2026-08-22
 
 ### Changed

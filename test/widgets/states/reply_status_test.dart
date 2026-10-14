@@ -82,10 +82,7 @@ void main() {
 
       final unreadSemantics = tester.getSemantics(
         find
-            .ancestor(
-              of: find.text('UNREAD'),
-              matching: find.byType(Semantics),
-            )
+            .ancestor(of: find.text('UNREAD'), matching: find.byType(Semantics))
             .first,
       );
       expect(unreadSemantics.flagsCollection.isButton, isTrue);

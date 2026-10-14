@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prf_design/src/theme/colors/prf_colors.dart';
+import 'package:prf_design/src/widgets/inputs/form_field_label/_shared.dart';
 
 /// Handset layout for PRFFormFieldLabel. Internal — prefer the parent widget.
 class PRFFormFieldLabelHandset extends StatelessWidget {
@@ -17,40 +17,10 @@ class PRFFormFieldLabelHandset extends StatelessWidget {
   final bool? isBold;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
-    return Semantics(
-      label: (isRequired ?? false)
-          ? '$label, required field'
-          : '$label, optional field',
-      child: RichText(
-        text: TextSpan(
-          text: label.toUpperCase(),
-          style: theme.textTheme.labelSmall?.copyWith(
-            fontWeight: FontWeight.w700,
-            color: color ?? PRFColors.gray500,
-            letterSpacing: 0.5,
-          ),
-          children: [
-            if (isRequired ?? false)
-              TextSpan(
-                text: ' *',
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: theme.colorScheme.error,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            if (isRequired == null || isRequired == false)
-              TextSpan(
-                text: ' (optional)',
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: PRFColors.gray400,
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => buildFormFieldLabel(
+    context,
+    label: label,
+    isRequired: isRequired,
+    color: color,
+  );
 }

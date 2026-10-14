@@ -53,15 +53,11 @@ class PRFDetailActionCardTablet extends StatelessWidget {
               decoration: BoxDecoration(
                 color:
                     backgroundColor ??
-                    theme.colorScheme.primary.withValues(alpha: 0.08),
+                    theme.colorScheme.primary.withValues(
+                      alpha: PRFOpacities.subtle,
+                    ),
                 borderRadius: BorderRadius.circular(PRFRadiusTokens.xxl),
-                boxShadow: [
-                  BoxShadow(
-                    color: theme.colorScheme.shadow.withValues(alpha: 0.06),
-                    blurRadius: 16,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+                boxShadow: PRFShadowTokens.card(theme.colorScheme.shadow),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

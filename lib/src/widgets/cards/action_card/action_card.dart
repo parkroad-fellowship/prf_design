@@ -37,21 +37,12 @@ class PRFActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PRFAdaptive(
-      handset: (_) => PRFActionCardHandset(
-        title: title,
-        image: image,
-        onTap: onTap,
-      ),
-      tablet: (_) => PRFActionCardTablet(
-        title: title,
-        image: image,
-        onTap: onTap,
-      ),
-      builder: (_, _) => PRFActionCardTablet(
-        title: title,
-        image: image,
-        onTap: onTap,
-      ),
+      handset: (_) =>
+          PRFActionCardHandset(title: title, image: image, onTap: onTap),
+      tablet: (_) =>
+          PRFActionCardTablet(title: title, image: image, onTap: onTap),
+      builder: (_, _) =>
+          PRFActionCardTablet(title: title, image: image, onTap: onTap),
     );
   }
 }

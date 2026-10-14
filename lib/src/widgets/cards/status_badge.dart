@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/extensions/theme_context_extensions.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
 /// Small rounded pill showing a status label on a solid background.
 ///
-/// [color] fills the badge; override [textStyle], [padding], [borderRadius] or
-/// [boxShadow] for bespoke styling. The label is exposed to screen readers.
+/// [color] fills the badge. The label colour defaults to the matching status
+/// set's `onColor` (or white / deep navy, whichever reads better on [color]),
+/// so any `context.statusColors.<status>.main` fill clears WCAG AA. Override
+/// [foregroundColor], [textStyle], [padding], [borderRadius] or [boxShadow]
+/// for bespoke styling. The label is exposed to screen readers.
 ///
 /// Example:
 /// ```dart
@@ -22,6 +26,7 @@ class PRFStatusBadge extends StatelessWidget {
     this.borderRadius,
     this.textStyle,
     this.boxShadow,
+    this.foregroundColor,
   });
 
   /// Status text.
@@ -42,9 +47,13 @@ class PRFStatusBadge extends StatelessWidget {
   /// Overrides the default soft shadow.
   final List<BoxShadow>? boxShadow;
 
+  /// Overrides the label colour. Defaults to a readable on-colour for [color].
+  final Color? foregroundColor;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final onColor = foregroundColor ?? context.statusColors.onColorFor(color);
 
     return Semantics(
       label: label,
@@ -75,7 +84,7 @@ class PRFStatusBadge extends StatelessWidget {
               textStyle ??
               theme.textTheme.labelSmall?.copyWith(
                 fontWeight: FontWeight.w600,
-                color: Colors.white,
+                color: onColor,
               ),
         ),
       ),

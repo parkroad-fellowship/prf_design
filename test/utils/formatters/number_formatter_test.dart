@@ -27,18 +27,12 @@ void main() {
       });
 
       test('uses custom symbol when provided', () {
-        final result = NumberFormatter.formatCash(
-          100,
-          customSymbol: r'$',
-        );
+        final result = NumberFormatter.formatCash(100, customSymbol: r'$');
         expect(result, contains(r'$'));
       });
 
       test('respects decimalDigits parameter', () {
-        final result = NumberFormatter.formatCash(
-          100.5,
-          decimalDigits: 2,
-        );
+        final result = NumberFormatter.formatCash(100.5, decimalDigits: 2);
         expect(result, contains('.'));
       });
     });
@@ -52,10 +46,7 @@ void main() {
       });
 
       test('truncates to 0 decimal places', () {
-        expect(
-          NumberFormatter.truncateToDecimalPlaces(3.9, 0),
-          equals(3.0),
-        );
+        expect(NumberFormatter.truncateToDecimalPlaces(3.9, 0), equals(3.0));
       });
 
       test('handles negative values', () {
@@ -66,10 +57,7 @@ void main() {
       });
 
       test('handles zero', () {
-        expect(
-          NumberFormatter.truncateToDecimalPlaces(0, 3),
-          equals(0.0),
-        );
+        expect(NumberFormatter.truncateToDecimalPlaces(0, 3), equals(0.0));
       });
 
       test('throws on negative fractional digits', () {
@@ -89,38 +77,23 @@ void main() {
 
     group('roundToDecimalPlaces', () {
       test('rounds up correctly', () {
-        expect(
-          NumberFormatter.roundToDecimalPlaces(3.145, 2),
-          equals(3.15),
-        );
+        expect(NumberFormatter.roundToDecimalPlaces(3.145, 2), equals(3.15));
       });
 
       test('rounds down correctly', () {
-        expect(
-          NumberFormatter.roundToDecimalPlaces(3.144, 2),
-          equals(3.14),
-        );
+        expect(NumberFormatter.roundToDecimalPlaces(3.144, 2), equals(3.14));
       });
 
       test('rounds to 0 decimal places', () {
-        expect(
-          NumberFormatter.roundToDecimalPlaces(3.5, 0),
-          equals(4.0),
-        );
+        expect(NumberFormatter.roundToDecimalPlaces(3.5, 0), equals(4.0));
       });
 
       test('handles zero', () {
-        expect(
-          NumberFormatter.roundToDecimalPlaces(0, 2),
-          equals(0.0),
-        );
+        expect(NumberFormatter.roundToDecimalPlaces(0, 2), equals(0.0));
       });
 
       test('handles negative values', () {
-        expect(
-          NumberFormatter.roundToDecimalPlaces(-3.145, 2),
-          equals(-3.15),
-        );
+        expect(NumberFormatter.roundToDecimalPlaces(-3.145, 2), equals(-3.15));
       });
 
       test('throws on negative fractional digits', () {

@@ -5,26 +5,48 @@ import 'package:prf_design/src/enums/prf_error_type.dart';
 import 'package:prf_design/src/enums/prf_failure.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 
+/// Resolved inputs shared by the PRFErrorView variants.
+@immutable
+class ErrorViewConfig {
+  const ErrorViewConfig({
+    required this.failure,
+    required this.title,
+    required this.retryLabel,
+    required this.compact,
+    this.onRetry,
+  });
+
+  final PRFFailure failure;
+  final String title;
+  final String retryLabel;
+  final bool compact;
+
+  /// Null when no retry should be offered (none given or not recoverable).
+  final VoidCallback? onRetry;
+
+  String get semanticLabel => 'Error: $title. ${failure.message}';
+}
+
 String errorTitle(PRFFailure failure) {
   switch (failure.type) {
     case PRFErrorType.network:
-      return 'Connection Error';
+      return 'No internet connection';
     case PRFErrorType.authentication:
-      return 'Authentication Required';
+      return 'Please sign in again';
     case PRFErrorType.authorization:
-      return 'Access Denied';
+      return "You don't have access";
     case PRFErrorType.validation:
-      return 'Invalid Input';
+      return 'Please check your details';
     case PRFErrorType.notFound:
-      return 'Not Found';
+      return "We couldn't find that";
     case PRFErrorType.server:
-      return 'Server Error';
+      return 'Something went wrong on our side';
     case PRFErrorType.timeout:
-      return 'Request Timeout';
+      return 'This is taking too long';
     case PRFErrorType.cancelled:
-      return 'Request Cancelled';
+      return 'Action cancelled';
     case PRFErrorType.unknown:
-      return 'Something Went Wrong';
+      return 'Something went wrong';
   }
 }
 
@@ -111,13 +133,79 @@ Widget buildErrorMessage(
       .slideY(begin: 0.3, end: 0);
 }
 
-Widget buildRetryButton(
-  BuildContext context, {
-  required Widget button,
-}) {
+Widget buildRetryButton(BuildContext context, {required Widget button}) {
   if (MediaQuery.of(context).disableAnimations) return button;
   return button
       .animate()
       .fadeIn(delay: PRFMotionTokens.stagger5)
       .scale(delay: PRFMotionTokens.stagger1);
+}
+
+/// Leading icon tile for the compact (inline) layout.
+Widget buildCompactErrorIcon(
+  BuildContext context, {
+  required IconData icon,
+  required double padding,
+}) {
+  final scheme = Theme.of(context).colorScheme;
+  return Container(
+    padding: EdgeInsets.all(padding),
+    decoration: BoxDecoration(
+      color: scheme.error.withValues(alpha: PRFOpacities.subtle),
+      borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
+    ),
+    child: Icon(icon, size: PRFSizeTokens.iconLg, color: scheme.error),
+  );
+}
+
+/// Title + message column for the compact (inline) layout.
+Widget buildCompactErrorText(
+  BuildContext context, {
+  required String title,
+  required String message,
+  required TextStyle? titleStyle,
+}) {
+  final theme = Theme.of(context);
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        title,
+        style: titleStyle?.copyWith(color: theme.colorScheme.onSurface),
+      ),
+      const SizedBox(height: PRFSpacingTokens.xs),
+      Text(
+        message,
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+      ),
+    ],
+  );
+}
+
+/// Labelled, 48 dp retry button for the compact (inline) layout.
+Widget buildCompactRetryButton(
+  BuildContext context, {
+  required VoidCallback onRetry,
+  required String label,
+}) {
+  final scheme = Theme.of(context).colorScheme;
+  return TextButton.icon(
+    onPressed: onRetry,
+    style: TextButton.styleFrom(
+      foregroundColor: scheme.primary,
+      minimumSize: const Size(
+        PRFSizeTokens.minTouchTarget,
+        PRFSizeTokens.minTouchTarget,
+      ),
+      tapTargetSize: MaterialTapTargetSize.padded,
+      padding: const EdgeInsets.symmetric(horizontal: PRFSpacingTokens.md),
+    ),
+    icon: const Icon(Icons.refresh, size: PRFSizeTokens.iconMd),
+    label: Text(label),
+  );
 }

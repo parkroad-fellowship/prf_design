@@ -37,12 +37,12 @@ A purpose-built mission management platform for a single fellowship, co-develope
 - **Responsive typography**: `DeviceHelper.getScaleFactor(context:)` drives font scaling; do not hard-code text sizes.
 - **Tablet layout specifics**: multi-column side-by-side, max button width ~280-320 px centred, 4:3 image aspect ratio, more spacious token usage.
 - **Shared state**: use a plain Dart class in `_shared.dart` (not a mixin) to share controllers and logic across variants; each variant owns its own instance lifecycle.
-- **Linting**: `very_good_analysis` 10.2.0; CI enforces `--fatal-infos`.
+- **Linting**: `very_good_analysis` 10.3.0; CI enforces `--fatal-infos`.
 
 ## Brand Commitments
 
 - **Primary colours**: Navy Blue `#1A2253` and Lime Green `#9DE35D` — locked. No substitutions.
-- **Typefaces**: Lato (body) and Manrope (display/UI) — bundled as offline Flutter font assets (no `google_fonts` runtime fetching); locked.
+- **Typeface**: Manrope (body, display and UI) — bundled as offline Flutter font assets (no `google_fonts` runtime fetching); locked.
 - **Organisation name**: Parkroad Fellowship.
 - **App names**: PRF Missions, PRF Leadership.
 - **Homepage**: [parkroadfellowship.org](https://parkroadfellowship.org).

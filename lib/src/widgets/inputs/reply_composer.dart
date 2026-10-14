@@ -31,6 +31,7 @@ class PRFReplyComposer extends StatelessWidget {
     this.bottomInset = 0,
     this.minLines = 1,
     this.maxLines = 4,
+    this.sendTooltip = 'Send',
   });
 
   /// The editing controller for the message text.
@@ -63,6 +64,10 @@ class PRFReplyComposer extends StatelessWidget {
   /// Maximum visible lines of the input before it scrolls.
   final int maxLines;
 
+  /// Tooltip and screen-reader label for the send button. Pass a localised
+  /// string in non-English apps.
+  final String sendTooltip;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -72,12 +77,18 @@ class PRFReplyComposer extends StatelessWidget {
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: 0.2),
+            color: theme.colorScheme.outline.withValues(
+              alpha: PRFOpacities.muted,
+            ),
           ),
         ),
         boxShadow: [
+          // Upward shadow so the bar separates from the content scrolling
+          // beneath it; no token covers a negative offset.
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: theme.colorScheme.shadow.withValues(
+              alpha: PRFOpacities.faint,
+            ),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
@@ -100,8 +111,12 @@ class PRFReplyComposer extends StatelessWidget {
                   borderRadius: BorderRadius.circular(PRFRadiusTokens.xl),
                   border: Border.all(
                     color: hasFocus
-                        ? theme.colorScheme.primary.withValues(alpha: 0.5)
-                        : theme.colorScheme.outline.withValues(alpha: 0.3),
+                        ? theme.colorScheme.primary.withValues(
+                            alpha: PRFOpacities.half,
+                          )
+                        : theme.colorScheme.outline.withValues(
+                            alpha: PRFOpacities.glow,
+                          ),
                   ),
                 ),
                 child: PRFTextField(
@@ -116,13 +131,19 @@ class PRFReplyComposer extends StatelessWidget {
             ),
             const SizedBox(width: PRFSpacingTokens.md),
             AnimatedContainer(
-              duration: PRFMotionTokens.standard,
+              duration: PRFMotionTokens.resolve(
+                context,
+                PRFMotionTokens.standard,
+              ),
+              curve: PRFMotionTokens.settling,
               decoration: BoxDecoration(
                 gradient: isComposing
                     ? LinearGradient(
                         colors: [
                           theme.colorScheme.primary,
-                          theme.colorScheme.primary.withValues(alpha: 0.8),
+                          theme.colorScheme.primary.withValues(
+                            alpha: PRFOpacities.stronger,
+                          ),
                         ],
                       )
                     : null,
@@ -131,27 +152,20 @@ class PRFReplyComposer extends StatelessWidget {
                     : theme.colorScheme.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(PRFRadiusTokens.xl),
                 boxShadow: isComposing
-                    ? [
-                        BoxShadow(
-                          color: theme.colorScheme.primary.withValues(
-                            alpha: 0.3,
-                          ),
-                          blurRadius: 8,
-                          offset: const Offset(0, 2),
-                        ),
-                      ]
+                    ? PRFShadowTokens.badge(theme.colorScheme.primary)
                     : null,
               ),
               child: IconButton(
+                tooltip: sendTooltip,
                 icon: isLoading
                     ? SizedBox(
-                        width: PRFSpacingTokens.xl,
-                        height: 20,
+                        width: PRFSizeTokens.iconMd,
+                        height: PRFSizeTokens.iconMd,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
                           valueColor: AlwaysStoppedAnimation<Color>(
                             isComposing
-                                ? Colors.white
+                                ? theme.colorScheme.onPrimary
                                 : theme.colorScheme.primary,
                           ),
                         ),
@@ -159,9 +173,9 @@ class PRFReplyComposer extends StatelessWidget {
                     : Icon(
                         Icons.send_rounded,
                         color: isComposing
-                            ? Colors.white
+                            ? theme.colorScheme.onPrimary
                             : theme.colorScheme.onSurfaceVariant,
-                        size: 20,
+                        size: PRFSizeTokens.iconMd,
                       ),
                 onPressed: !enabled || isLoading || !isComposing
                     ? null

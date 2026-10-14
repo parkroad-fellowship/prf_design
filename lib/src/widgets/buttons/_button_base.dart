@@ -14,6 +14,8 @@ class PRFButtonBase extends StatefulWidget {
     required this.disabled,
     required this.isLoading,
     required this.isTablet,
+    this.icon,
+    this.fullWidth = true,
     super.key,
   });
 
@@ -23,6 +25,8 @@ class PRFButtonBase extends StatefulWidget {
   final bool disabled;
   final bool isLoading;
   final bool isTablet;
+  final IconData? icon;
+  final bool fullWidth;
 
   @override
   State<PRFButtonBase> createState() => _PRFButtonBaseState();
@@ -37,20 +41,29 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
       ? PRFButtonTokens.tabletHeight
       : PRFButtonTokens.handsetHeight;
 
+  Size get _minimumSize => widget.fullWidth
+      ? Size(double.infinity, _height)
+      : const Size.square(PRFSizeTokens.minTouchTarget);
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final button = widget.variant == PRFButtonVariant.google
-        ? OutlinedButton(
-            onPressed: _isInteractive ? widget.onPressed : null,
-            style: _style(theme),
-            child: _label(theme),
-          )
-        : ElevatedButton(
-            onPressed: _isInteractive ? widget.onPressed : null,
-            style: _style(theme),
-            child: _label(theme),
-          );
+    final onPressed = _isInteractive ? widget.onPressed : null;
+    final style = _style(theme);
+    final label = _label(theme);
+    final button = switch (widget.variant) {
+      PRFButtonVariant.google || PRFButtonVariant.outlined => OutlinedButton(
+        onPressed: onPressed,
+        style: style,
+        child: label,
+      ),
+      PRFButtonVariant.text => TextButton(
+        onPressed: onPressed,
+        style: style,
+        child: label,
+      ),
+      _ => ElevatedButton(onPressed: onPressed, style: style, child: label),
+    };
 
     return Listener(
       onPointerDown: _isInteractive
@@ -66,9 +79,17 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
         scale: _pressed ? PRFMotionTokens.pressedScale : 1,
         duration: PRFMotionTokens.resolve(context, PRFMotionTokens.fast),
         curve: PRFMotionTokens.emphasized,
-        child: SizedBox(
-          width: double.infinity,
-          height: _height,
+        // Min height, not fixed height: the label may wrap or grow with the
+        // system text scale, and the button grows with it.
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: widget.fullWidth
+                ? double.infinity
+                : PRFSizeTokens.minTouchTarget,
+            minHeight: widget.fullWidth
+                ? _height
+                : PRFSizeTokens.minTouchTarget,
+          ),
           child: button,
         ),
       ),
@@ -98,6 +119,12 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
         );
       case PRFButtonVariant.google:
         return _googleStyle(theme);
+      case PRFButtonVariant.outlined:
+        return _outlinedStyle(theme);
+      case PRFButtonVariant.text:
+        return _outlinedStyle(
+          theme,
+        ).copyWith(side: WidgetStateProperty.all(BorderSide.none));
     }
   }
 
@@ -107,13 +134,17 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
     required Color foreground,
   }) {
     return ButtonStyle(
-      animationDuration: PRFMotionTokens.standard,
-      minimumSize: WidgetStateProperty.all(Size(double.infinity, _height)),
+      animationDuration: PRFMotionTokens.resolve(
+        context,
+        PRFMotionTokens.standard,
+      ),
+      minimumSize: WidgetStateProperty.all(_minimumSize),
       padding: WidgetStateProperty.all(
         EdgeInsets.symmetric(
           horizontal: widget.isTablet
               ? PRFButtonTokens.tabletHorizontalPadding
               : PRFButtonTokens.handsetHorizontalPadding,
+          vertical: PRFSpacingTokens.sm,
         ),
       ),
       shape: WidgetStateProperty.all(
@@ -127,28 +158,28 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
       ),
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return background.withValues(alpha: 0.42);
+          return background.withValues(alpha: PRFOpacities.accent);
         }
         if (states.contains(WidgetState.pressed)) {
-          return background.withValues(alpha: 0.92);
+          return background.withValues(alpha: PRFOpacities.nearOpaque);
         }
         return background;
       }),
       foregroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return foreground.withValues(alpha: 0.72);
+          return foreground.withValues(alpha: PRFOpacities.high);
         }
         return foreground;
       }),
       overlayColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.pressed)) {
-          return foreground.withValues(alpha: 0.14);
+          return foreground.withValues(alpha: PRFOpacities.hairline);
         }
         if (states.contains(WidgetState.hovered)) {
-          return foreground.withValues(alpha: 0.08);
+          return foreground.withValues(alpha: PRFOpacities.subtle);
         }
         if (states.contains(WidgetState.focused)) {
-          return foreground.withValues(alpha: 0.12);
+          return foreground.withValues(alpha: PRFOpacities.hairline);
         }
         return null;
       }),
@@ -170,23 +201,30 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
   ButtonStyle _outlinedStyle(ThemeData theme) {
     final fg = theme.colorScheme.primary;
     return ButtonStyle(
-      animationDuration: PRFMotionTokens.standard,
-      minimumSize: WidgetStateProperty.all(Size(double.infinity, _height)),
+      animationDuration: PRFMotionTokens.resolve(
+        context,
+        PRFMotionTokens.standard,
+      ),
+      minimumSize: WidgetStateProperty.all(_minimumSize),
       padding: WidgetStateProperty.all(
         EdgeInsets.symmetric(
           horizontal: widget.isTablet
               ? PRFButtonTokens.tabletHorizontalPadding
               : PRFButtonTokens.handsetHorizontalPadding,
+          vertical: PRFSpacingTokens.sm,
         ),
       ),
       side: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return BorderSide(color: fg.withValues(alpha: 0.36), width: 1.5);
+          return BorderSide(
+            color: fg.withValues(alpha: PRFOpacities.accent),
+            width: 1.5,
+          );
         }
         if (states.contains(WidgetState.focused)) {
-          return const BorderSide(width: 2);
+          return BorderSide(color: fg, width: 2);
         }
-        return const BorderSide(width: 1.5);
+        return BorderSide(color: fg, width: 1.5);
       }),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
@@ -199,19 +237,19 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
       ),
       foregroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.disabled)) {
-          return fg.withValues(alpha: 0.4);
+          return fg.withValues(alpha: PRFOpacities.accent);
         }
         return fg;
       }),
       overlayColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.pressed)) {
-          return fg.withValues(alpha: 0.12);
+          return fg.withValues(alpha: PRFOpacities.hairline);
         }
         if (states.contains(WidgetState.hovered)) {
-          return fg.withValues(alpha: 0.06);
+          return fg.withValues(alpha: PRFOpacities.faint);
         }
         if (states.contains(WidgetState.focused)) {
-          return fg.withValues(alpha: 0.1);
+          return fg.withValues(alpha: PRFOpacities.subtle);
         }
         return null;
       }),
@@ -226,14 +264,17 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
       foregroundColor: WidgetStateProperty.resolveWith((states) {
         final color = scheme.onSurface;
         if (states.contains(WidgetState.disabled)) {
-          return color.withValues(alpha: 0.4);
+          return color.withValues(alpha: PRFOpacities.accent);
         }
         return color;
       }),
       side: WidgetStateProperty.resolveWith((states) {
         final outline = scheme.outline;
         if (states.contains(WidgetState.disabled)) {
-          return BorderSide(color: outline.withValues(alpha: 0.5), width: 1.5);
+          return BorderSide(
+            color: outline.withValues(alpha: PRFOpacities.half),
+            width: 1.5,
+          );
         }
         if (states.contains(WidgetState.focused)) {
           return BorderSide(color: scheme.primary, width: 2);
@@ -243,16 +284,16 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         final base = scheme.surface;
         if (states.contains(WidgetState.pressed)) {
-          return base.withValues(alpha: 0.92);
+          return base.withValues(alpha: PRFOpacities.nearOpaque);
         }
         return base;
       }),
       overlayColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.pressed)) {
-          return scheme.primary.withValues(alpha: 0.08);
+          return scheme.primary.withValues(alpha: PRFOpacities.subtle);
         }
         if (states.contains(WidgetState.hovered)) {
-          return scheme.primary.withValues(alpha: 0.05);
+          return scheme.primary.withValues(alpha: PRFOpacities.faint);
         }
         return null;
       }),
@@ -271,7 +312,9 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
       PRFButtonVariant.primary => theme.colorScheme.onPrimary,
       PRFButtonVariant.secondary => theme.colorScheme.onSecondary,
       PRFButtonVariant.destructive => theme.colorScheme.onError,
-      PRFButtonVariant.google => theme.colorScheme.primary,
+      PRFButtonVariant.google ||
+      PRFButtonVariant.outlined ||
+      PRFButtonVariant.text => theme.colorScheme.primary,
     };
   }
 
@@ -281,6 +324,8 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
       PRFButtonVariant.secondary => theme.colorScheme.onSecondary,
       PRFButtonVariant.destructive => theme.colorScheme.onError,
       PRFButtonVariant.google => theme.colorScheme.onSurface,
+      PRFButtonVariant.outlined ||
+      PRFButtonVariant.text => theme.colorScheme.primary,
     };
   }
 
@@ -295,13 +340,13 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
         ? '${widget.title}, loading'
         : (widget.disabled ? '${widget.title}, disabled' : widget.title);
 
+    // Not a container: the label merges into the Material button's own
+    // semantics node, so the tappable node is the labelled one.
     return Semantics(
       label: semanticsLabel,
-      container: true,
       excludeSemantics: true,
-      button: true,
-      enabled: _isInteractive,
       child: Row(
+        mainAxisSize: widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (widget.variant == PRFButtonVariant.google)
@@ -325,11 +370,21 @@ class _PRFButtonBaseState extends State<PRFButtonBase> {
               child: PRFCircularProgressIndicator(color: _loaderColor(theme)),
             ),
             SizedBox(width: loaderGap),
+          ] else if (widget.icon != null &&
+              widget.variant != PRFButtonVariant.google) ...[
+            Icon(
+              widget.icon,
+              size: PRFSizeTokens.iconMd,
+              color: _labelColor(theme),
+            ),
+            SizedBox(width: loaderGap),
           ],
           Flexible(
             child: Text(
               widget.title,
               style: _labelStyle(theme)?.copyWith(color: _labelColor(theme)),
+              textAlign: TextAlign.center,
+              maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
           ),

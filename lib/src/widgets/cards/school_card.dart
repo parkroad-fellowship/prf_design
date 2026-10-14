@@ -53,7 +53,9 @@ class PRFSchoolCard extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
               border: Border.all(
-                color: theme.colorScheme.outline.withValues(alpha: 0.2),
+                color: theme.colorScheme.outline.withValues(
+                  alpha: PRFOpacities.muted,
+                ),
               ),
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -63,13 +65,7 @@ class PRFSchoolCard extends StatelessWidget {
                   theme.colorScheme.surfaceContainerLowest,
                 ],
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: theme.colorScheme.shadow.withValues(alpha: 0.08),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+              boxShadow: PRFShadowTokens.card(theme.colorScheme.shadow),
             ),
             child: Padding(
               padding: const EdgeInsets.all(PRFSpacingTokens.md),
@@ -78,7 +74,9 @@ class PRFSchoolCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(PRFSpacingTokens.sm),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.primary.withValues(alpha: 0.1),
+                      color: theme.colorScheme.primary.withValues(
+                        alpha: PRFOpacities.subtle,
+                      ),
                       borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
                     ),
                     child: Icon(

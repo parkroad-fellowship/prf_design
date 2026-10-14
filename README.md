@@ -1094,7 +1094,7 @@ prf_design/
 │       │   └── prf_snackbar_type.dart
 │       ├── theme/                     # Theming system
 │       │   ├── prf_theme.dart         #   ThemeData factories (light/dark)
-│       │   ├── text_theme.dart        #   Typography (Manrope/Lato)
+│       │   ├── text_theme.dart        #   Typography (Manrope)
 │       │   ├── adaptive/              #   PRFAdaptive + PRFBreakpoints
 │       │   ├── colors/                #   PRFColors, palette, color utils
 │       │   ├── extensions/            #   Theme extension data classes

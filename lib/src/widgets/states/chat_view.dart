@@ -100,9 +100,7 @@ class PRFChatView<T> extends StatelessWidget {
                   ),
                   if (loading)
                     const SliverFillRemaining(
-                      child: Center(
-                        child: PRFCircularProgressIndicator(),
-                      ),
+                      child: Center(child: PRFCircularProgressIndicator()),
                     )
                   else if (messages.isEmpty)
                     SliverFillRemaining(
@@ -116,13 +114,10 @@ class PRFChatView<T> extends StatelessWidget {
                     )
                   else
                     SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final message = messages[index];
-                          return messageBuilder(context, message, index);
-                        },
-                        childCount: messages.length,
-                      ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final message = messages[index];
+                        return messageBuilder(context, message, index);
+                      }, childCount: messages.length),
                     ),
                   SliverToBoxAdapter(child: bottomSpacing),
                 ],

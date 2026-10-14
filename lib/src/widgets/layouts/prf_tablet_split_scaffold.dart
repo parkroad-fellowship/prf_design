@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/tokens/_index.dart';
 
 /// Standard tablet split scaffold: centered max-width stage with a main
 /// content column and a side panel column separated by a hairline divider.
@@ -60,7 +61,9 @@ class PRFTabletSplitScaffold extends StatelessWidget {
                   VerticalDivider(
                     width: 1,
                     thickness: 1,
-                    color: theme.colorScheme.outline.withValues(alpha: 0.12),
+                    color: theme.colorScheme.outline.withValues(
+                      alpha: PRFOpacities.hairline,
+                    ),
                   ),
                 Expanded(flex: sidePanelFlex, child: sidePanel),
               ],

@@ -15,6 +15,13 @@ enum PRFButtonVariant {
 
   /// Outlined action with the Google logo.
   google,
+
+  /// Outlined navy action for secondary or alternative choices
+  /// (e.g. "Cancel", "Recall").
+  outlined,
+
+  /// Low-emphasis text action with no fill or outline.
+  text,
 }
 
 /// Adaptive button with a single implementation across device sizes.
@@ -40,6 +47,8 @@ class PRFButton extends StatelessWidget {
     this.variant = PRFButtonVariant.primary,
     this.disabled = false,
     this.isLoading = false,
+    this.icon,
+    this.fullWidth = true,
     super.key,
   });
 
@@ -58,6 +67,14 @@ class PRFButton extends StatelessWidget {
   /// When true a spinner replaces the label and taps are ignored.
   final bool isLoading;
 
+  /// Optional icon shown before the label. Ignored by
+  /// [PRFButtonVariant.google], which always shows the Google logo.
+  final IconData? icon;
+
+  /// When false the button hugs its label (still at least 48dp tall and
+  /// wide) so it can sit inline in a row. Defaults to full width.
+  final bool fullWidth;
+
   @override
   Widget build(BuildContext context) {
     return PRFAdaptive(
@@ -67,6 +84,8 @@ class PRFButton extends StatelessWidget {
         variant: variant,
         disabled: disabled,
         isLoading: isLoading,
+        icon: icon,
+        fullWidth: fullWidth,
         isTablet: false,
       ),
       tablet: (_) => PRFButtonBase(
@@ -75,6 +94,8 @@ class PRFButton extends StatelessWidget {
         variant: variant,
         disabled: disabled,
         isLoading: isLoading,
+        icon: icon,
+        fullWidth: fullWidth,
         isTablet: true,
       ),
       builder: (_, _) => PRFButtonBase(
@@ -83,6 +104,8 @@ class PRFButton extends StatelessWidget {
         variant: variant,
         disabled: disabled,
         isLoading: isLoading,
+        icon: icon,
+        fullWidth: fullWidth,
         isTablet: true,
       ),
     );

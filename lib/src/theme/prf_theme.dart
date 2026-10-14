@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prf_design/src/theme/colors/prf_color_utils.dart';
 import 'package:prf_design/src/theme/colors/prf_colors.dart';
 import 'package:prf_design/src/theme/extensions/prf_colors_extension.dart';
 import 'package:prf_design/src/theme/extensions/prf_status_extension.dart';
@@ -51,6 +52,7 @@ class PRFTheme {
     required ColorScheme scheme,
   }) {
     final isDark = scheme.brightness == Brightness.dark;
+    final controlBorder = _controlBorderColor(scheme, scheme.surface);
     final textTheme = isDark
         ? PRFTextTheme.getDarkTheme(scaleFactor: scaleFactor)
         : PRFTextTheme.getLightTheme(scaleFactor: scaleFactor);
@@ -143,9 +145,11 @@ class PRFTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         contentTextStyle: textTheme.bodyMedium?.copyWith(
-          color: isDark ? scheme.onSecondary : PRFColors.white,
+          color: isDark ? scheme.onSecondary : scheme.onPrimary,
         ),
         backgroundColor: isDark ? scheme.secondary : scheme.primary,
+        actionTextColor: isDark ? scheme.onSecondary : scheme.onPrimary,
+        closeIconColor: isDark ? scheme.onSecondary : scheme.onPrimary,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
@@ -180,10 +184,7 @@ class PRFTheme {
           ),
         ),
       ),
-      iconTheme: IconThemeData(
-        color: scheme.primary,
-        size: 22 * scaleFactor,
-      ),
+      iconTheme: IconThemeData(color: scheme.primary, size: 22 * scaleFactor),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: scheme.primary,
         linearTrackColor: scheme.surfaceContainerHighest,
@@ -200,6 +201,161 @@ class PRFTheme {
           textTheme: textTheme,
           scheme: scheme,
           fillColor: scheme.surface,
+        ),
+      ),
+      checkboxTheme: CheckboxThemeData(
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return states.contains(WidgetState.selected)
+                ? scheme.onSurface.withValues(alpha: 0.38)
+                : PRFColors.transparent;
+          }
+          if (states.contains(WidgetState.error)) {
+            return states.contains(WidgetState.selected)
+                ? scheme.error
+                : PRFColors.transparent;
+          }
+          return states.contains(WidgetState.selected)
+              ? scheme.primary
+              : PRFColors.transparent;
+        }),
+        checkColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.error)
+              ? scheme.onError
+              : scheme.onPrimary,
+        ),
+        side: WidgetStateBorderSide.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) return null;
+          if (states.contains(WidgetState.disabled)) {
+            return BorderSide(
+              color: scheme.onSurface.withValues(alpha: 0.38),
+              width: 2,
+            );
+          }
+          return BorderSide(
+            color: states.contains(WidgetState.error)
+                ? scheme.error
+                : controlBorder,
+            width: 2,
+          );
+        }),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.xs),
+        ),
+      ),
+      radioTheme: RadioThemeData(
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return scheme.onSurface.withValues(alpha: 0.38);
+          }
+          return states.contains(WidgetState.selected)
+              ? scheme.primary
+              : controlBorder;
+        }),
+      ),
+      switchTheme: SwitchThemeData(
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return states.contains(WidgetState.selected)
+                ? scheme.surface
+                : scheme.onSurface.withValues(alpha: 0.38);
+          }
+          return states.contains(WidgetState.selected)
+              ? scheme.onPrimary
+              : controlBorder;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return scheme.onSurface.withValues(alpha: 0.12);
+          }
+          return states.contains(WidgetState.selected)
+              ? scheme.primary
+              : scheme.surfaceContainerHighest;
+        }),
+        trackOutlineColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return PRFColors.transparent;
+          }
+          if (states.contains(WidgetState.disabled)) {
+            return scheme.onSurface.withValues(alpha: 0.12);
+          }
+          return controlBorder;
+        }),
+      ),
+      tabBarTheme: TabBarThemeData(
+        labelColor: scheme.primary,
+        unselectedLabelColor: scheme.onSurfaceVariant,
+        indicatorColor: scheme.primary,
+        indicatorSize: TabBarIndicatorSize.label,
+        dividerColor: scheme.outlineVariant,
+        labelStyle: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+        unselectedLabelStyle: textTheme.titleSmall?.copyWith(
+          fontWeight: FontWeight.w600,
+        ),
+        labelPadding: const EdgeInsets.symmetric(
+          horizontal: PRFSpacingTokens.lg,
+        ),
+        overlayColor: WidgetStateProperty.resolveWith(
+          (states) => states.contains(WidgetState.pressed)
+              ? scheme.primary.withValues(alpha: 0.12)
+              : null,
+        ),
+      ),
+      listTileTheme: ListTileThemeData(
+        iconColor: scheme.onSurfaceVariant,
+        textColor: scheme.onSurface,
+        selectedColor: scheme.onPrimaryContainer,
+        selectedTileColor: scheme.primaryContainer,
+        titleTextStyle: textTheme.titleMedium?.copyWith(
+          color: scheme.onSurface,
+        ),
+        subtitleTextStyle: textTheme.bodyMedium?.copyWith(
+          color: scheme.onSurfaceVariant,
+        ),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: PRFSpacingTokens.lg,
+        ),
+        minVerticalPadding: PRFSpacingTokens.sm,
+        minTileHeight: PRFSizeTokens.minTouchTarget,
+        horizontalTitleGap: PRFSpacingTokens.md,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
+        ),
+      ),
+      tooltipTheme: TooltipThemeData(
+        decoration: BoxDecoration(
+          color: scheme.inverseSurface,
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.sm),
+        ),
+        textStyle: textTheme.bodySmall?.copyWith(
+          color: scheme.onInverseSurface,
+        ),
+        padding: const EdgeInsets.symmetric(
+          horizontal: PRFSpacingTokens.md,
+          vertical: PRFSpacingTokens.sm,
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: PRFSpacingTokens.lg),
+        waitDuration: PRFMotionTokens.enterMedium,
+        // Long enough for slower readers to finish the label.
+        showDuration: const Duration(seconds: 3),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: scheme.primary,
+        foregroundColor: scheme.onPrimary,
+        elevation: PRFElevationTokens.md,
+        focusElevation: PRFElevationTokens.md,
+        hoverElevation: PRFElevationTokens.lg,
+        highlightElevation: PRFElevationTokens.sm,
+        disabledElevation: PRFElevationTokens.none,
+        iconSize: PRFSizeTokens.iconLg,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
+        ),
+        extendedTextStyle: PRFTextTheme.getButtonTextStyle(
+          scaleFactor: scaleFactor,
         ),
       ),
     );
@@ -253,7 +409,7 @@ class PRFTheme {
       tertiary: PRFColors.lime400,
       onTertiary: PRFColors.navy900,
       error: PRFStatusTokens.errorMainDark,
-      onError: PRFColors.white,
+      onError: PRFColors.navy900,
       errorContainer: PRFStatusTokens.errorBackgroundDark,
       onErrorContainer: PRFColors.errorLight,
       surface: PRFColors.navy900,
@@ -294,8 +450,8 @@ class PRFTheme {
         horizontal: PRFSpacingTokens.lg,
         vertical: PRFSpacingTokens.md,
       ),
-      border: _inputBorder(scheme.outlineVariant),
-      enabledBorder: _inputBorder(scheme.outlineVariant),
+      border: _inputBorder(_controlBorderColor(scheme, fillColor)),
+      enabledBorder: _inputBorder(_controlBorderColor(scheme, fillColor)),
       focusedBorder: _inputBorder(scheme.primary, width: 1.8),
       errorBorder: _inputBorder(scheme.error),
       focusedErrorBorder: _inputBorder(scheme.error, width: 1.8),
@@ -303,6 +459,19 @@ class PRFTheme {
         scheme.outlineVariant.withValues(alpha: 0.55),
       ),
     );
+  }
+
+  /// Border colour for enabled inputs and unselected controls.
+  ///
+  /// WCAG 1.4.11 needs ≥ 3:1 against the adjacent fill. `outline` is used
+  /// when it qualifies (dark PRF scheme); otherwise the stronger
+  /// `onSurfaceVariant` takes over (light PRF scheme, where `outline` stays
+  /// soft for decorative use). Dividers keep `outlineVariant`.
+  static Color _controlBorderColor(ColorScheme scheme, Color fill) {
+    if (PRFColorUtils.contrastRatio(scheme.outline, fill) >= 3) {
+      return scheme.outline;
+    }
+    return scheme.onSurfaceVariant;
   }
 
   static OutlineInputBorder _inputBorder(Color color, {double width = 1.2}) {

@@ -44,8 +44,9 @@ Widget buildStatusChip(
       onTap: onTap,
       child: AnimatedContainer(
         duration: PRFMotionTokens.resolve(context, PRFMotionTokens.standard),
-        curve: Curves.easeOut,
-        height: chipHeight,
+        curve: PRFMotionTokens.settling,
+        // Min, not fixed: the label grows with the system text scale.
+        constraints: BoxConstraints(minHeight: chipHeight),
         padding: const EdgeInsets.symmetric(
           horizontal: PRFSpacingTokens.md,
           vertical: PRFSpacingTokens.sm,
@@ -55,19 +56,13 @@ Widget buildStatusChip(
           borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
           border: Border.all(
             color: selected
-                ? selectedColor.withValues(alpha: 0.5)
-                : theme.colorScheme.outline.withValues(alpha: 0.3),
+                ? selectedColor.withValues(alpha: PRFOpacities.half)
+                : theme.colorScheme.outline.withValues(
+                    alpha: PRFOpacities.glow,
+                  ),
             width: 1.1,
           ),
-          boxShadow: selected
-              ? [
-                  BoxShadow(
-                    color: selectedColor.withValues(alpha: 0.13),
-                    blurRadius: 6,
-                    offset: const Offset(0, 2),
-                  ),
-                ]
-              : [],
+          boxShadow: selected ? PRFShadowTokens.raised(selectedColor) : [],
         ),
         child: Center(
           child: Text(

@@ -32,9 +32,7 @@ void main() {
 
       test('limits to maxInitials when name has more words', () {
         expect(
-          StringFormatter.getUserNameInitials(
-            'John Michael Doe',
-          ),
+          StringFormatter.getUserNameInitials('John Michael Doe'),
           equals('JM'),
         );
       });
@@ -44,10 +42,7 @@ void main() {
       });
 
       test('handles extra whitespace between words', () {
-        expect(
-          StringFormatter.getUserNameInitials('John  Doe'),
-          equals('JD'),
-        );
+        expect(StringFormatter.getUserNameInitials('John  Doe'), equals('JD'));
       });
     });
 
@@ -116,10 +111,7 @@ void main() {
       test('generates string including symbols when requested', () {
         final results = List.generate(
           50,
-          (_) => StringFormatter.generateRandomString(
-            20,
-            includeSymbols: true,
-          ),
+          (_) => StringFormatter.generateRandomString(20, includeSymbols: true),
         );
         final combined = results.join();
         expect(combined, matches(RegExp(r'[!@#\$%\^&\*]')));

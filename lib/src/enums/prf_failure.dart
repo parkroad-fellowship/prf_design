@@ -82,10 +82,7 @@ class PRFFailure implements Exception {
       );
     }
 
-    return PRFFailure(
-      message: error.toString(),
-      stackTrace: stackTrace,
-    );
+    return PRFFailure(message: error.toString(), stackTrace: stackTrace);
   }
 
   /// Create a PRFFailure for no network connection.

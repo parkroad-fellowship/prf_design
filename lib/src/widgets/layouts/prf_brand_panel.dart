@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prf_design/src/theme/colors/prf_colors.dart';
+import 'package:prf_design/src/theme/extensions/theme_context_extensions.dart';
 import 'package:prf_design/src/theme/tokens/_index.dart';
 import 'package:prf_design/src/widgets/cards/prf_root_motif_painter.dart';
 
@@ -62,7 +63,7 @@ class PRFBrandPanel extends StatelessWidget {
       padding: outerPadding,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: PRFColors.navyBlue,
+          color: context.prfColors.navyBlue,
           borderRadius: radius,
         ),
         child: ClipRRect(

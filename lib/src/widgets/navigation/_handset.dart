@@ -66,7 +66,9 @@ class PRFNavBarHandset extends StatelessWidget {
         color: backgroundColor ?? theme.colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withValues(alpha: .2),
+            color: theme.colorScheme.outline.withValues(
+              alpha: PRFOpacities.muted,
+            ),
           ),
         ),
       ),
@@ -76,40 +78,44 @@ class PRFNavBarHandset extends StatelessWidget {
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer,
               borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.1),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
+              boxShadow: PRFShadowTokens.card(theme.colorScheme.shadow),
             ),
             child: IconButton(
+              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
               icon: Icon(
                 backIcon ?? Icons.arrow_back_ios_new,
                 color: theme.colorScheme.onPrimaryContainer,
-                size: 20,
+                size: PRFSizeTokens.iconMd,
               ),
               onPressed: onBack ?? () => Navigator.of(context).pop(),
             ),
           ),
           Expanded(
             child: Align(
-              alignment: centerTitle ? Alignment.center : Alignment.centerLeft,
+              alignment: centerTitle
+                  ? AlignmentDirectional.center
+                  : AlignmentDirectional.centerStart,
               child: Text(
                 title,
                 style: theme.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.w700,
                   color: theme.colorScheme.onSurface,
                 ),
-                textAlign: centerTitle ? TextAlign.center : TextAlign.left,
+                textAlign: centerTitle ? TextAlign.center : TextAlign.start,
+                // Two lines fit the toolbar at default text size; at large
+                // system text sizes only one line fits, so truncate instead
+                // of clipping mid-glyph.
+                maxLines: MediaQuery.textScalerOf(context).scale(1) > 1.3
+                    ? 1
+                    : 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
           if (actions != null && actions!.isNotEmpty)
             Row(children: actions!)
           else
-            const SizedBox(width: 48),
+            const SizedBox(width: PRFSizeTokens.minTouchTarget),
         ],
       ),
     );

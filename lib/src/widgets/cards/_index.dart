@@ -1,6 +1,7 @@
 export 'action_card/action_card.dart';
 export 'detail_action_card/detail_action_card.dart';
 export 'info_card.dart';
+export 'list_item_card/list_item_card.dart';
 export 'message_bubble.dart';
 export 'navigation_tile.dart';
 export 'prf_root_motif_painter.dart';

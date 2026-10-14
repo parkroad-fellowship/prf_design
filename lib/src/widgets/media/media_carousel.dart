@@ -14,11 +14,7 @@ import 'package:prf_design/src/theme/tokens/_index.dart';
 /// PRFCarouselItem(url: video.url, isVideo: true)
 /// ```
 class PRFCarouselItem {
-  const PRFCarouselItem({
-    required this.url,
-    required this.isVideo,
-    this.id,
-  });
+  const PRFCarouselItem({required this.url, required this.isVideo, this.id});
 
   /// Media URL.
   final String url;
@@ -259,10 +255,7 @@ class _TopBar extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Color(0xCC000000),
-            Color(0x00000000),
-          ],
+          colors: [Color(0xCC000000), Color(0x00000000)],
         ),
       ),
       child: SafeArea(
@@ -290,7 +283,9 @@ class _TopBar extends StatelessWidget {
                   vertical: PRFSpacingTokens.xs,
                 ),
                 decoration: BoxDecoration(
-                  color: PRFColors.white.withValues(alpha: 0.15),
+                  color: PRFColors.white.withValues(
+                    alpha: PRFOpacities.hairline,
+                  ),
                   borderRadius: BorderRadius.circular(PRFRadiusTokens.lg),
                 ),
                 child: Text(
@@ -356,14 +351,14 @@ class _ImagePage extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.image_not_supported,
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.4),
-                    size: 64,
+                    color: theme.colorScheme.onSurfaceVariant,
+                    size: PRFSizeTokens.iconHero,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: PRFSpacingTokens.lg),
                   Text(
                     errorText,
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                      color: theme.colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],

@@ -7,9 +7,11 @@ import '../../helpers/button_test_helpers.dart';
 
 void main() {
   for (final variant in PRFButtonVariant.values) {
-    final buttonType = variant == PRFButtonVariant.google
-        ? OutlinedButton
-        : ElevatedButton;
+    final buttonType = switch (variant) {
+      PRFButtonVariant.google || PRFButtonVariant.outlined => OutlinedButton,
+      PRFButtonVariant.text => TextButton,
+      _ => ElevatedButton,
+    };
     final title = variant.name;
 
     group('PRFButton · $variant', () {
@@ -91,11 +93,7 @@ void _variantTests(
     var callCount = 0;
     await tester.pumpWidget(
       buildSubject(
-        PRFButton(
-          title: title,
-          onPressed: () => callCount++,
-          variant: variant,
-        ),
+        PRFButton(title: title, onPressed: () => callCount++, variant: variant),
       ),
     );
     await tester.pump();
@@ -163,10 +161,7 @@ void _variantTests(
 
     final semantics = tester.getSemantics(
       find
-          .ancestor(
-            of: find.text(title),
-            matching: find.byType(Semantics),
-          )
+          .ancestor(of: find.text(title), matching: find.byType(Semantics))
           .first,
     );
     expect(semantics.label, equals(title));
@@ -179,10 +174,7 @@ void _variantTests(
 
     final semantics = tester.getSemantics(
       find
-          .ancestor(
-            of: find.text(title),
-            matching: find.byType(Semantics),
-          )
+          .ancestor(of: find.text(title), matching: find.byType(Semantics))
           .first,
     );
     expect(semantics.label, equals('$title, disabled'));
@@ -195,10 +187,7 @@ void _variantTests(
 
     final semantics = tester.getSemantics(
       find
-          .ancestor(
-            of: find.text(title),
-            matching: find.byType(Semantics),
-          )
+          .ancestor(of: find.text(title), matching: find.byType(Semantics))
           .first,
     );
     expect(semantics.label, equals('$title, loading'));

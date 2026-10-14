@@ -24,6 +24,7 @@ class PRFMediaTile extends StatelessWidget {
     this.imageBuilder,
     this.videoThumbnailBuilder,
     this.height,
+    this.videoLabel = 'Video',
     super.key,
   });
 
@@ -46,6 +47,10 @@ class PRFMediaTile extends StatelessWidget {
   /// Fixed height for the tile. If null, uses aspect ratio of 1:1.
   final double? height;
 
+  /// Text on the video badge. Defaults to `Video`; pass a localised string in
+  /// non-English apps.
+  final String videoLabel;
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -59,13 +64,7 @@ class PRFMediaTile extends StatelessWidget {
           height: height ?? 180,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
-            boxShadow: [
-              BoxShadow(
-                color: PRFColors.black.withValues(alpha: 0.1),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
-              ),
-            ],
+            boxShadow: PRFShadowTokens.card(theme.colorScheme.shadow),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(PRFRadiusTokens.md),
@@ -86,7 +85,9 @@ class PRFMediaTile extends StatelessWidget {
                       end: Alignment.bottomCenter,
                       colors: [
                         PRFColors.transparent,
-                        PRFColors.black.withValues(alpha: 0.15),
+                        theme.colorScheme.scrim.withValues(
+                          alpha: PRFOpacities.hairline,
+                        ),
                       ],
                     ),
                   ),
@@ -98,15 +99,13 @@ class PRFMediaTile extends StatelessWidget {
                   Center(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: PRFColors.white.withValues(alpha: 0.9),
+                        color: theme.colorScheme.surface.withValues(
+                          alpha: PRFOpacities.nearOpaque,
+                        ),
                         shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: PRFColors.black.withValues(alpha: 0.3),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
+                        boxShadow: PRFShadowTokens.elevated(
+                          theme.colorScheme.shadow,
+                        ),
                       ),
                       padding: const EdgeInsets.all(PRFSpacingTokens.sm),
                       child: Icon(
@@ -118,32 +117,35 @@ class PRFMediaTile extends StatelessWidget {
                   ),
 
                   // Video badge
-                  Positioned(
-                    bottom: 8,
-                    right: 8,
+                  PositionedDirectional(
+                    bottom: PRFSpacingTokens.sm,
+                    end: PRFSpacingTokens.sm,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         horizontal: PRFSpacingTokens.sm,
                         vertical: PRFSpacingTokens.xs,
                       ),
                       decoration: BoxDecoration(
-                        color: PRFColors.black.withValues(alpha: 0.7),
+                        color: theme.colorScheme.scrim.withValues(
+                          alpha: PRFOpacities.high,
+                        ),
                         borderRadius: BorderRadius.circular(PRFRadiusTokens.xs),
                       ),
-                      child: const Row(
+                      // Badge sits on a dark scrim over the photo in both
+                      // modes, so its content is fixed white.
+                      child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.videocam_rounded,
                             color: PRFColors.white,
-                            size: 12,
+                            size: PRFSizeTokens.iconXs,
                           ),
-                          SizedBox(width: 3),
+                          const SizedBox(width: PRFSpacingTokens.xs),
                           Text(
-                            'Video',
-                            style: TextStyle(
+                            videoLabel,
+                            style: theme.textTheme.labelSmall?.copyWith(
                               color: PRFColors.white,
-                              fontSize: 10,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -175,7 +177,7 @@ class PRFMediaTile extends StatelessWidget {
             child: Icon(
               Icons.broken_image_outlined,
               color: theme.colorScheme.error,
-              size: 32,
+              size: PRFSizeTokens.iconXl,
             ),
           ),
         );

@@ -49,6 +49,7 @@ class PRFTabletHeaderRow extends StatelessWidget {
         children: [
           if (onBack != null) ...[
             IconButton(
+              tooltip: MaterialLocalizations.of(context).backButtonTooltip,
               icon: const Icon(Icons.arrow_back),
               onPressed: onBack,
             ),
@@ -61,11 +62,13 @@ class PRFTabletHeaderRow extends StatelessWidget {
                 fontWeight: FontWeight.w700,
                 color: theme.colorScheme.onSurface,
               ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           if (isLoading)
             const SizedBox.square(
-              dimension: 24,
+              dimension: PRFSizeTokens.iconLg,
               child: PRFCircularProgressIndicator(),
             ),
           ...trailing,

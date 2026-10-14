@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prf_design/src/widgets/progress/linear_progress_indicator.dart';
 
-Widget _buildApp(Widget child) => MaterialApp(
-  home: Scaffold(body: child),
-);
+Widget _buildApp(Widget child) => MaterialApp(home: Scaffold(body: child));
 
 void main() {
   group('PRFLinearProgressIndicator', () {
     testWidgets('renders with default parameters (indeterminate)', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        _buildApp(const PRFLinearProgressIndicator()),
-      );
+      await tester.pumpWidget(_buildApp(const PRFLinearProgressIndicator()));
 
       final indicator = tester.widget<LinearProgressIndicator>(
         find.byType(LinearProgressIndicator),
@@ -58,9 +54,7 @@ void main() {
     testWidgets('renders with default BorderRadius.zero when no borderRadius', (
       tester,
     ) async {
-      await tester.pumpWidget(
-        _buildApp(const PRFLinearProgressIndicator()),
-      );
+      await tester.pumpWidget(_buildApp(const PRFLinearProgressIndicator()));
 
       final indicator = tester.widget<LinearProgressIndicator>(
         find.byType(LinearProgressIndicator),
@@ -94,14 +88,9 @@ void main() {
     });
 
     testWidgets('has Semantics label "Loading"', (tester) async {
-      await tester.pumpWidget(
-        _buildApp(const PRFLinearProgressIndicator()),
-      );
+      await tester.pumpWidget(_buildApp(const PRFLinearProgressIndicator()));
 
-      expect(
-        find.bySemanticsLabel('Loading'),
-        findsOneWidget,
-      );
+      expect(find.bySemanticsLabel('Loading'), findsOneWidget);
     });
   });
 }
